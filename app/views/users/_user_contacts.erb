@@ -1,0 +1,21 @@
+
+
+<div id="contacts_div">
+  <table>
+    <% for contact in user.contacts do %>
+        <tr>
+          <% if allow_checking %>
+            <td><%= check_box_tag "contact[#{contact.id}]", 1, checked.include?(contact.id) %> </td>
+          <% end %>
+          <td class="bold"><%= h contact.contact_type.name %>:</td>
+          <td><%= h contact.value %></td>
+          <% if allow_deleting %>
+          <td><%= link_to_remote "Удалить", :url => {:action => "delete_contact", :id => contact.id },
+                                            :method => :post,
+                                            :confirm => 'Вы действительно хотите удалить контакт?',
+                                            :update => :contacts_div %> </td>
+          <% end %>
+        </tr>
+    <% end %>
+  </table>
+</div>

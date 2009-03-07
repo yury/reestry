@@ -1,0 +1,17 @@
+<% content_for :left do%>
+  <div class=""></div>
+<% end %>
+
+<h1>Добавление контактной информации</h1>
+<% remote_form_for Contact.new, 
+                   :update => :contacts_div,
+                   :success => "$('#contact_value').val('');",
+                   :url => { :action => :add_contact } do |f| %>
+    Тип: <%=  collection_select(:contact, :contact_type_id, ContactType.find(:all), :id, :name)  %>
+    Значение: <%= text_field :contact, :value %>
+    <%= hidden_field_tag :allow_deleting, true %>
+    <%= f.submit 'Добавить' %>
+<% end %>
+
+ <%= user_contacts :allow_deleting => true %>
+    

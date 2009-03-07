@@ -1,0 +1,38 @@
+<% content_for :left do %>
+  <% tab "Фотографии", :style=>"" do%>
+    <%= button "Редактировать контакты", "edit", :style =>"width:190px;margin-bottom:15px;", :path=>contacts_realty_path(@realty) %>
+    <%= button "Редактировать объект", "edit", :style =>"width:190px;margin-bottom:15px;", :path=>edit_realty_path(@realty) %>
+    <%= button "Просмотр объявления", "show", :style =>"width:190px;", :path=>realty_path(@realty) %>
+  <% end %>
+<% end %>
+
+<% form_for @realty_photo,
+                   :url => photos_realty_path(@realty) + (params[:is_step] ? "?is_step=1" : ""),
+                   :html => { :multipart => true } do |f| -%>
+    <div style="margin-bottom:15px;">
+      <%= h 'Загрузка фото:' %>
+      <%= f.file_field(:photo) %>
+      <%= f.submit "Загрузить" %>
+    </div>
+<% end -%>
+
+<%- for realty_photo in @realty.realty_photos -%>
+      <%- unless realty_photo.new_record? || realty_photo.photo.nil? -%>
+        <div style="float:left;margin:10px;">
+          <%= image_tag(realty_photo.photo.url(:small), :alt => 'Photo', :title => 'Photo') %>
+          <br/>
+          <%= link_to 'Удалить', :action => "delete_photo",
+                                 :id => @realty.id,
+                                 :pid => realty_photo.id,
+                                 :confirm => 'Вы действительно хотите удалить фотографию?',
+                                 :method => :delete %>
+        </div>
+      <%- end -%>
+    <% end %>
+
+<div style="clear:both;padding-top:25px;">
+  <% button_style = "width:130px;float:right;margin-right:15px;" %>
+  <%= button "Назад", "back", :style =>button_style, :js=>"history.back()" %>
+  <%= button "Далее", "next", :style=>button_style, :path=>contacts_realty_path(@realty) + "?is_step=1" if params[:is_step] %>
+</div>
+

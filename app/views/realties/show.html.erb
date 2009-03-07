@@ -1,0 +1,56 @@
+<table width="600px" cellpadding="1" style="margin-bottom:10px;">
+  <tr>
+    <td>Вид услуги:</td>
+    <td class="bold right"><%=h @realty.service_type.name%> </td>
+    <td width="10px"></td>
+    <td>Вид объекта:</td>
+    <td class="bold right"><%=h @realty.realty_type.name%> </td>
+  </tr>
+  <tr>
+    <td>Местоположение:</td>
+    <td class="bold right"><%=h @realty.district.location.name %></td>
+    <td></td>
+    <td>Адрес:</td>
+    <td class="bold right"><%=h get_address(@realty) %></td>
+  </tr>
+  <tr>
+    <td>Цена:</td>
+    <td class="bold right"><%=h get_full_price(@realty) %></td>
+    <td></td>
+    <td>Площадь:</td>
+    <td class="bold right"><%=h get_total_area(@realty) %></td>
+  </tr>
+</table>
+
+<%= render :partial => "realty_photo_gallery", :locals => { :realty => @realty } %>
+
+<% tab_style = "width:212px;margin-bottom:15px;" %>
+
+<% content_for :left do %>
+  <% tab "Контакты", :style=>tab_style do%>
+    <% for contact in @realty.contacts %>
+      <b><%=h contact.contact_type.name%>:</b> <%=h contact.value %><br/>
+    <% end %>
+    <% if @realty.contacts.empty? %>
+      Контакты отсутствуют
+    <% end %>
+  <% end %>
+
+  <% @realty.realty_field_values.group_by(&:field_group).each do |group, values | %>
+    <% tab group.name, :style=>tab_style do%>
+      <% for value in values %>
+        ●&nbsp;<%=h value.string_value_with_name %><br/>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% button_style = "width:130px;float:right;margin-right:15px;" %>
+<div style="clear:both;padding-top:25px;">
+  <%= button "Назад", "back", :style =>button_style, :path=>realties_path %>
+  <% if @realty.user == current_user %>
+    <%= button "Редактировать фото", "edit", :style =>button_style, :path=>photos_realty_path(@realty) %>
+    <%= button "Редактировать контакты", "edit", :style =>button_style, :path=>contacts_realty_path(@realty) %>
+    <%= button "Редактировать объект", "edit", :style =>button_style, :path=>edit_realty_path(@realty) %>
+  <% end %>
+</div>

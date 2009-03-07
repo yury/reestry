@@ -1,0 +1,34 @@
+<h1>Характеристики объектов</h1>
+
+<table>
+  <tr>
+    <th>Название</th>
+    <th>Группа</th>
+    <th>Тип</th>
+<% for realty_type in @realty_types %>
+    <th style="color:green"><%=h realty_type.name %></th>
+<% end %>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% for realty_field in @realty_fields %>
+  <tr>
+    <td><%=h realty_field.name %></td>
+    <td><%=h realty_field.realty_field_group.name %></td>
+    <td><%=h realty_field.realty_field_type.name %></td>
+<% for realty_type in @realty_types %>
+    <% setting = realty_field.realty_field_settings.find_by_realty_type_id(realty_type.id) %>
+    <td><%=h setting.blank? ? "" : "#{setting.required ? "+" : "*" }"  %></td>
+<%  end %>
+
+    <td><%= link_to 'Изменить', edit_realty_field_path(realty_field) %></td>
+    <td><%= link_to 'Удалить', realty_field, :confirm => 'Вы уверены?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Новая характеристика', new_realty_field_path %>
+<%=  link_to('Редактировать значения характеристик-списков', list_field_values_path) %>

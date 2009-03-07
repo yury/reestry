@@ -1,0 +1,30 @@
+<% content_for :left do %>
+  <% tab "Контакты", :style=>"" do%>
+    <%= button "Редактировать фото", "edit", :style =>"width:190px;margin-bottom:15px;", :path=>photos_realty_path(@realty) %>
+    <%= button "Редактировать объект", "edit", :style =>"width:190px;margin-bottom:15px;", :path=>edit_realty_path(@realty) %>
+    <%= button "Просмотр объявления", "show", :style =>"width:190px;", :path=>realty_path(@realty) %>
+  <% end %>
+<% end %>
+
+<% remote_form_for Contact.new,
+  :update => :contacts_div,
+  :success => "$('#contact_value').val('');",
+  :url => { :action => :add_contact, :controller => :users } do |f| %>
+  Тип: <%=  collection_select(:contact, :contact_type_id, ContactType.find(:all), :id, :name) %>&nbsp;
+  Значение: <%= text_field :contact, :value %>
+  <%= hidden_field_tag :allow_checking, true %>
+  <%= hidden_field_tag :realty_id, @realty.id %>
+  <%= f.submit 'Добавить' %>
+<% end %>
+
+<h2>Отметьте контакты для связи по объявлению:</h2>
+
+<% form_for @realty, :url => { :action => :update_contacts} do |f| %>
+    <%= user_contacts :allow_checking => true, :checked => @realty.contacts.map { |c| c.id } %>
+
+  <div style="clear:both;padding-top:25px;">
+    <% button_style = "width:130px;float:right;margin-right:15px;" %>
+    <%= button "Назад", "back", :style =>button_style, :js=>"history.back()" %>
+    <%= button params[:is_step] ? "Готово" : "Сохранить", "done", :style =>button_style, :submit=>true %>
+  </div>
+<% end %>

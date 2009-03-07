@@ -1,0 +1,26 @@
+<h1>Значения характеристик-списков</h1>
+
+<table>
+  <tr>
+    <th>Характеристика</th>
+    <th>Название</th>
+    <th>Значение</th>
+    <th>По-умолчанию</th>
+  </tr>
+
+<% for list_field_value in @list_field_values %>
+  <tr>
+    <td><%=h list_field_value.realty_field.name %></td>
+    <td><%=h list_field_value.name %></td>
+    <td><%=h list_field_value.field_value %></td>
+    <td><%=h list_field_value.default %></td>
+    <td><%= link_to 'Изменить', edit_list_field_value_path(list_field_value) %></td>
+    <td><%= link_to 'Удалить', list_field_value, :confirm => 'Вы уверены?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Новое значение', new_list_field_value_path %>
+<%= link_to 'Назад к характеристикам', realty_fields_path %>

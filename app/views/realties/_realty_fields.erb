@@ -1,0 +1,22 @@
+<table>
+  <% get_realty_field_settings(realty).group_by(&:field_group).each do |group, setting| %>
+    <tr><td colspan="2" class="bold hb_line"><%=h group.name %></td></tr>
+    <% setting.each do |setting| %>
+      <tr>
+        <td><%=h setting.realty_field.name %></td>
+        <td>
+          <% if setting.realty_field.realty_field_type.name == "list" %>
+            <select name="<%=h get_realty_field_name(setting)%>">
+              <%= options_from_collection_for_select(get_list_field_values(setting), "id", "name", setting.realty_field_value(realty)) %>
+            </select>
+          <% elsif setting.realty_field.realty_field_type.name == "bool" %>
+            <%= check_box_tag get_realty_field_name(setting), 1, setting.realty_field_value(realty)   %>
+          <% else %>
+            <%= text_field_tag get_realty_field_name(setting), setting.realty_field_value(realty), :class=>'fixed', :class=>"number" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    <tr><td colspan="2" height="5px"></td></tr>
+  <% end %>
+</table>

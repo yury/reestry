@@ -1,0 +1,17 @@
+<div id="create_user_request_div">
+  <% if created %>
+     Ваша заявка принята.
+  <% else  %>
+    Вы можете оставить Ваш запрос в очередь. При появлении подходящего предложения мы сообщим Вам об этом.
+    <% if logged_in? %>
+          <% form_remote_tag :update => "create_user_request_div", :url => { :action => :create_user_request}, :html => {:id => "crf"} do %>
+          <% params.each do |name, value| %>
+               <%= hidden_field_tag "search[#{name}]", value %>
+          <% end %>
+          <%= submit_tag "Оставить заявку"  %>
+      <%  end %>
+    <% else %>
+    Чтобы мы смогли с Вами соединиться необходимо зарегистрироваться.
+    <% end %>
+  <% end %>
+</div>

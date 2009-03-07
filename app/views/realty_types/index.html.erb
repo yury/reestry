@@ -1,0 +1,22 @@
+<h1>Listing realty_types</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Purpose</th>
+  </tr>
+
+<% for realty_type in @realty_types %>
+  <tr>
+    <td><%=h realty_type.name %></td>
+    <td><%=h realty_type.realty_purpose.name %></td>
+    <td><%= link_to 'Show', realty_type %></td>
+    <td><%= link_to 'Edit', edit_realty_type_path(realty_type) %></td>
+    <td><%= link_to 'Destroy', realty_type, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New realty_type', new_realty_type_path %>

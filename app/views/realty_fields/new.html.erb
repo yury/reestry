@@ -1,0 +1,18 @@
+<h1>Редактирование характеристики</h1>
+
+<% form_for(@realty_field) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= render(:partial => "edit_realty_field", :locals => {
+        :realty_field => @realty_field, 
+        :form => f, 
+        :realty_groups => @realty_groups,
+        :realty_purposes => @realty_purposes}) %>
+  </p>
+  <p>
+    <%= f.submit "Сохранить" %>
+  </p>
+<% end %>
+
+<%= link_to 'Назад', realty_fields_path %>

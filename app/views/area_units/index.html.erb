@@ -1,0 +1,22 @@
+<h1>Listing area_units</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Short name</th>
+  </tr>
+
+<% for area_unit in @area_units %>
+  <tr>
+    <td><%=h area_unit.name %></td>
+    <td><%= area_unit.short_name %></td>
+    <td><%= link_to 'Show', area_unit %></td>
+    <td><%= link_to 'Edit', edit_area_unit_path(area_unit) %></td>
+    <td><%= link_to 'Destroy', area_unit, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New area_unit', new_area_unit_path %>

@@ -1,0 +1,25 @@
+<div class="bold" style="margin-bottom:10px">Вход в систему:</div>
+
+<% form_tag session_path do -%>
+ <table>
+   <tr>
+     <td><label for="login">Логин: </label></td>
+     <td><%= text_field_tag 'login' %></td>
+   </tr>
+   <tr>
+     <td><label for="password">Пароль: </label></td>
+     <td><%= password_field_tag 'password' %></td>
+   </tr>
+   <tr>
+     <td colspan="2" align="center"><label for="remember_me">Запомнить меня: </label><%= check_box_tag 'remember_me' %></td>
+   </tr>
+   <tr>
+     <td colspan="2">
+      <%= button "Войти", "login_button", :style => "width:100px;float:left;margin-top:10px;margin-right:10px", :submit => true %>
+      <%= button "Отмена", "cancel", :style => "width:100px;float:left;margin-top:10px;margin-bottom:5px;", :klass => "modalClose" %>
+    </td>
+   </tr>
+ </table>
+
+ <div class="bold"><a id="registration_link" href="#">Регистрация</a></div>
+<% end -%>

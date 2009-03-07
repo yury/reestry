@@ -1,0 +1,16 @@
+
+
+    <%- for realty_photo in realty.realty_photos -%>
+      <%- unless realty_photo.new_record? || realty_photo.photo.nil? -%>
+        <div>
+          <%= image_tag(realty_photo.photo.url(:small), :alt => 'Photo', :title => 'Photo') %>
+          <%= link_to 'Destroy', :action => "delete_photo", 
+                                 :id => @realty.id, 
+                                 :pid => realty_photo.id,
+                                 :confirm => 'Are you sure?', 
+                                 :method => :delete %>
+        </div>
+      <%- end -%>
+    <% end %>
+
+

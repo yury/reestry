@@ -1,0 +1,475 @@
+  [4;36;1mSQL (0.000000)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.001000)[0m   [0mSELECT count(*) AS count_all FROM `realties` [0m
+
+
+Processing RealtiesController#create (for 0.0.0.0 at 2008-10-27 15:20:42) [POST]
+  Session ID: 
+  Parameters: {"action"=>"create", "controller"=>"realties", "realty"=>{}}
+  [4;36;1mRealty Create (0.000000)[0m   [0;1mINSERT INTO `realties` (`updated_at`, `street`, `realty_number`, `created_at`) VALUES('2008-10-27 12:20:42', NULL, NULL, '2008-10-27 12:20:42')[0m
+Redirected to http://test.host/realties/996332878
+Completed in 0.00700 (142 reqs/sec) | DB: 0.00700 (99%) | 302 Found [http://test.host/realties?]
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `realties` [0m
+  [4;36;1mSQL (0.001000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `realties` [0m
+  [4;35;1mRealty Load (0.001000)[0m   [0mSELECT * FROM `realties` WHERE (`realties`.`id` = 953125641) [0m
+
+
+Processing RealtiesController#destroy (for 0.0.0.0 at 2008-10-27 15:20:42) [DELETE]
+  Session ID: 
+  Parameters: {"action"=>"destroy", "id"=>"953125641", "controller"=>"realties"}
+  [4;36;1mRealty Load (0.001000)[0m   [0;1mSELECT * FROM `realties` WHERE (`realties`.`id` = 953125641) [0m
+  [4;35;1mRealty Destroy (0.048000)[0m   [0m DELETE FROM `realties`
+ WHERE `id` = 953125641
+[0m
+Redirected to http://test.host/realties
+Completed in 0.05000 (20 reqs/sec) | DB: 0.05100 (102%) | 302 Found [http://test.host/realties/953125641]
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `realties` [0m
+  [4;35;1mSQL (0.001000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+  [4;35;1mRealty Load (0.000000)[0m   [0mSELECT * FROM `realties` WHERE (`realties`.`id` = 953125641) [0m
+
+
+Processing RealtiesController#edit (for 0.0.0.0 at 2008-10-27 15:20:42) [GET]
+  Session ID: 
+  Parameters: {"action"=>"edit", "id"=>"953125641", "controller"=>"realties"}
+  [4;36;1mRealty Load (0.001000)[0m   [0;1mSELECT * FROM `realties` WHERE (`realties`.`id` = 953125641) [0m
+Rendering template within layouts/realties
+Rendering realties/edit
+Completed in 0.00700 (142 reqs/sec) | Rendering: 0.00600 (85%) | DB: 0.00200 (28%) | 200 OK [http://test.host/realties/953125641/edit]
+  [4;35;1mSQL (0.000000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.001000)[0m   [0;1mBEGIN[0m
+
+
+Processing RealtiesController#index (for 0.0.0.0 at 2008-10-27 15:20:42) [GET]
+  Session ID: 
+  Parameters: {"action"=>"index", "controller"=>"realties"}
+  [4;35;1mRealty Load (0.001000)[0m   [0mSELECT * FROM `realties` [0m
+Rendering template within layouts/realties
+Rendering realties/index
+Completed in 0.00500 (200 reqs/sec) | Rendering: 0.00400 (80%) | DB: 0.00200 (39%) | 200 OK [http://test.host/realties]
+  [4;36;1mSQL (0.001000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing RealtiesController#new (for 0.0.0.0 at 2008-10-27 15:20:42) [GET]
+  Session ID: 
+  Parameters: {"action"=>"new", "controller"=>"realties"}
+Rendering template within layouts/realties
+Rendering realties/new
+Completed in 0.00400 (250 reqs/sec) | Rendering: 0.00400 (100%) | DB: 0.00100 (24%) | 200 OK [http://test.host/realties/new]
+  [4;36;1mSQL (0.001000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mRealty Load (0.000000)[0m   [0;1mSELECT * FROM `realties` WHERE (`realties`.`id` = 953125641) [0m
+
+
+Processing RealtiesController#show (for 0.0.0.0 at 2008-10-27 15:20:42) [GET]
+  Session ID: 
+  Parameters: {"action"=>"show", "id"=>"953125641", "controller"=>"realties"}
+  [4;35;1mRealty Load (0.001000)[0m   [0mSELECT * FROM `realties` WHERE (`realties`.`id` = 953125641) [0m
+Rendering template within layouts/realties
+Rendering realties/show
+Completed in 0.00400 (249 reqs/sec) | Rendering: 0.00200 (50%) | DB: 0.00200 (50%) | 200 OK [http://test.host/realties/953125641]
+  [4;36;1mSQL (0.001000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mRealty Load (0.000000)[0m   [0;1mSELECT * FROM `realties` WHERE (`realties`.`id` = 953125641) [0m
+
+
+Processing RealtiesController#update (for 0.0.0.0 at 2008-10-27 15:20:42) [PUT]
+  Session ID: 
+  Parameters: {"action"=>"update", "id"=>"953125641", "controller"=>"realties", "realty"=>{}}
+  [4;35;1mRealty Load (0.001000)[0m   [0mSELECT * FROM `realties` WHERE (`realties`.`id` = 953125641) [0m
+Redirected to http://test.host/realties/953125641
+Completed in 0.00300 (333 reqs/sec) | DB: 0.00200 (66%) | 302 Found [http://test.host/realties/953125641?]
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+** acts_as_taggable_on: initialized properly.
+  [4;36;1mSQL (0.000000)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.001000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000000)[0m   [0mROLLBACK[0m
+** acts_as_taggable_on: initialized properly.
+  [4;36;1mSQL (0.000000)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.001000)[0m   [0mSELECT count(*) AS count_all FROM `realties` [0m
+
+
+Processing RealtiesController#create (for 0.0.0.0 at 2008-10-28 22:33:51) [POST]
+  Session ID: 
+  Parameters: {"action"=>"create", "controller"=>"realties", "realty"=>{}}
+  [4;36;1mRealty Create (0.000000)[0m   [0;1mINSERT INTO `realties` (`updated_at`, `street`, `realty_number`, `created_at`) VALUES('2008-10-28 19:33:51', NULL, NULL, '2008-10-28 19:33:51')[0m
+Redirected to http://test.host/realties/996332878
+Completed in 0.00700 (142 reqs/sec) | DB: 0.01400 (199%) | 302 Found [http://test.host/realties?]
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `realties` [0m
+  [4;36;1mSQL (0.002000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.001000)[0m   [0;1mSELECT count(*) AS count_all FROM `realties` [0m
+  [4;35;1mRealty Load (0.001000)[0m   [0mSELECT * FROM `realties` WHERE (`realties`.`id` = 953125641) [0m
+
+
+Processing RealtiesController#destroy (for 0.0.0.0 at 2008-10-28 22:33:51) [DELETE]
+  Session ID: 
+  Parameters: {"action"=>"destroy", "id"=>"953125641", "controller"=>"realties"}
+  [4;36;1mRealty Load (0.001000)[0m   [0;1mSELECT * FROM `realties` WHERE (`realties`.`id` = 953125641) [0m
+  [4;35;1mRealty Destroy (0.001000)[0m   [0m DELETE FROM `realties`
+ WHERE `id` = 953125641
+[0m
+Redirected to http://test.host/realties
+Completed in 0.00200 (499 reqs/sec) | DB: 0.00600 (299%) | 302 Found [http://test.host/realties/953125641]
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `realties` [0m
+  [4;35;1mSQL (0.001000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+  [4;35;1mRealty Load (0.001000)[0m   [0mSELECT * FROM `realties` WHERE (`realties`.`id` = 953125641) [0m
+
+
+Processing RealtiesController#edit (for 0.0.0.0 at 2008-10-28 22:33:51) [GET]
+  Session ID: 
+  Parameters: {"action"=>"edit", "id"=>"953125641", "controller"=>"realties"}
+  [4;36;1mRealty Load (0.001000)[0m   [0;1mSELECT * FROM `realties` WHERE (`realties`.`id` = 953125641) [0m
+Rendering template within layouts/realties
+Rendering realties/edit
+Completed in 0.00700 (142 reqs/sec) | Rendering: 0.00600 (85%) | DB: 0.00300 (42%) | 200 OK [http://test.host/realties/953125641/edit]
+  [4;35;1mSQL (0.000000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.001000)[0m   [0;1mBEGIN[0m
+
+
+Processing RealtiesController#index (for 0.0.0.0 at 2008-10-28 22:33:51) [GET]
+  Session ID: 
+  Parameters: {"action"=>"index", "controller"=>"realties"}
+  [4;35;1mRealty Load (0.000000)[0m   [0mSELECT * FROM `realties` [0m
+Rendering template within layouts/realties
+Rendering realties/index
+Completed in 0.05500 (18 reqs/sec) | Rendering: 0.05300 (96%) | DB: 0.00100 (1%) | 200 OK [http://test.host/realties]
+  [4;36;1mSQL (0.001000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.001000)[0m   [0mBEGIN[0m
+
+
+Processing RealtiesController#new (for 0.0.0.0 at 2008-10-28 22:33:51) [GET]
+  Session ID: 
+  Parameters: {"action"=>"new", "controller"=>"realties"}
+Rendering template within layouts/realties
+Rendering realties/new
+  [4;36;1mSQL (0.001000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mRealty Load (0.000000)[0m   [0;1mSELECT * FROM `realties` WHERE (`realties`.`id` = 953125641) [0m
+
+
+Processing RealtiesController#show (for 0.0.0.0 at 2008-10-28 22:33:51) [GET]
+  Session ID: 
+  Parameters: {"action"=>"show", "id"=>"953125641", "controller"=>"realties"}
+  [4;35;1mRealty Load (0.000000)[0m   [0mSELECT * FROM `realties` WHERE (`realties`.`id` = 953125641) [0m
+Rendering template within layouts/realties
+Rendering realties/show
+Completed in 0.00400 (250 reqs/sec) | Rendering: 0.00200 (50%) | DB: 0.00100 (25%) | 200 OK [http://test.host/realties/953125641]
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mRealty Load (0.001000)[0m   [0;1mSELECT * FROM `realties` WHERE (`realties`.`id` = 953125641) [0m
+
+
+Processing RealtiesController#update (for 0.0.0.0 at 2008-10-28 22:33:51) [PUT]
+  Session ID: 
+  Parameters: {"action"=>"update", "id"=>"953125641", "controller"=>"realties", "realty"=>{}}
+  [4;35;1mRealty Load (0.001000)[0m   [0mSELECT * FROM `realties` WHERE (`realties`.`id` = 953125641) [0m
+Redirected to http://test.host/realties/953125641
+Completed in 0.00200 (499 reqs/sec) | DB: 0.00200 (100%) | 302 Found [http://test.host/realties/953125641?]
+  [4;36;1mSQL (0.001000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `service_types` [0m
+
+
+Processing ServiceTypesController#create (for 0.0.0.0 at 2008-10-28 22:33:51) [POST]
+  Session ID: 
+  Parameters: {"action"=>"create", "controller"=>"service_types", "service_type"=>{}}
+  [4;35;1mServiceType Create (0.001000)[0m   [0mINSERT INTO `service_types` (`name`, `updated_at`, `created_at`) VALUES(NULL, '2008-10-28 19:33:51', '2008-10-28 19:33:51')[0m
+Redirected to http://test.host/service_types/996332878
+Completed in 0.00600 (166 reqs/sec) | DB: 0.00200 (33%) | 302 Found [http://test.host/service_types?]
+  [4;36;1mSQL (0.001000)[0m   [0;1mSELECT count(*) AS count_all FROM `service_types` [0m
+  [4;35;1mSQL (0.001000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `service_types` [0m
+  [4;36;1mServiceType Load (0.001000)[0m   [0;1mSELECT * FROM `service_types` WHERE (`service_types`.`id` = 953125641) [0m
+
+
+Processing ServiceTypesController#destroy (for 0.0.0.0 at 2008-10-28 22:33:51) [DELETE]
+  Session ID: 
+  Parameters: {"action"=>"destroy", "id"=>"953125641", "controller"=>"service_types"}
+  [4;35;1mServiceType Load (0.001000)[0m   [0mSELECT * FROM `service_types` WHERE (`service_types`.`id` = 953125641) [0m
+  [4;36;1mServiceType Destroy (0.000000)[0m   [0;1m DELETE FROM `service_types`
+ WHERE `id` = 953125641
+[0m
+Redirected to http://test.host/service_types
+Completed in 0.00200 (499 reqs/sec) | DB: 0.00400 (200%) | 302 Found [http://test.host/service_types/953125641]
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `service_types` [0m
+  [4;36;1mSQL (0.030000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.001000)[0m   [0mBEGIN[0m
+  [4;36;1mServiceType Load (0.001000)[0m   [0;1mSELECT * FROM `service_types` WHERE (`service_types`.`id` = 953125641) [0m
+
+
+Processing ServiceTypesController#edit (for 0.0.0.0 at 2008-10-28 22:33:51) [GET]
+  Session ID: 
+  Parameters: {"action"=>"edit", "id"=>"953125641", "controller"=>"service_types"}
+  [4;35;1mServiceType Load (0.001000)[0m   [0mSELECT * FROM `service_types` WHERE (`service_types`.`id` = 953125641) [0m
+Rendering template within layouts/service_types
+Rendering service_types/edit
+Completed in 0.00600 (166 reqs/sec) | Rendering: 0.00500 (83%) | DB: 0.03300 (549%) | 200 OK [http://test.host/service_types/953125641/edit]
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing ServiceTypesController#index (for 0.0.0.0 at 2008-10-28 22:33:51) [GET]
+  Session ID: 
+  Parameters: {"action"=>"index", "controller"=>"service_types"}
+  [4;36;1mServiceType Load (0.001000)[0m   [0;1mSELECT * FROM `service_types` [0m
+Rendering template within layouts/service_types
+Rendering service_types/index
+Completed in 0.00500 (200 reqs/sec) | Rendering: 0.00300 (60%) | DB: 0.00100 (19%) | 200 OK [http://test.host/service_types]
+  [4;35;1mSQL (0.001000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+
+
+Processing ServiceTypesController#new (for 0.0.0.0 at 2008-10-28 22:33:51) [GET]
+  Session ID: 
+  Parameters: {"action"=>"new", "controller"=>"service_types"}
+Rendering template within layouts/service_types
+Rendering service_types/new
+Completed in 0.00300 (333 reqs/sec) | Rendering: 0.00300 (100%) | DB: 0.00100 (33%) | 200 OK [http://test.host/service_types/new]
+  [4;35;1mSQL (0.001000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+  [4;35;1mServiceType Load (0.001000)[0m   [0mSELECT * FROM `service_types` WHERE (`service_types`.`id` = 953125641) [0m
+
+
+Processing ServiceTypesController#show (for 0.0.0.0 at 2008-10-28 22:33:51) [GET]
+  Session ID: 
+  Parameters: {"action"=>"show", "id"=>"953125641", "controller"=>"service_types"}
+  [4;36;1mServiceType Load (0.000000)[0m   [0;1mSELECT * FROM `service_types` WHERE (`service_types`.`id` = 953125641) [0m
+Rendering template within layouts/service_types
+Rendering service_types/show
+Completed in 0.00400 (250 reqs/sec) | Rendering: 0.00200 (50%) | DB: 0.00200 (50%) | 200 OK [http://test.host/service_types/953125641]
+  [4;35;1mSQL (0.001000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+  [4;35;1mServiceType Load (0.000000)[0m   [0mSELECT * FROM `service_types` WHERE (`service_types`.`id` = 953125641) [0m
+
+
+Processing ServiceTypesController#update (for 0.0.0.0 at 2008-10-28 22:33:51) [PUT]
+  Session ID: 
+  Parameters: {"action"=>"update", "id"=>"953125641", "controller"=>"service_types", "service_type"=>{}}
+  [4;36;1mServiceType Load (0.001000)[0m   [0;1mSELECT * FROM `service_types` WHERE (`service_types`.`id` = 953125641) [0m
+Redirected to http://test.host/service_types/953125641
+Completed in 0.00200 (499 reqs/sec) | DB: 0.00200 (99%) | 302 Found [http://test.host/service_types/953125641?]
+  [4;35;1mSQL (0.001000)[0m   [0mROLLBACK[0m
+Unable to load create_realty_type_field, underlying cause no such file to load -- create_realty_type_field 
+
+ /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:102:in `require_or_load'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:61:in `depend_on'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:457:in `require_dependency'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:867:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/test_helper.rb:35
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+./test/functional/area_units_controller_test.rb:1
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5:in `load'
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5
+Unable to load realty_type_field, underlying cause no such file to load -- realty_type_field 
+
+ /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:102:in `require_or_load'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:61:in `depend_on'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:457:in `require_dependency'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:867:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/test_helper.rb:35
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+./test/functional/area_units_controller_test.rb:1
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5:in `load'
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5
+Unable to load create_realty_type_field, underlying cause no such file to load -- create_realty_type_field 
+
+ /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:102:in `require_or_load'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:61:in `depend_on'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:457:in `require_dependency'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:867:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/functional/../test_helper.rb:35
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+./test/functional/sessions_controller_test.rb:1
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:503:in `load'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:503:in `load'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:503:in `load'
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5
+Unable to load realty_type_field, underlying cause no such file to load -- realty_type_field 
+
+ /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:102:in `require_or_load'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:61:in `depend_on'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:457:in `require_dependency'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:867:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/functional/../test_helper.rb:35
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+./test/functional/sessions_controller_test.rb:1
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:503:in `load'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:503:in `load'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:503:in `load'
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5
+Unable to load create_realty_type_field, underlying cause no such file to load -- create_realty_type_field 
+
+ /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:102:in `require_or_load'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:61:in `depend_on'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:457:in `require_dependency'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:867:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/test_helper.rb:35
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+./test/functional/area_units_controller_test.rb:1
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5:in `load'
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5
+Unable to load realty_type_field, underlying cause no such file to load -- realty_type_field 
+
+ /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:102:in `require_or_load'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:61:in `depend_on'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:457:in `require_dependency'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:867:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/test_helper.rb:35
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+./test/functional/area_units_controller_test.rb:1
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5:in `load'
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5
+Unable to load create_realty_type_field, underlying cause no such file to load -- create_realty_type_field 
+
+ /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:102:in `require_or_load'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:61:in `depend_on'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:457:in `require_dependency'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:867:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/functional/../test_helper.rb:35
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+./test/functional/sessions_controller_test.rb:1
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:503:in `load'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:503:in `load'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:503:in `load'
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5
+Unable to load realty_type_field, underlying cause no such file to load -- realty_type_field 
+
+ /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:102:in `require_or_load'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:61:in `depend_on'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:457:in `require_dependency'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:855:in `try_to_load_dependency'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:870:in `require_fixture_classes'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:867:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:867:in `require_fixture_classes'
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.1.2/lib/active_record/fixtures.rb:850:in `fixtures'
+./test/functional/../test_helper.rb:35
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:510:in `require'
+./test/functional/sessions_controller_test.rb:1
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:503:in `load'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:503:in `load'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:355:in `new_constants_in'
+/usr/local/lib/ruby/gems/1.8/gems/activesupport-2.1.2/lib/active_support/dependencies.rb:503:in `load'
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb:5

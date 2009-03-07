@@ -1,0 +1,75 @@
+<% content_for :head do%>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#basic_location').change(function(){
+        $.ajax({
+          type: "POST",
+          url: "<%=update_realty_district_realties_path%>",
+          data: 'is_search=1&location_id=' + $(this).val(),
+          async: false,
+          dataType: "json",
+          success: function(json) {
+            $('#realty_district_select').html(json.html);
+            if (json.hide_place)
+              $('.place_div').hide();
+            else
+              $('.place_div').show();
+          }
+        });
+      });
+
+      $('#basic_search_form').validate();
+    });
+  </script>
+<% end %>
+
+<% form_tag realties_path, :method => "get", :id => "basic_search_form" do %>
+  <table>
+    <tr>
+      <td>Услуга:</td>
+      <td><%= select_tag(:service, options_from_collection_for_select(ServiceType.find(:all), :id, :name, params["service"].to_i))  %></td>
+    </tr>
+    <tr>
+      <td>Вид объекта:</td>
+      <td>
+        <select name="type">
+          <%=  option_groups_from_collection_for_select(RealtyPurpose.find(:all), :realty_types, :name, :id, :name, params[:type].to_i)  %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Местоположение:</td>
+      <td><select id="basic_location" name="location">
+          <%= options_from_collection_for_select(Location.find(:all), "id", "name", params[:location].to_i) %>>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Район:</td>
+      <td>
+        <div id="realty_district_select">
+          <%= render :partial => "realty_district_select", :locals => {:is_search => true, :location_id => params[:location] || Location.first.id} %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td><div class="place_div" style="display:none;">Населенный пункт:</div></td>
+      <td>
+        <div class="place_div" style="display:none;">
+          <%= text_field_tag(:place, params[:place], :class=>'fixed') %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Цена:</td>
+      <td>от<%= text_field_tag :price_from, params[:price_from], :size => 6, :class=>"number" %>
+        до<%= text_field_tag :price_to, params[:price_to], :size => 6, :class=>"number" %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center">
+        <%= button "Искать!", "basic_search", :style => "width:150px", :submit => true %>
+      </td>
+    </tr>
+  </table>
+<% end %>

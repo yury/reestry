@@ -1,0 +1,56 @@
+<% unless realty.realty_photos.empty? %>
+<div class="gallery_container">
+  <div id="photo_gallery" class="content vl_line vr_line ht_line hb_line">
+    <div id="controls" class="controls"></div>
+    <div id="slideshow" class="slideshow"></div>
+  </div>
+  <div id="navigation" class="navigation">
+    <ul class="thumbs noscript">
+      <% for realty_photo in realty.realty_photos %>
+        <li>
+          <a href="<%=h realty_photo.photo.url(:original) %>" 
+             original="<%=h realty_photo.photo.url(:original) %>" 
+             title="<%=h get_address(realty) %>" 
+             description="<%=h realty.service_type.name %>">
+            <img src="<%=h realty_photo.photo.url(:small) %>" alt="<%=h get_address(realty) %>" />
+          </a>
+          
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<script type="text/javascript">			
+    $(document).ready(function() {
+        var gallery = $('#photo_gallery').galleriffic('#navigation', {
+            delay:                3000,
+            numThumbs:            6,
+            enableTopPager:       true,
+            enableBottomPager:    false,
+            preloadAhead:         1,
+            imageContainerSel:    '#slideshow',
+            controlsContainerSel: '#controls',
+            titleContainerSel:    '#image-title',
+            descContainerSel:     '#image-desc',
+            downloadLinkSel:      '#download-link',
+            renderSSControls:     true,
+            renderNavControls:    true,
+            playLinkText:         'Смотреть слайды',
+            pauseLinkText:        'Пауза',
+            prevLinkText:         'Предыдущее',
+            nextLinkText:         'Следующее',
+            nextPageLinkText:     '►',
+            prevPageLinkText:     '◄'
+        });
+                                
+        gallery.onFadeOut = function() {
+            $('#details').fadeOut('fast');
+        };
+                                
+        gallery.onFadeIn = function() {
+            $('#details').fadeIn('fast');
+        };
+    });
+</script>
+<% end %>

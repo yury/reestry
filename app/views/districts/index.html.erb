@@ -1,0 +1,22 @@
+<h1>Listing districts</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Location</th>
+  </tr>
+
+<% for districts in @districts %>
+  <tr>
+    <td><%=h districts.name %></td>
+    <td><%=h districts.location_id %></td>
+    <td><%= link_to 'Show', districts %></td>
+    <td><%= link_to 'Edit', edit_districts_path(districts) %></td>
+    <td><%= link_to 'Destroy', districts, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New districts', new_districts_path %>

@@ -1,0 +1,83 @@
+<% content_for :head do %>
+  <script language="javascript" type="text/javascript">
+      $(document).ready(function() {
+          $(".grid tr").hover(
+          function () {
+              $(this).addClass("hover");
+          },
+          function () {
+              $(this).removeClass("hover");
+          }
+          );
+
+      $(".image").click(function(){
+        $.ajax({
+          type: "POST",
+          url: "<%= note_realties_path %>",
+          dataType: "script",
+          data: "id=" + $(this).children("input").val(),
+          success: function(result) {
+            img = $('#id_' + result).parent("td").children("img");
+            img.attr('src', '<%= image_path "ic.png" %>');
+            img.attr('onmouseout', "this.src='<%= image_path "ic.png" %>'");
+          }
+        });
+        return false;
+      });
+      });
+  </script>
+<% end %>
+
+<div style="float:right;margin-top:10px;">
+  <%= will_paginate realties %>
+  <div style="float:left;margin-left:10px;margin-top:2px;">
+    <strong>Всего: </strong><%= realties.total_entries %>
+  </div>
+</div>
+
+<div style="clear:both"></div>
+
+<table class="grid" cellpadding="0" cellspacing="1" border="0">
+  <thead>
+  <tr style="color:white;">
+    <th class="header image"><%= image_tag "p.png", :alt => "Фотографии" %></th>
+    <th class="header"><%= sort_link "Услуга", "service" %></th>
+    <th class="header">Назначение</th>
+    <th class="header"><%= sort_link "Тип объекта", "type" %></th>
+    <th class="header"><%= sort_link "Местоположение", "location" %></th>
+    <th class="header"><%= sort_link "Адрес", "address" %></th>
+    <th class="header"><%= sort_link "Цена", "price" %></th>
+    <th class="header"><%= sort_link "Площадь", "area" %></th>
+    <th class="header image"><%= image_tag "ic.png", :alt => "В блокноте" %></th>
+  </tr>
+  </thead>
+  
+  <% realties.each do |realty|%>
+    <tr class="<%=cycle("even", "odd") %>" onclick="document.location = '<%= realty_path realty%>'">
+      <td class="image"><%= image_tag "p.png", :alt => "Есть фотографии" unless realty.realty_photos.empty? %></td>
+      <td><%=h realty.service_type.name %></td>
+      <td><%=h realty.realty_type.realty_purpose.name %></td>
+      <td><%=h realty.realty_type.name %></td>
+      <td><%=h realty.district.location.name %></td>
+      <td><%=h get_address(realty) %></td>
+      <td><%=h get_full_price(realty) %></td>
+      <td><%=h get_total_area(realty) %></td>
+      <td class="image">
+        <%= image_tag "nic.png", :mouseover=>"ic.png", :alt => "В блокнот" %>
+        <%= hidden_field_tag "id_#{realty.id}", realty.id %>
+      </td>
+      <!--<td>
+        <% for value in realty.realty_field_values %>
+          <%=h value.string_value_with_name %><br/>
+        <%end%>
+      </td>-->
+      <!--<td><%= link_to 'Показать', realty %></td>
+      <td>
+        <%= link_to 'Edit', edit_realty_path(realty) %><br/>
+        <%= link_to 'Edit photo', photos_realty_path(realty) %><br/>
+        <%= link_to 'Edit contacts', contacts_realty_path(realty) %>
+      </td>
+      <td><%= link_to 'Destroy', realty, :confirm => 'Are you sure?', :method => :delete %></td>-->
+    </tr>
+  <% end %>
+</table>

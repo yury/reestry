@@ -1,0 +1,15 @@
+<h1>Редактировать значение характеристики-списка</h1>
+
+<% form_for(@list_field_value) do |f| %>
+  <%= f.error_messages %>
+
+<%= render(:partial => "edit_list_field_value", :locals => {
+        :realty_field => @list_field_value, 
+        :form => f}) %>
+  <p>
+    <%= f.submit "Сохранить" %>
+  </p>
+<% end %>
+
+<%= link_to 'Показать', @list_field_value %> |
+<%= link_to 'Назад', list_field_values_path %>

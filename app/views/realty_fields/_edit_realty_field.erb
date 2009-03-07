@@ -1,0 +1,41 @@
+<table>
+    <tr>
+        <td>Название:</td>
+        <td><%= form.text_field :name %></td>
+    </tr>
+    <tr>
+      <td>Группа:</td>
+      <td><%=  form.collection_select(:realty_field_group_id, RealtyFieldGroup.find(:all), :id, :name)  %></td>
+    </tr>
+    <tr>
+      <td>Тип:</td>
+      <td><%=  form.collection_select(:realty_field_type_id, RealtyFieldType.find(:all), :id, :name)  %></td>
+    </tr>
+<% for realty_purpose in RealtyPurpose.find(:all) %>
+  <tr><td colspan="2"><hr/></td></tr>
+    <tr>
+      <td><b><%=h realty_purpose.name %></b></td>
+      <td>
+        <table border="0">
+          <tr>
+            <th>Тип объекта</th>
+            <th>*</th>
+            <th>Вид услуги</th>
+          </tr>
+          <% for realty_type in realty_purpose.realty_types %>
+            <tr>
+              <td><%= h realty_type.name %></td>
+              <td><%= check_box_tag("realty_type.#{realty_type.id}", "1", realty_type_exists(realty_field, realty_type)) %></td>
+              <td>
+                <select id="service_type.<%= realty_type.id %>" name="service_type.<%= realty_type.id %>">
+                    <option value="">Все</option>
+                    <%= options_from_collection_for_select(ServiceType.find(:all), "id", "name", get_service_type_id(realty_field, realty_type)) %> 
+                  </select>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </td>
+    </tr>
+<% end %>
+</table>

@@ -1,0 +1,12 @@
+
+<% content_for :left do %>
+  <% tab "Поиск" do%>
+    <%= render :partial => "basic_search" %>
+  <% end %>
+<% end %>
+
+<%= render :partial => "all/quick_menu" %>
+
+<%= render :partial => "realty_list", :locals => { :realties => @realties} %>
+
+

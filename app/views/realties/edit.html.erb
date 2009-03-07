@@ -1,0 +1,19 @@
+<% content_for :left do %>
+  <% tab "Редактирование", :style=>"" do%>
+    <%= button "Редактировать фото", "edit", :style =>"width:190px;margin-bottom:15px;", :path=>photos_realty_path(@realty) %>
+    <%= button "Редактировать контакты", "edit", :style =>"width:190px;margin-bottom:15px;", :path=>contacts_realty_path(@realty) %>
+    <%= button "Просмотр объявления", "show", :style =>"width:190px;", :path=>realty_path(@realty) %>
+  <% end %>
+<% end %>
+
+<% form_for(@realty) do |f| %>
+  <%= f.error_messages %>
+  <%= render(:partial => "realty", :locals => {:realty => @realty}) %>
+
+  <% button_style = "width:130px;float:right;margin-right:15px;" %>
+  <div style="clear:both;padding-top:25px;">
+    <%= button "Отмена", "back", :style =>button_style, :js=>"history.back()" %>
+    <%= button "Сохранить", "done", :style =>button_style, :submit=>true %>
+  </div>
+
+<% end %>

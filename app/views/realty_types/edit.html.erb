@@ -1,0 +1,20 @@
+<h1>Editing realty_type</h1>
+
+<% form_for(@realty_type) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :purpose %><br />
+    <%= f.text_field :purpose %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @realty_type %> |
+<%= link_to 'Back', realty_types_path %>

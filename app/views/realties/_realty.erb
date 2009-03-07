@@ -1,0 +1,122 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('textarea.resizable:not(.processed)').TextAreaResizer();
+
+    $('.cause_fields_update').change(function(){
+      $('#realty_fields_div').hide();
+
+      $.ajax({
+            type: "POST",
+            url: "<%=update_realty_fields_realties_path%>",
+            data: "realty_type_id=" + $('#realty_realty_type_id').val() + '&service_type_id=' + $('#realty_service_type_id').val(),
+            async: false,
+            dataType: "html",
+            success: function(html) {
+              $('#realty_fields_div').html(html);
+            }
+          });
+
+      $('#realty_fields_div').slideDown();
+    });
+
+    $('#location').change(function(){
+      $.ajax({
+            type: "POST",
+            url: "<%=update_realty_district_realties_path%>",
+            data: 'location_id=' + $(this).val(),
+            async: false,
+            dataType: "json",
+            success: function(json) {
+              $('#realty_district_select').html(json.html);
+              if (json.hide_place)
+                $('.place_div').hide();
+              else
+                $('.place_div').show();
+            }
+          });
+    });
+
+    $('form').validate();
+  });
+</script>
+
+<table>
+  <tr>
+    <td>Вид услуги:</td>
+    <td>
+      <select name="realty[service_type_id]" id="realty_service_type_id" class="cause_fields_update">
+         <%=  options_from_collection_for_select(ServiceType.find(:all), :id, :name, realty.service_type_id)  %>
+      </select>
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Вид объекта:</td>
+    <td>
+      <select name="realty[realty_type_id]" id="realty_realty_type_id" class="cause_fields_update">
+              <%=  option_groups_from_collection_for_select(RealtyPurpose.find(:all), :realty_types, :name, :id, :name, realty.realty_type_id)  %>
+      </select>
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Местоположение:</td>
+    <td>
+      <select id="location" class="required">
+        <option value="" selected></option>
+        <%= options_from_collection_for_select(Location.find(:all), "id", "name", realty.get_location_id) %>
+      </select>
+      <font class="mandatory">*</font>
+    </td>
+    <td width="15px"></td>
+    <td>Район:</td>
+    <td>
+      <span id="realty_district_select">
+        <%= render :partial => "realty_district_select", :locals => { :location_id => realty.get_location_id} %>
+      </span>
+      <font class="mandatory">*</font>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3"></td>
+    <td><div class="place_div" style="display:none;">Населенный пункт:</div></td>
+    <td>
+      <div class="place_div" style="display:none;">
+        <%= text_field(:realty, :place, :class=>'fixed') %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>Улица:</td>
+    <td><%= text_field(:realty, :street, :class=>"fixed required") %> <font class="mandatory">*</font></td>
+    <td></td>
+    <td>Номер:</td>
+    <td><%= text_field(:realty, :number, :class=>"fixed") %></td>
+  </tr>
+  <tr>
+    <td>Цена:</td>
+    <td><%= text_field(:realty, :price, :class=>"fixed required number") %> <font class="mandatory">*</font></td>
+    <td></td>
+    <td>Валюта:</td>
+    <td><%=  collection_select(:realty, :currency_id, Currency.find(:all), :id, :short_name)  %></td>
+  </tr>
+  <tr>
+    <td>Площадь:</td>
+    <td><%= text_field(:realty, :total_area, :class=>"fixed") %></td>
+    <td></td>
+    <td>Единица измерения площади:</td>
+    <td><%= collection_select(:realty, :area_unit_id, AreaUnit.find(:all), :id, :short_name)  %></td>
+  </tr>
+  <tr>
+    <td>Комментарии:</td>
+    <td colspan="4"><%= text_area(:realty, :total_area, :class=>'resizable', :rows=>2) %></td>
+  </tr>
+</table>
+
+<div id="realty_fields_div" style="margin-top:15px">
+  <%= render :partial => "realty_fields", :locals => {:realty => @realty} %>
+</div>

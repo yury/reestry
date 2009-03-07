@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <td>realty_field:</td>
+    <td><%=  form.collection_select(:realty_field_id, RealtyFieldType.find_by_name("list").realty_fields, :id, :name)  %></td>
+  </tr>
+  <tr>
+    <td>name:</td>
+    <td><%=  form.text_field(:name)  %></td>
+  </tr>
+  <tr>
+    <td>field_value:</td>
+    <td><%=  form.text_field(:field_value)  %></td>
+  </tr>
+  <tr>
+    <td>default:</td>
+    <td><%=  form.check_box(:default)  %></td>
+  </tr>
+</table>

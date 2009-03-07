@@ -1,0 +1,20 @@
+<h1>Listing realty_field_grous</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+
+<% for realty_field_group in @realty_field_group %>
+  <tr>
+    <td><%=h realty_field_group.name %></td>
+    <td><%= link_to 'Show', realty_field_group %></td>
+    <td><%= link_to 'Edit', edit_realty_field_group_path(realty_field_group) %></td>
+    <td><%= link_to 'Destroy', realty_field_group, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New realty_field_group', new_realty_field_group_path %>
