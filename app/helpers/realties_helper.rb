@@ -26,10 +26,14 @@ module RealtiesHelper
     end
   end
   
-  def get_realty_field_settings realty
+  def get_realty_field_setting_groups realty
     return [] if realty.realty_type.nil?
     
-    get_realty_field_settings_for(realty.realty_type.id, realty.service_type.id)
+    get_realty_field_setting_groups_for(realty.realty_type.id, realty.service_type.id)
+  end
+
+  def get_realty_field_setting_groups_for realty_type_id, service_type_id
+    get_realty_field_settings_for(realty_type_id, service_type_id).sort_by{|s| s.field_group.id}.group_by(&:field_group)
   end
   
     def get_list_field_values setting

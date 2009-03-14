@@ -1,5 +1,5 @@
 <table>
-  <% get_realty_field_settings(realty).group_by(&:field_group).each do |group, setting| %>
+  <% get_realty_field_setting_groups(realty).each do |group, setting| %>
     <tr><td colspan="2" class="bold hb_line"><%=h group.name %></td></tr>
     <% setting.each do |setting| %>
       <tr>

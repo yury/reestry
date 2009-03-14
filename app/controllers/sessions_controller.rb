@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
 
   # render new.rhtml
   def new
+    redirect_to :controller => "realties",  :action => "index", :login=>1
   end
 
   def create

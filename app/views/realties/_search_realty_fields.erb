@@ -1,5 +1,5 @@
 <table>
-<% get_realty_field_settings_for(realty_type_id, service_type_id).group_by(&:field_group).each do |group, setting| %>
+<% get_realty_field_setting_groups_for(realty_type_id, service_type_id).each do |group, setting| %>
   <tr><td colspan="2" class="bold hb_line"><%=h group.name %></td></tr>
   <% setting.each do |setting| %>
   <tr>
@@ -11,7 +11,10 @@
           <%= options_from_collection_for_select(get_list_field_values(setting), "id", "name", params[get_realty_field_name(setting)].to_i) %> 
         </select>
         <% elsif setting.realty_field.realty_field_type.name == "bool" %>
-              <%= check_box_tag get_realty_field_name(setting), 1, params[get_realty_field_name(setting)]  %>
+          <select name="<%=get_realty_field_name(setting)%>">
+            <option value="">Не имеет значения</option>
+            <%= options_for_select({"Да"=>1, "Нет"=>0}, params[get_realty_field_name(setting)]) %>
+          </select>
         <% else %>
             от<%= text_field_tag get_realty_field_name(setting, "_from"), params[get_realty_field_name(setting, "_from")],  :size => 6, :class=>"number" %>
             до<%= text_field_tag get_realty_field_name(setting, "_to"), params[get_realty_field_name(setting, "_to")], :size => 6, :class=>"number" %>

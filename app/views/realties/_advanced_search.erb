@@ -10,11 +10,11 @@
         $.ajax({
           type: "POST",
           url: "<%=update_realty_fields_realties_path%>",
-          data: 'is_search=1&realty_type_id=' + $('#search_realty_type_id').val() + '&service_type_id=' + $(this).val(),
+          data: 'is_search=1&realty_type_id=' + $('#search_realty_type_id').val() + '&service_type_id=' + $('#search_service_type_id').val(),
           async: false,
           dataType: "html",
           success: function(html) {
-            $('#realty_fields_div').html(html);
+            $('#search_realty_fields').html(html);
           }
         });
 

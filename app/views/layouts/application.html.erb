@@ -18,11 +18,21 @@
 
       jQuery.validator.messages.required = "";
       jQuery.validator.messages.number = "";
+      jQuery.validator.messages.email = "";
+
+      $('#login_form').validate();
+      $('#registration_form').validate();
+
+      <% if params[:login].to_i == 1 %>
+        showLoginDialog();
+      <%  end %>
     });
 
     function showLoginDialog() {
       $("#login_dialog").modal();
     }
+
+    
   </script>
 <% end %>
 
@@ -88,7 +98,7 @@
         </tr>
       </table>
 
-      <%= render :partial => "create_user_request", :locals => { :params => @pars, :created => false} if @pars %>
+      <%= render :partial => "create_user_request", :locals => { :params => @pars, :created => false} if params[:unavailable] && @pars %>
 
       <div class="modalContainer">
         <div id="login_dialog" class="modal" align="center">
