@@ -1,0 +1,58 @@
+<% content_for :head do%>
+  <script type="text/javascript">
+    var timer = null;
+
+    $(document).ready(function() {
+      $('#go_button').click(function(){
+
+        $.ajax({
+          type: "POST",
+          url: "<%=start_irr_parser_path%>",
+          data: 'irr_url=' + $('#irr_url').val(),
+          async: false,
+          dataType: "text",
+          success: function(text) {
+            $('#go_button').hide();
+            $('#cancel_button').show();
+            $('#output').val(text)
+            
+            timer = setInterval(function() {
+              updateOutput();
+            }, 500);
+          }
+        });
+      });
+
+      $('#cancel_button').click(function(){
+        clearInterval(timer);
+      });
+    });
+
+    function updateOutput() {
+
+    }
+  </script>
+<% end %>
+
+<h1>Парсер объявлений Из Рук В Руки</h1>
+
+<div style="float:left">
+  <table>
+    <tr>
+      <td>URL сайта:</td>
+      <td><%= text_field_tag :irr_url, "http:\/\/vladimir.irr.ru\/real-estate\/", :size => 40  %></td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center" style="padding-top:30px;">
+        <%= button "Начать!", "go_button", :style => "width:150px" %>
+        <%= button "Отмена", "cancel_button", :style => "width:150px; display:none;" %>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div style="float:left">
+  <%= text_area_tag :output, '', :size => "75x30" %>
+</div>
+
+

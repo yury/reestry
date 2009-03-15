@@ -43,6 +43,8 @@ ActionController::Routing::Routes.draw do |map|
                         :member => { :delete_contact => :post, :profile => :get }
   
   map.resource  :session
+
+  map.resource :parser, :collection => { :irr => :any, :start_irr => :post }
   
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.login  '/login', :controller => 'sessions', :action => 'new'

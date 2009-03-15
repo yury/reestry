@@ -1,0 +1,34 @@
+I, [2009-03-15T21:33:16.893000 #5640]  INFO -- : STARTED
+I, [2009-03-15T21:33:16.903000 #5640]  INFO -- : job[26](./script/runner ./script/bj_invoker.rb) - started
+I, [2009-03-15T21:33:17.123000 #5640]  INFO -- : job[26](./script/runner ./script/bj_invoker.rb) - exit_status=10752
+I, [2009-03-15T21:34:23.161000 #5640]  INFO -- : job[27](./script/runner ./script/bj_invoker.rb) - started
+I, [2009-03-15T21:34:23.392000 #5640]  INFO -- : job[27](./script/runner ./script/bj_invoker.rb) - exit_status=10752
+I, [2009-03-15T21:35:47.400000 #5640]  INFO -- : job[28](./script/runner ./script/bj_invoker.rb) - started
+I, [2009-03-15T21:35:47.622000 #5640]  INFO -- : job[28](./script/runner ./script/bj_invoker.rb) - exit_status=10752
+I, [2009-03-15T21:38:46.639000 #5640]  INFO -- : job[29](./script/runner ./script/bj_invoker.rb) - started
+I, [2009-03-15T21:38:46.897000 #5640]  INFO -- : job[29](./script/runner ./script/bj_invoker.rb) - exit_status=10752
+I, [2009-03-15T21:40:10.905000 #5640]  INFO -- : job[30](./script/runner ./script/bj_invoker.rb) - started
+I, [2009-03-15T21:40:11.126000 #5640]  INFO -- : job[30](./script/runner ./script/bj_invoker.rb) - exit_status=10752
+I, [2009-03-15T21:41:59.136000 #5640]  INFO -- : job[31](./script/runner ./script/bj_invoker.rb) - started
+I, [2009-03-15T21:41:59.361000 #5640]  INFO -- : job[31](./script/runner ./script/bj_invoker.rb) - exit_status=10752
+I, [2009-03-15T21:43:00.370000 #5640]  INFO -- : job[32](./script/runner ./script/bj_invoker.rb) - started
+I, [2009-03-15T21:43:00.595000 #5640]  INFO -- : job[32](./script/runner ./script/bj_invoker.rb) - exit_status=10752
+I, [2009-03-15T21:43:13.601000 #5640]  INFO -- : job[33](./script/runner ./script/bj_invoker.rb) - started
+I, [2009-03-15T21:43:13.819000 #5640]  INFO -- : job[33](./script/runner ./script/bj_invoker.rb) - exit_status=10752
+I, [2009-03-15T21:44:17.826000 #5640]  INFO -- : job[34](./script/runner ./script/bj_invoker.rb) - started
+I, [2009-03-15T21:44:18.042000 #5640]  INFO -- : job[34](./script/runner ./script/bj_invoker.rb) - exit_status=10752
+I, [2009-03-15T21:49:12.076000 #5640]  INFO -- : job[35](./script/runner ./script/bj_invoker.rb) - started
+I, [2009-03-15T21:49:12.292000 #5640]  INFO -- : job[35](./script/runner ./script/bj_invoker.rb) - exit_status=10752
+I, [2009-03-15T21:49:56.445000 #5640]  INFO -- : job[36](./script/runner ./script/bj_invoker.rb) - started
+I, [2009-03-15T21:49:56.734000 #5640]  INFO -- : job[36](./script/runner ./script/bj_invoker.rb) - exit_status=10752
+I, [2009-03-15T21:50:01.260000 #5048]  INFO -- : STARTED
+I, [2009-03-15T21:51:15.277000 #5048]  INFO -- : job[37](./script/runner ./script/bj_invoker.rb) - started
+I, [2009-03-15T21:51:15.500000 #5048]  INFO -- : job[37](./script/runner ./script/bj_invoker.rb) - exit_status=10752
+I, [2009-03-15T21:55:31.899000 #1396]  INFO -- : STARTED
+I, [2009-03-15T21:55:31.911000 #1396]  INFO -- : job[38](ruby S./script/runner ./script/bj_invoker.rb) - started
+I, [2009-03-15T21:55:32.174000 #1396]  INFO -- : job[38](ruby S./script/runner ./script/bj_invoker.rb) - exit_status=256
+I, [2009-03-15T21:57:26.682000 #3952]  INFO -- : STARTED
+I, [2009-03-15T21:57:26.693000 #3952]  INFO -- : job[39](ruby ./script/runner ./script/bj_invoker.rb) - started
+I, [2009-03-15T21:57:33.825000 #3952]  INFO -- : job[39](ruby ./script/runner ./script/bj_invoker.rb) - exit_status=256
+I, [2009-03-15T22:03:25.867000 #3952]  INFO -- : job[40](ruby ./script/runner ./script/bj_invoker.rb) - started
+I, [2009-03-15T22:03:33.809000 #3952]  INFO -- : job[40](ruby ./script/runner ./script/bj_invoker.rb) - exit_status=256

@@ -3,12 +3,16 @@ class IrrRealEstate
   require 'hpricot'
   require 'open-uri'
 
-  def self.parse_rent
-    parse "rent"
+  def self.parse
+    parse_rent
   end
 
-  def self.parse estate_type
-    30.times do |page|
+  def self.parse_rent
+    parse_estate_type "rent"
+  end
+
+  def self.parse_estate_type estate_type
+    1.times do |page|
       page = page + 1
       parse_page estate_type, page
     end

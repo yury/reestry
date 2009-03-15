@@ -14,5 +14,10 @@ class ApplicationController < ActionController::Base
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
-  
+
+  def run_rake task, options = {}
+    options[:rails_env] = Rails.env
+    args = options.map { |name, value| "#{name.to_s.upcase}='#{value}'" }
+    system "rake #{task} #{args.join(' ')} --trace >> #{Rails.root}/log/rake.log &"
+  end
 end
