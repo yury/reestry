@@ -12,6 +12,7 @@ class CreateRealties < ActiveRecord::Migration
       t.decimal :total_area, :precision => 19, :scale => 2
       t.integer :area_unit_id
       t.boolean :available, :null => false, :default => true
+      t.string :irr_id
 
       t.timestamps
     end

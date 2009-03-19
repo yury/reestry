@@ -1,10 +1,12 @@
 class CreateRealtyFields < ActiveRecord::Migration
   def self.up
     create_table :realty_fields do |t|
-      t.string :name, :null => false
+      t.string  :name, :null => false
       t.integer :realty_field_type_id, :null => false
       t.integer :realty_field_group_id, :null => false
       t.boolean :searchable, :null => false, :default => true
+      t.string  :irr_name
+      t.string  :irr_parser
       
       t.timestamps
     end

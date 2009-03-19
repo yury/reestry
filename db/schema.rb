@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(:version => 20090315130833) do
     t.decimal  "total_area",      :precision => 19, :scale => 2
     t.integer  "area_unit_id"
     t.boolean  "available",                                      :default => true, :null => false
+    t.string   "irr_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id",                                                          :null => false
@@ -192,6 +193,8 @@ ActiveRecord::Schema.define(:version => 20090315130833) do
     t.integer  "realty_field_type_id",                    :null => false
     t.integer  "realty_field_group_id",                   :null => false
     t.boolean  "searchable",            :default => true, :null => false
+    t.string   "irr_name"
+    t.string   "irr_parser"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
