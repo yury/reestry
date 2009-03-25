@@ -1,0 +1,20 @@
+<h1>Editing district_street</h1>
+
+<% form_for(@district_street) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :district_id %><br />
+    <%= f.text_field :district_id %>
+  </p>
+  <p>
+    <%= f.label :street %><br />
+    <%= f.text_field :street %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @district_street %> |
+<%= link_to 'Back', district_streets_path %>

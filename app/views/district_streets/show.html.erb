@@ -1,0 +1,13 @@
+<p>
+  <b>District:</b>
+  <%=h @district_street.district_id %>
+</p>
+
+<p>
+  <b>Street:</b>
+  <%=h @district_street.street %>
+</p>
+
+
+<%= link_to 'Edit', edit_district_street_path(@district_street) %> |
+<%= link_to 'Back', district_streets_path %>

@@ -5,6 +5,7 @@ class AddRealtyFields < ActiveRecord::Migration
   end
 
   def self.down
+    Realty.destroy_all
     ListFieldValue.destroy_all
     RealtyFieldSetting.destroy_all
     RealtyField.destroy_all

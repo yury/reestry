@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :district_streets
+
+  map.resources :streets
+
   map.resources :districts
 
   map.resources :locations

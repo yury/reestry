@@ -11,6 +11,11 @@ class Realty < ActiveRecord::Base
   has_many :realty_field_values, :dependent => :destroy
   has_many :realty_photos, :dependent => :destroy
   has_and_belongs_to_many :contacts
+
+  acts_as_mappable :default_units => :kms,
+                   :default_formula => :flat
+
+  attr_accessor :irr_region
   
   def get_location_id
     self.district.blank? ? nil : self.district.location_id

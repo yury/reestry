@@ -8,10 +8,13 @@ class CreateRealties < ActiveRecord::Migration
       t.string :number
       t.decimal :price, :null => false, :precision => 19, :scale => 2
       t.integer :currency_id, :null => false
-      t.string :description
+      t.string :description, :limit => 2000
       t.decimal :total_area, :precision => 19, :scale => 2
       t.integer :area_unit_id
       t.boolean :available, :null => false, :default => true
+      t.float :lat
+      t.float :lng
+      t.boolean :is_exact, :null => false, :default => true
       t.string :irr_id
 
       t.timestamps

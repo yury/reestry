@@ -38,6 +38,7 @@ doc\:clobber_plugins=Remove plugin documentation
 doc\:clobber_rails=Remove rdoc products
 doc\:plugins=Generate documentation for all installed plugins
 doc\:plugins\:bj=
+doc\:plugins\:geokit-rails=
 doc\:plugins\:jrails=
 doc\:plugins\:paperclip=
 doc\:plugins\:restful_authentication=

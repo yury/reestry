@@ -1,0 +1,22 @@
+<h1>Listing district_streets</h1>
+
+<table>
+  <tr>
+    <th>District</th>
+    <th>Street</th>
+  </tr>
+
+<% for district_street in @district_streets %>
+  <tr>
+    <td><%=h district_street.district_id %></td>
+    <td><%=h district_street.street %></td>
+    <td><%= link_to 'Show', district_street %></td>
+    <td><%= link_to 'Edit', edit_district_street_path(district_street) %></td>
+    <td><%= link_to 'Destroy', district_street, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New district_street', new_district_street_path %>

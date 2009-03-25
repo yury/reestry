@@ -36,15 +36,22 @@ class RealtyFieldsUpdater
          service = ServiceType.create :name => service_name if service.blank? && !service_name.blank?
 
          field = RealtyField.find_by_name field_name
-         field = RealtyField.create :name => field_name, :realty_field_type => field_type,
-           :realty_field_group => group, :irr_name => irr_name, :irr_parser => irr_parser if field.blank?
+         field = RealtyField.new :name => field_name if field.blank?
+
+         field.realty_field_type = field_type
+         field.realty_field_group = group
+         field.irr_name = irr_name
+         field.irr_parser = irr_parser
+         field.save!
 
          index = 1
          is_default = true
          list_values.split(',').each do |value|
          list_value = ListFieldValue.find_by_name_and_realty_field_id value, field.id
-         list_value = ListFieldValue.create :name => value, :field_value => index, :realty_field => field, 
-            :default => is_default if list_value.blank?
+         list_value = ListFieldValue.new :name => value, :realty_field => field if list_value.blank?
+         list_value.field_value = index
+         list_value.default = is_default
+         list_value.save!
           
           index = index + 1
           is_default = false

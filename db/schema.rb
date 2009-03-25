@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090315130833) do
+ActiveRecord::Schema.define(:version => 20090320232814) do
 
   create_table "area_units", :force => true do |t|
     t.string   "name",       :default => "", :null => false
@@ -101,6 +101,13 @@ ActiveRecord::Schema.define(:version => 20090315130833) do
     t.datetime "updated_at"
   end
 
+  create_table "district_streets", :force => true do |t|
+    t.integer  "district_id",                 :null => false
+    t.string   "street",      :default => "", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "districts", :force => true do |t|
     t.string   "name",        :default => "", :null => false
     t.integer  "location_id",                 :null => false
@@ -129,22 +136,25 @@ ActiveRecord::Schema.define(:version => 20090315130833) do
   end
 
   create_table "realties", :force => true do |t|
-    t.integer  "service_type_id",                                                  :null => false
-    t.integer  "realty_type_id",                                                   :null => false
+    t.integer  "service_type_id",                                                                  :null => false
+    t.integer  "realty_type_id",                                                                   :null => false
     t.string   "place"
     t.string   "street"
     t.string   "number"
-    t.decimal  "price",           :precision => 19, :scale => 2,                   :null => false
-    t.integer  "currency_id",                                                      :null => false
-    t.string   "description"
-    t.decimal  "total_area",      :precision => 19, :scale => 2
+    t.decimal  "price",                           :precision => 19, :scale => 2,                   :null => false
+    t.integer  "currency_id",                                                                      :null => false
+    t.string   "description",     :limit => 2000
+    t.decimal  "total_area",                      :precision => 19, :scale => 2
     t.integer  "area_unit_id"
-    t.boolean  "available",                                      :default => true, :null => false
+    t.boolean  "available",                                                      :default => true, :null => false
+    t.float    "lat"
+    t.float    "lng"
+    t.boolean  "is_exact",                                                       :default => true, :null => false
     t.string   "irr_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id",                                                          :null => false
-    t.integer  "district_id",                                                      :null => false
+    t.integer  "user_id",                                                                          :null => false
+    t.integer  "district_id",                                                                      :null => false
   end
 
   add_index "realties", ["service_type_id"], :name => "fk_realty_service_types"
