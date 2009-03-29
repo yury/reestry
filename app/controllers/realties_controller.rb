@@ -203,7 +203,7 @@ private
       return realty_fields if params["f"].blank?
       
       for p in params["f"]
-          realty_fields << RealtyFieldValue.new(:realty_field_id => p[0], :decimal_value => p[1]) unless p[1].blank?
+          realty_fields << RealtyFieldValue.new(:realty_field_id => p[0], :value => p[1]) unless p[1].blank?
       end  
       
       realty_fields

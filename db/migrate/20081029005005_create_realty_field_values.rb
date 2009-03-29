@@ -3,7 +3,7 @@ class CreateRealtyFieldValues < ActiveRecord::Migration
     create_table :realty_field_values do |t|
       t.integer :realty_id, :null => false
       t.integer :realty_field_id, :null => false
-      t.decimal :decimal_value, :precision => 19, :scale => 2
+      t.string :value, :null => false
 
       t.timestamps
     end

@@ -5,6 +5,7 @@ class IrrRealEstate
   require 'hpricot'
   require 'open-uri'
   require 'json'
+  require 'base64'
   include Geokit::Geocoders
 
   def self.parse wait = true
@@ -13,19 +14,23 @@ class IrrRealEstate
   end
 
   def parse_irr wait = true
-    @default_street = 'Октябрьская'
+    @default_street = 'Не определена'
     @wait = wait
     @have_errors = 0
     @total_count = 0
+    @errors = []
 
-    @user = User.find_by_email "admin@doma33.ru"
-    @user = User.create :login => "admin", :email => "admin@doma33.ru",
-      :password => "admin", :password_confirmation => "admin" if @user.blank?
-    @user.save!
-
+    beginning = Time.now
+    
     parse_estate_type "rent"
+    #parse_estate_type "secondary"
 
-    "Total:#{@total_count}. Errors:#{@have_errors}(#{100*@have_errors/@total_count}%)"
+    puts "Errors:"
+    @errors.each do |error|
+      puts error
+    end
+
+    "Total:#{@total_count}. Errors:#{@have_errors}(#{100*@have_errors/@total_count}%). Execution time: #{Time.now - beginning}"
   end
 
   def parse_estate_type estate_type
@@ -50,6 +55,7 @@ class IrrRealEstate
           wait_for_user
         else
           @have_errors = @have_errors + 1
+          @errors << exc.message
           wait_for_user
         end
       end
@@ -73,7 +79,7 @@ class IrrRealEstate
     return "" if realty_type == "continue"
     
     @realty = Realty.new :irr_id => irr_id,
-      :realty_type => realty_type, :user_id => @user.id if @realty.blank?
+      :realty_type => realty_type if @realty.blank?
 
     @realty.street = nil
 
@@ -88,9 +94,13 @@ class IrrRealEstate
 
     description = doc.at("div.additional-text p")
     parse_field "Description", description.inner_text unless description.blank?
-    
-    contact = doc.at("div.contact-info p")
-    parse_field "Contact", contact.inner_text unless contact.blank?
+
+    puts "Parsing contact and email"
+    contact = doc.at("div.contacts-info p").inner_text.to_win1251.to_utf8
+    email = Base64.decode64(/base64_decode\('([^']+)'\)/.match(doc.at("ul.cont-ico script").inner_text)[1])
+
+    create_user contact, email
+    parse_field "Contact", contact
 
     phone = doc.at("li.ico-phone")
     parse_field "Phone", phone.inner_text unless phone.blank?
@@ -98,6 +108,9 @@ class IrrRealEstate
     m_phone = doc.at("li.ico-mphone")
     parse_field "Mobile Phone", m_phone.inner_text unless m_phone.blank?
 
+    icq = doc.at("li.ico-icq")
+    parse_field "ICQ", icq.inner_text unless icq.blank?
+    
     date = doc.at("li#ad_date_create")
     date = Time.at date.inner_text.to_i
     puts "Created Date: #{date}"
@@ -120,7 +133,7 @@ class IrrRealEstate
       @realty.price = field_value.blank? ? 0 : field_value.to_d
       @realty.currency = Currency.find_by_short_name "РУБ"
     elsif field_name == "Тип предложения".to_win1251
-      @realty.service_type = ServiceType.find_by_name "Аренда"
+      @realty.service_type = get_service_type field_value
     elsif field_name == "Регион".to_win1251
       @realty.irr_region = field_value
     elsif field_name == "Общая площадь".to_win1251
@@ -128,8 +141,14 @@ class IrrRealEstate
       @realty.area_unit_id = 1
     elsif field_name == "Улица".to_win1251
       @realty.street = field_value.to_utf8
+    elsif field_name == "Contact"
+      add_contact(ContactType.find_by_name("Контактное лицо"), field_value.to_utf8)
     elsif field_name == "Phone"
+      add_contact(ContactType.find_by_name("Телефон"), field_value)
     elsif field_name == "Mobile Phone"
+      add_contact(ContactType.find_by_name("Моб. телефон"), field_value)
+    elsif field_name == "ICQ"
+      add_contact(ContactType.find_by_name("ICQ"), field_value)
     elsif field_name == "Дом".to_win1251
       @realty.number = field_value.to_utf8
     elsif field_name == "Description"
@@ -141,17 +160,45 @@ class IrrRealEstate
     end
   end
 
+  def create_user name, email
+    puts "Creating user with name #{name} and email #{email}"
+    user = User.find_by_email(email)
+    user = User.new :login => name, :email => email,
+      :password => email, :password_confirmation => email if user.blank?
+    @realty.user = user
+  end
+
+  def add_contact contact_type, value
+    contact = Contact.find_by_value_and_contact_type_id(value, contact_type.id)
+    contact = Contact.new(:user => @realty.user, :contact_type => contact_type, :value => value) if contact.blank?
+    @realty.contacts << contact
+  end
+
   def get_field_value field_name, field_value
     value = nil
-    RealtyField.find_all_by_irr_name(field_name.to_utf8).each do |realty_field|
+    RealtyField.find(:all, :conditions => [ "irr_name like ?", "%#{field_name.to_utf8}%"]).each do |realty_field|
       if realty_field.irr_parser.blank?
-        value = field_value
+        value = field_value.to_utf8
         value = 1 if realty_field.realty_field_type.name == 'bool'
       else
         parser = JSON.parse(realty_field.irr_parser)
         value = parse_field_value parser, field_value if parser.class == {}.class
-
       end
+
+      if realty_field.realty_field_type.name == 'list'
+        lfv = ListFieldValue.find_by_name_and_realty_field_id(value, realty_field.id)
+        puts "Found list field value: #{value.to_win1251}. Field: #{realty_field.id}"
+        raise "Can't find list field value: #{value.to_win1251}. Field: #{realty_field.id}" if lfv.blank?
+        value = lfv.id
+      end
+
+      rfv = @realty.realty_field_values.find_by_realty_field_id(realty_field.id)
+      if rfv.blank?
+        rfv = RealtyFieldValue.new(:realty_field => realty_field, :realty => @realty)
+        @realty.realty_field_values << rfv
+      end
+
+      rfv.value = value
     end
       
     raise "Can't find value of field:#{field_name}, value:#{field_value}" if value.blank?
@@ -167,10 +214,24 @@ class IrrRealEstate
     return ""
   end
 
+  def get_service_type text
+    text = text.to_utf8
+    text =~ /(сдам)/i
+    text =~ /(сниму)/i if $1.nil?
+    return ServiceType.find_by_name("Аренда") unless $1.nil?
+    text =~ /(продам)/i
+    text =~ /(куплю)/i if $1.nil?
+    return ServiceType.find_by_name("Продажа") unless $1.nil?
+
+    raise "Can't find service type:#{text}" if $1.nil?
+  end
+
   def get_realty_type doc
     live_purpose = RealtyPurpose.find_by_name "Жилое"
     return live_purpose.realty_types.find_by_name("Комната") unless doc.at("a.arrdown[@href='/real-estate/rent/rooms-offers/']").nil?
+    return live_purpose.realty_types.find_by_name("Комната") unless doc.at("a.arrdown[@href='/real-estate/secondary/rooms-sale/']").nil?
     return live_purpose.realty_types.find_by_name("Квартира") unless doc.at("a.arrdown[@href='/real-estate/rent/appartments-offers/']").nil?
+    return live_purpose.realty_types.find_by_name("Квартира") unless doc.at("a.arrdown[@href='/real-estate/secondary/appartments-sale/']").nil?
     return "continue" unless doc.at("a.arrdown[@href='/real-estate/rent/demand/']").nil?
 
     raise "Can't find realty type"
@@ -185,30 +246,29 @@ class IrrRealEstate
     location = Location.find_by_name location.to_utf8.trim
     raise "Can't find location #{location}" if location.blank?
 
-    use_default_street if @realty.street.blank?
-    
-    district = District.find_by_name district.gsub("?", "").to_utf8.trim
+    @realty.district = District.find_by_name district.gsub("?", "").to_utf8.trim
 
-    if district.blank?
-      district_street = DistrictStreet.find(:first, :conditions => ["street like ?", "%#{@realty.street}%"])
-      puts "Street: #{@realty.street}"
-      @realty.street = parse_street_from_text(district_street.street) unless district_street.blank?
-      puts "Street: #{@realty.street}"
-    end
-
-    geodata = retrieve_geodata location.name
-    use_default_street unless geodata.success?
-    geodata = retrieve_geodata location.name
-
-    if district.blank?
-      district_street = DistrictStreet.find(:first,
-      :conditions => ["street like ?", "%#{@realty.street}%"]) if district_street.blank? && geodata.success?
-
-      raise "Can't find district by street #{@realty.street}" if district_street.blank?
-
-      @realty.district_id = district_street.district_id
+    if @realty.street.blank?
+      #if street is blank use default street
+      use_default_street
+      @realty.district = District.first if @realty.district.blank?
     else
-      @realty.district = district
+      #if district blank try to find district from street
+      if @realty.district.blank?
+        district_street = DistrictStreet.find(:first, :conditions => ["street like ?", "%#{@realty.street}%"])
+
+        unless district_street.blank?
+          @realty.street = parse_street_from_text(district_street.street)
+          @realty.district_id = district_street.district_id
+        else
+          puts "Can't find district by street #{@realty.street.to_win1251}"
+          @realty.district = District.first
+        end
+      end
+
+      #now we should have district and street
+      geodata = retrieve_geodata location.name
+      @realty.is_exact = !geodata.nil?
     end
   end
 
@@ -216,22 +276,23 @@ class IrrRealEstate
     geodata = get_geodata location_name
     puts "Geodata: #{geodata}"
 
-    if geodata.success?
-      parse_street_from_text(geodata.street_address) if !geodata.street_address.blank?
+    if check_geodata?(location_name, geodata)
+      #parse_street_from_text(geodata.street_address) if !geodata.street_address.blank?
       @realty.lat = geodata.lat
       @realty.lng = geodata.lng
     else
       puts "Did not find geodata"
+      geodata = nil
     end
 
     geodata
   end
 
   def use_default_street
-      puts "Use default street because street is blank"
-      @realty.street = @default_street
-      @realty.is_exact = false
-      wait_for_user
+    puts "Use default street because street is blank"
+    @realty.street = @default_street
+    @realty.is_exact = false
+    wait_for_user
   end
   
   def get_geodata location
@@ -242,6 +303,13 @@ class IrrRealEstate
     @realty.street =~ /\w+\W+(\w+)/i
     loc = get_geodata_by_address $1 unless $1.nil?
     return loc
+  end
+
+  def check_geodata? location, geodata
+    @center = get_geodata_by_address "#{location},Россия" if @center.blank?
+    distance = Realty.distance_between(@center, geodata, :units => :kms)
+    puts "Distance from #{location} is #{distance}"
+    geodata.success? && distance < 220
   end
 
   def get_geodata_by_address address
@@ -265,13 +333,14 @@ class IrrRealEstate
   end
 
   def parse_street_from_text text
-    puts "Parse string from text: #{text}"
+    puts "Parse string from text: #{text.to_win1251}"
     r_name = '\w+[^,\w]*\w*'
     text =~ /ул\W+((?!план\.)#{r_name})/i
     text =~ /на\W+(#{r_name})\W+пр/i if $1.nil?
     text =~ /пр-кт\W+(#{r_name})/i if $1.nil?
     text =~ /просп\W+(#{r_name})/i if $1.nil?
     text =~ /проспект\W+(#{r_name})/i if $1.nil?
+    text =~ /(#{r_name})\s+проспект/i if $1.nil?
     text =~ /пр\W+(#{r_name})/i if $1.nil?
     text =~ /на\W+(#{r_name})/i if $1.nil?
     text =~ /в\W+(#{r_name})\W+в\/г/i if $1.nil?

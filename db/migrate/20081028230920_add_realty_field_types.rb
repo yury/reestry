@@ -11,6 +11,9 @@ class AddRealtyFieldTypes < ActiveRecord::Migration
     
     field_type = RealtyFieldType.create :name => "int"
     field_type.save!
+
+    field_type = RealtyFieldType.create :name => "string"
+    field_type.save!
   end
 
   def self.down

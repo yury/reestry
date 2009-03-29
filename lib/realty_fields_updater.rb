@@ -47,8 +47,8 @@ class RealtyFieldsUpdater
          index = 1
          is_default = true
          list_values.split(',').each do |value|
-         list_value = ListFieldValue.find_by_name_and_realty_field_id value, field.id
-         list_value = ListFieldValue.new :name => value, :realty_field => field if list_value.blank?
+          list_value = ListFieldValue.find_by_name_and_realty_field_id value.trim, field.id
+         list_value = ListFieldValue.new :name => value.trim, :realty_field => field if list_value.blank?
          list_value.field_value = index
          list_value.default = is_default
          list_value.save!

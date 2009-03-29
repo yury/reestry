@@ -5,10 +5,10 @@ class RealtyFieldValue < ActiveRecord::Base
   def string_value
     type = self.realty_field.realty_field_type.name
     if type == "list"
-      list_field = self.realty_field.list_field_values.find(self.decimal_value)
+      list_field = self.realty_field.list_field_values.find(self.value)
       list_field ? list_field.name : "" 
     elsif type != "bool"
-      self.decimal_value
+      self.value
     end
   end
   

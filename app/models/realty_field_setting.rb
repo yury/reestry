@@ -6,7 +6,7 @@ class RealtyFieldSetting < ActiveRecord::Base
   def realty_field_value realty
     value = self.realty_field.realty_field_values.find_by_realty_id(realty.id)
     if !value.blank?
-      value.decimal_value
+      value.value
     end
   end
 
