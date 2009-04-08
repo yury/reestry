@@ -107,8 +107,8 @@ end
 #
 #end
 
-Workling::Remote.dispatcher = Workling::Remote::Runners::BackgroundjobRunner.new
-Workling::Return::Store.instance = Workling::Return::Store::MemoryReturnStore.new
+#Workling::Remote.dispatcher = Workling::Remote::Runners::BackgroundjobRunner.new
+#Workling::Return::Store.instance = Workling::Return::Store::MemoryReturnStore.new
 
 WillPaginate::ViewHelpers.pagination_options[:prev_label] = '◄';
 WillPaginate::ViewHelpers.pagination_options[:next_label] = '►'

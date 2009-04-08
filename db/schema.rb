@@ -12,56 +12,10 @@
 ActiveRecord::Schema.define(:version => 20090320232814) do
 
   create_table "area_units", :force => true do |t|
-    t.string   "name",       :default => "", :null => false
-    t.string   "short_name", :default => "", :null => false
+    t.string   "name",       :null => false
+    t.string   "short_name", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "bj_config", :primary_key => "bj_config_id", :force => true do |t|
-    t.text "hostname"
-    t.text "key"
-    t.text "value"
-    t.text "cast"
-  end
-
-  create_table "bj_job", :primary_key => "bj_job_id", :force => true do |t|
-    t.text     "command"
-    t.text     "state"
-    t.integer  "priority"
-    t.text     "tag"
-    t.integer  "is_restartable"
-    t.text     "submitter"
-    t.text     "runner"
-    t.integer  "pid"
-    t.datetime "submitted_at"
-    t.datetime "started_at"
-    t.datetime "finished_at"
-    t.text     "env"
-    t.text     "stdin"
-    t.text     "stdout"
-    t.text     "stderr"
-    t.integer  "exit_status"
-  end
-
-  create_table "bj_job_archive", :primary_key => "bj_job_archive_id", :force => true do |t|
-    t.text     "command"
-    t.text     "state"
-    t.integer  "priority"
-    t.text     "tag"
-    t.integer  "is_restartable"
-    t.text     "submitter"
-    t.text     "runner"
-    t.integer  "pid"
-    t.datetime "submitted_at"
-    t.datetime "started_at"
-    t.datetime "finished_at"
-    t.datetime "archived_at"
-    t.text     "env"
-    t.text     "stdin"
-    t.text     "stdout"
-    t.text     "stderr"
-    t.integer  "exit_status"
   end
 
   create_table "contact_types", :force => true do |t|
@@ -95,31 +49,39 @@ ActiveRecord::Schema.define(:version => 20090320232814) do
   add_index "contacts_realties", ["realty_id"], :name => "fk_contacts_realties_realties"
 
   create_table "currencies", :force => true do |t|
-    t.string   "name",       :default => "", :null => false
-    t.string   "short_name", :default => "", :null => false
+    t.string   "name",       :null => false
+    t.string   "short_name", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "district_streets", :force => true do |t|
-    t.integer  "district_id",                 :null => false
-    t.string   "street",      :default => "", :null => false
+    t.integer  "district_id", :null => false
+    t.string   "street",      :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "districts", :force => true do |t|
-    t.string   "name",        :default => "", :null => false
-    t.integer  "location_id",                 :null => false
+    t.string   "name",        :null => false
+    t.integer  "location_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "districts", ["location_id"], :name => "fk_districts_locations"
 
+  create_table "irr_parsers", :force => true do |t|
+    t.integer  "realty_field_id", :null => false
+    t.string   "name",            :null => false
+    t.string   "parser"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "list_field_values", :force => true do |t|
     t.integer  "realty_field_id",                    :null => false
-    t.string   "name",            :default => "",    :null => false
+    t.string   "name",                               :null => false
     t.integer  "field_value",                        :null => false
     t.boolean  "default",         :default => false, :null => false
     t.datetime "created_at"
@@ -129,7 +91,7 @@ ActiveRecord::Schema.define(:version => 20090320232814) do
   add_index "list_field_values", ["realty_field_id"], :name => "fk_list_field_values_realty_fields"
 
   create_table "locations", :force => true do |t|
-    t.string   "name",       :default => "",    :null => false
+    t.string   "name",                          :null => false
     t.boolean  "is_place",   :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -163,7 +125,7 @@ ActiveRecord::Schema.define(:version => 20090320232814) do
   add_index "realties", ["service_type_id"], :name => "fk_realty_service_types"
 
   create_table "realty_field_groups", :force => true do |t|
-    t.string   "name",       :default => "", :null => false
+    t.string   "name",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -182,15 +144,15 @@ ActiveRecord::Schema.define(:version => 20090320232814) do
   add_index "realty_field_settings", ["service_type_id"], :name => "fk_realty_field_settings_service_types"
 
   create_table "realty_field_types", :force => true do |t|
-    t.string   "name",       :default => "", :null => false
+    t.string   "name",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "realty_field_values", :force => true do |t|
-    t.integer  "realty_id",                       :null => false
-    t.integer  "realty_field_id",                 :null => false
-    t.string   "value",           :default => "", :null => false
+    t.integer  "realty_id",       :null => false
+    t.integer  "realty_field_id", :null => false
+    t.string   "value",           :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -199,12 +161,10 @@ ActiveRecord::Schema.define(:version => 20090320232814) do
   add_index "realty_field_values", ["realty_id"], :name => "fk_realty_field_values_realties"
 
   create_table "realty_fields", :force => true do |t|
-    t.string   "name",                  :default => "",   :null => false
+    t.string   "name",                                    :null => false
     t.integer  "realty_field_type_id",                    :null => false
     t.integer  "realty_field_group_id",                   :null => false
     t.boolean  "searchable",            :default => true, :null => false
-    t.string   "irr_name"
-    t.string   "irr_parser"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -225,14 +185,14 @@ ActiveRecord::Schema.define(:version => 20090320232814) do
   add_index "realty_photos", ["realty_id"], :name => "fk_realty_photos_realties"
 
   create_table "realty_purposes", :force => true do |t|
-    t.string   "name",       :default => "", :null => false
+    t.string   "name",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "realty_types", :force => true do |t|
-    t.string   "name",              :default => "", :null => false
-    t.integer  "realty_purpose_id",                 :null => false
+    t.string   "name",              :null => false
+    t.integer  "realty_purpose_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -240,13 +200,13 @@ ActiveRecord::Schema.define(:version => 20090320232814) do
   add_index "realty_types", ["realty_purpose_id"], :name => "fk_realty_type_realty_purpose"
 
   create_table "service_types", :force => true do |t|
-    t.string   "name",       :default => "", :null => false
+    t.string   "name",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "sessions", :force => true do |t|
-    t.string   "session_id", :default => "", :null => false
+    t.string   "session_id", :null => false
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"

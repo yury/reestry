@@ -91,6 +91,14 @@ class Realty < ActiveRecord::Base
   def self.select params
     paginate_by_sql search_query(params), :page => params[:page], :per_page => 50
   end
+
+  def self.stats
+    result = {}
+    result[:count] = Realty.count
+    result[:exact_realties] = Realty.count(:conditions => "is_exact = 1") * 100.00 / Realty.count
+    result[:non_agency] = Realty.count_by_sql("select sum(c) from (select count(*) c from realties group by user_id having count(*) = 1) a") * 100.00 / Realty.count
+    result
+  end
   
   protected
   def validate

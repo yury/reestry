@@ -5,29 +5,29 @@ class RealtyFieldsUpdater
     realty_types_cell = 7
     is_first_row = true
     realty_types = []
-    CSV.open('c:\projects\doma33\doc\realty_fields.txt', "r", "\t") do |row|
+    CSV.open(Dir.getwd + "/doc/realty_fields.csv", "r", "\t") do |row|
       if is_first_row
         for i in realty_types_cell...row.length
-          purpose_name = row[i].split(',')[0].to_utf8.trim
-          realty_type_name = row[i].split(',')[1].to_utf8.trim
+          purpose_name = row[i].split(',')[0].trim
+          realty_type_name = row[i].split(',')[1].trim
 
           purpose = RealtyPurpose.find_by_name purpose_name
           purpose = RealtyPurpose.create :name => purpose_name if purpose.blank?
 
           realty_type = purpose.realty_types.find_by_name realty_type_name
-          realty_type = RealtyType.create :name => realty_type_name, :realty_purpose => purpose
+          realty_type = RealtyType.create :name => realty_type_name, :realty_purpose => purpose if realty_type.blank?
 
           realty_types << realty_type
         end
         is_first_row = false
       else
-         field_name = row[0].to_utf8.trim
-         field_type = RealtyFieldType.find_by_name row[1].to_utf8.trim
-         group_name = row[2].to_utf8.trim
-         list_values = row[3].nil? ? "" : row[3].to_utf8.trim
-         irr_name = row[4].nil? ? nil : row[4].to_utf8.trim
-         irr_parser = row[5].nil? ? nil : row[5].to_utf8.trim
-         service_name = row[6].nil? ? "" : row[6].to_utf8.trim
+         field_name = row[0].trim
+         field_type = RealtyFieldType.find_by_name row[1].trim
+         group_name = row[2].trim
+         list_values = row[3].nil? ? "" : row[3].trim
+         irr_name = row[4].nil? ? nil : row[4].trim
+         irr_parser = row[5].nil? ? nil : row[5].trim
+         service_name = row[6].nil? ? "" : row[6].trim
 
          group = RealtyFieldGroup.find_by_name group_name
          group = RealtyFieldGroup.create :name => group_name if group.blank?
@@ -40,8 +40,15 @@ class RealtyFieldsUpdater
 
          field.realty_field_type = field_type
          field.realty_field_group = group
-         field.irr_name = irr_name
-         field.irr_parser = irr_parser
+
+        field.irr_parsers.destroy_all
+
+         unless irr_name.blank?
+           irr_name.split(",").each do |name|     
+             field.irr_parsers << IrrParser.new(:name => name.strip, :parser => irr_parser)
+           end
+         end
+
          field.save!
 
          index = 1
@@ -60,8 +67,8 @@ class RealtyFieldsUpdater
         RealtyFieldSetting.delete_all :realty_field_id => field.id
 
         for i in realty_types_cell...row.length do
-          sign = row[i].nil? ? "" : row[i].to_utf8.trim
-          puts "Sign:#{sign.to_win1251};Field:#{field.name.to_win1251};Type:#{realty_types[i-realty_types_cell].name.to_win1251}" unless sign.empty?
+          sign = row[i].nil? ? "" : row[i].trim
+          puts "Sign:#{sign};Field:#{field.name};Type:#{realty_types[i-realty_types_cell].name}" unless sign.empty?
           
           RealtyFieldSetting.create(:realty_field => field,
             :service_type => service,

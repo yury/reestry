@@ -6,4 +6,5 @@ class RealtyField < ActiveRecord::Base
   has_many :realty_field_settings
   has_many :list_field_values
   has_many :realty_field_values
+  has_many :irr_parsers
 end

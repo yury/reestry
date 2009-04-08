@@ -5,8 +5,6 @@ class CreateRealtyFields < ActiveRecord::Migration
       t.integer :realty_field_type_id, :null => false
       t.integer :realty_field_group_id, :null => false
       t.boolean :searchable, :null => false, :default => true
-      t.string  :irr_name
-      t.string  :irr_parser
       
       t.timestamps
     end
