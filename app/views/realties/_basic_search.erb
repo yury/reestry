@@ -40,7 +40,7 @@
     <tr>
       <td>Местоположение:</td>
       <td><select id="basic_location" name="location">
-          <%= options_from_collection_for_select(Location.find(:all), "id", "name", params[:location].to_i) %>>
+          <%= options_from_collection_for_select(Location.find(:all), "id", "name", params[:location].to_i) %>
         </select>
       </td>
     </tr>

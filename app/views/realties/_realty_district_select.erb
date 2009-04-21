@@ -1,9 +1,9 @@
-<select name="district" 
+<select name="district"
   <% if is_search %>
-    <option value="">Не имеет значения</option>
+    ><option value="">Не имеет значения</option>
   <% else %>
-    class="required"
+    class="required" >
   <% end %>
->
+  
   <%=  options_from_collection_for_select(District.find_all_by_location_id(location_id), :id, :name, params[:district].to_i)  %>
 </select>

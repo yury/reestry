@@ -15,7 +15,7 @@
   </tr>
   <tr>
     <td>Цена:</td>
-    <td class="bold right"><%=h get_full_price(@realty) %></td>
+    <td class="bold right"><%=h number_to_currency(@realty.price, :precision => 0) %></td>
     <td></td>
     <td>Площадь:</td>
     <td class="bold right"><%=h get_total_area(@realty) %></td>
@@ -23,6 +23,8 @@
 </table>
 
 <%= render :partial => "realty_photo_gallery", :locals => { :realty => @realty } %>
+
+<%= map(@realty, :large_map => true, :small_zoom => false, :map_type => true, :width => 750, :height => 400) if @realty.is_exact %>
 
 <% tab_style = "width:212px;margin-bottom:15px;" %>
 

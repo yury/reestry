@@ -46,9 +46,10 @@ module ApplicationHelper
     link_to name + direction_sign, params.merge(:sort=>sort_field, :sdir=> direction)  
   end
 
-  def menu_item_class url_path = ""
-    klass = "menu_item bold"
-    klass += " selected" if url_path.length > 0 && request.url.include?(url_path)
+  def menu_item_class url_path = "", default = false
+    klass = "menu_item bold vr_line"
+    klass += " selected" if (request.params.length == 2 && default) || (url_path.length > 0 && request.url.include?(url_path))
     klass
   end
+  
 end

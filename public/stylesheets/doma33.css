@@ -29,57 +29,55 @@ input.error, select.error {
 }
 
 #header {
-  color: #fff;
 }
 
 #header .l_part {
-    background: transparent url(/images/hl.jpg) no-repeat scroll;
+    background: transparent url(/images/hl.gif) no-repeat scroll;
     float:left;
-    height:84px;
-    width:261px;
+    height:99px;
+    width:351px;
+    float:left;
 }
 
-#header .f_part {
-    background: transparent url(/images/hf.gif) repeat scroll;
-    float:left;
-    height:84px;
-    width:715px;
-}
-
-#header .r_part {
-    background: transparent url(/images/hr.gif) no-repeat scroll;
-    float:left;
-    height:84px;
-    width:8px;
-}
 
 #header .text {
     text-align:right;
-    float:right;
-    padding-top:1px;
 }
 
 #header .menu {
-    margin-left:109px;
-    margin-top:43px;
-    font-size:14px;
+    font-size:12px;
+    float:right;
+    margin-top:10px;
 }
 
 #header .menu_item {
     text-align:center;
-    width:120px;
-    height:40px;
+    width:100px;
     float:left;
-    border-right: 1px solid #00380A;
+    color:#CCCCCC;
     cursor:pointer;
 }
 
 #header .menu_item.selected {
-    background: transparent url(/images/mis.gif) repeat scroll;
+    color:black;
 }
 
 #header .menu_item div {
-    margin-top:12px;
+    margin-top:2px;
+    margin-bottom:2px;
+}
+
+#footer {
+    clear:both;
+    background: transparent url(/images/f_l.gif) repeat-x;
+    margin-top:150px;
+}
+
+#footer_text {
+    background-color: #CECECE;
+    margin-top:-1px;
+    padding-left:10px;
+    height:30px;
 }
 
 .tab {
@@ -189,7 +187,7 @@ input.error, select.error {
     font-size:12px;
     cursor:pointer;
     text-align:center;
-    vertical-align:center;
+    vertical-align:middle;
     width:140px;
 }
 
@@ -228,27 +226,21 @@ input.error, select.error {
 
 /* tables */
 table.grid {
-       border-color: #CCCCCC;
-	background-color: #CDCDCD;
 	margin:10px 0pt 15px;
 	width: 100%;
 	text-align: left;
 }
 table.grid thead tr th {
-	background-color: #11965B;
-	padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 3px;
-        padding-right:3px;
+	border-top:none;
+    border-left:none;
+    border-right:none;
+    border-bottom:2px solid #999999;
 }
 table.grid thead tr .header {
-        color:white;
         text-align:center;
-        background: url(/images/g_b.gif) repeat;
-	cursor: pointer;
+        cursor: pointer;
 }
 table.grid .header a, a:hover {
-    color:white;
     text-decoration:none;
 }
 table.grid thead tr .header a:hover {
@@ -258,18 +250,25 @@ table.grid thead tr .header a:hover {
 table.grid tbody td {
 	color: #3D3D3D;
 	padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 3px;
-        padding-right:3px;
+    padding-bottom: 5px;
+    padding-left: 3px;
+    padding-right:3px;
 	background-color: #FFF;
 	vertical-align: top;
-        cursor:pointer;
+    cursor:pointer;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    border-bottom:2px solid #999999;
+}
+table.grid tbody tr {
+    height:50px;
 }
 table.grid tbody tr.odd td {
 	background-color:#F0F0F6;
 }
 table.grid tbody tr.hover td {
-     background-color: #ddffdd;
+    background: transparent url(/images/s.png) repeat-x;
 }
 table.grid thead tr .headerSortUp {
 	background-image: url(/images/asc.gif);
@@ -283,8 +282,25 @@ background-color: #8dbdd8;
 table.grid .image {
     padding:0px;
     vertical-align:middle;
-  text-align: center;
+    text-align: center;
 }
+
+table.grid .price {
+    color:#009245;
+    font-weight:bold;
+    vertical-align:middle;
+    text-align:center;
+    width:100px;
+}
+
+table.grid .realty_index {
+    background: transparent url(/images/r.gif) no-repeat scroll center center;
+    width:43px;
+    height:40px;
+    font-size:13px;
+    color:black;
+}
+
 pre {
     background-color: #eee;
     padding: 10px;
@@ -331,8 +347,17 @@ pre {
   color: #ff0011;
 }
 
+.small {
+    font-size:10px;
+    color:#aaa;
+}
+
 .bold {
     font-weight: bold;
+}
+
+.underline {
+    text-decoration:underline;
 }
 
 .right {
@@ -341,6 +366,18 @@ pre {
 
 .center {
     text-align: center;
+}
+
+.middle {
+    vertical-align: middle;
+}
+
+div.left {
+    float:left;
+}
+
+div.right {
+    float:right;
 }
 
 div.gallery_container {

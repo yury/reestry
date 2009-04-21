@@ -1,0 +1,36 @@
+<% content_for :head do %>
+  <%= GMap.header %>
+  <%
+    map = GMap.new("map_div")
+	map.control_init(:map_type => map_type, :small_zoom => small_zoom, :large_map => large_map)
+
+    points = (realties.map { |r| [r.lat, r.lng] if r.is_exact}).compact
+    map.center_zoom_on_points_init(points)
+
+    map.icon_global_init(GIcon.new(
+        :image => "http://labs.google.com/ridefinder/images/mm_20_red.png",
+        :shadow => "http://labs.google.com/ridefinder/images/mm_20_shadow.png",
+        :icon_size => GSize.new(12,20),
+        :shadow_size => GSize.new(22,20),
+        :icon_anchor => GPoint.new(6,20),
+        :info_window_anchor => GPoint.new(5,1) ),
+        "icon")
+
+   icon = Variable.new("icon");
+
+    index = 0
+    realties.each do |realty|
+      index = index + 1
+      map.overlay_init(GMarker.new([realty.lat, realty.lng], 
+          :title => "Объект №#{index}",
+          :icon => icon,
+          :info_window => simple_format(word_wrap("#{realty.description}", 30)))) if realty.is_exact
+    end
+  %>
+
+  <%= map.to_html %>
+<% end %>
+
+<%= map.div(:width => width, :height => height, :class => "vr_line vl_line hb_line ht_line") %>
+
+

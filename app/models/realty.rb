@@ -89,7 +89,7 @@ class Realty < ActiveRecord::Base
   end
   
   def self.select params
-    paginate_by_sql search_query(params), :page => params[:page], :per_page => 50
+    paginate_by_sql search_query(params), :page => params[:page], :per_page => 15
   end
 
   def self.stats

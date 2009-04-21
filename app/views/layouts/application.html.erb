@@ -42,9 +42,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <title>doma33: <%= controller.action_name %></title>
+    <title>Streety - Ваш инструмент в мире недвижимости</title>
     <%= stylesheet_link_tag 'doma33' %>
-    <%= javascript_include_tag :defaults, "jquery.simplemodal-1.1.1.pack.js",
+    <%= javascript_include_tag :defaults,
+      "jquery.simplemodal-1.1.1.pack.js",
       "jquery.cookie.pack.js",
       "jquery.textarearesizer.compressed.js",
       "jquery.validate.min.js",
@@ -61,21 +62,25 @@
     <%= yield :head %>
   </head>
   <body>
+    
     <div id="airlock">
       <div id="header">
         <div class="l_part"></div>
         <div class="f_part">
           <div class="text">
-            <span class="bold">7 декабря 2008 г</span><br/>
-            <span>В базе <%= Realty.count %> объектов</span>
+            <span><%= Russian.strftime(Time.now, "На %d %B %Y года")%></span><br/>
+            <span>обработано <%= "#{Realty.count} #{Russian.p(Realty.count, "объект", "объекта", "объектов")}" %></span><br/>
+            <span class="bold">&nbsp;
             <% if logged_in? %>
-              <br/><span class="bold">Пользователь: <%=h current_user.login %></span>
+              Пользователь: <%=h current_user.login %>
             <% end %>
+            </span><br/><br/>
+            <span class="bold underline" style="font-size:12px">Владимир и Владимирская область</span>
           </div>
           <div class="menu">
-            <div class="<%= menu_item_class "service=1" %>" style="border-left: 1px solid #00380A;">
-            <div id="leasing">Аренда</div></div>
+            <div class="<%= menu_item_class "service=1", true %>"><div id="leasing">Аренда</div></div>
             <div class="<%= menu_item_class "service=2" %>"><div id="sale">Продажа</div></div>
+            <div class="<%= menu_item_class "analysis" %>"><div id="analysis">Анализ</div></div>
             <div class="<%= menu_item_class "organizations" %>"><div id="agencies">Агентства</div></div>
             <div class="<%= menu_item_class "profile" %>"><div id="profile">Профиль</div></div>
             <div class="<%= menu_item_class %>" id="<%= logged_in? ? 'logout' : 'login_b' %>">
@@ -83,7 +88,6 @@
             </div>
           </div>
         </div>
-        <div class="r_part"></div>
       </div>
 
       <table cellpadding="0" cellspacing="0" border="0" style="clear:both;width:100%;margin-top:15px;">
@@ -92,22 +96,25 @@
             <%= yield :left %>
             <div style="color: green;clear:both;"><%= flash[:notice] %></div>
           </td>
-          <td valign="top">
+          <td valign="top" height="900px">
             <%= yield %>
           </td>
         </tr>
       </table>
 
       <%= render :partial => "create_user_request", :locals => { :params => @pars, :created => false} if params[:unavailable] && @pars %>
+    
+    </div>
 
-      <div class="modalContainer">
+    <div class="modalContainer">
         <div id="login_dialog" class="modal" align="center">
           <div id="login_part"><%= render :partial => "sessions/login" %></div>
           <div id="register_part" style="display:none;"><%= render :partial => "users/new" %></div>
         </div>
       </div>
+    <div id="footer">&nbsp;</div>
+    <div id="footer_text">AnjLab, 2009. Все права защищены.</div>
 
-    </div>
   </body>
 </html>
 
