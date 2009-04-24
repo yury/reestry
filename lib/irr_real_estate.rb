@@ -8,25 +8,27 @@ class IrrRealEstate
   require 'base64'
   include Geokit::Geocoders
 
-  def self.parse wait = true
+  def self.parse wait = true, pause = true
     irr = IrrRealEstate.new
-    irr.parse_irr wait
+    irr.parse_irr wait, pause
   end
 
-  def parse_irr wait = true
+  def parse_irr wait = true, pause = true
     @default_street = 'Не определена'
     @wait = wait
+    @pause = pause
     @have_errors = 0
     @total_count = 0
     @errors = []
 
     beginning = Time.now
     
-    #parse_estate_type "rent/rooms-offers"
-    #parse_estate_type "rent/appartments-offers"
-    #parse_estate_type "secondary/rooms-sale"
-    #parse_estate_type "secondary/appartments-sale"
-    #parse_estate_type "garage"
+    #old parse_estate_type "rent/rooms-offers"
+    #old parse_estate_type "rent/appartments-offers"
+    parse_estate_type "rent"
+    parse_estate_type "secondary/rooms-sale"
+    parse_estate_type "secondary/appartments-sale"
+    parse_estate_type "garage"
     parse_estate_type "out-of-town/houses"
     #parse_estate_type "out-of-town/lands"
     #parse_estate_type "commercial"
@@ -40,7 +42,7 @@ class IrrRealEstate
   end
 
   def parse_estate_type estate_type
-    for page in 1..30 do
+    for page in 5..30 do
       parse_page estate_type, page
     end
   end
@@ -53,6 +55,7 @@ class IrrRealEstate
       begin
         @total_count = @total_count + 1
         parse_advert(advert)
+        wait_for_user if @pause
       rescue Exception => exc
         puts exc
         if exc.message == "User break"
@@ -80,23 +83,27 @@ class IrrRealEstate
 
     irr_id = doc.at("input#ad_id")[:value]
     @realty = Realty.find_by_irr_id irr_id
-
-    realty_type = get_realty_type(doc)
-    return "" if realty_type == "continue"
-    
-    @realty = Realty.new :irr_id => irr_id,
-      :realty_type => realty_type if @realty.blank?
+    @realty = Realty.new :irr_id => irr_id if @realty.blank?
 
     @realty.street = nil
-
-    puts "Realty type: #{@realty.realty_type.name}. Purpose:#{@realty.realty_type.realty_purpose.name}"
 
     price = doc.at("input#ar_price")
     parse_field "Price", price.nil? ? "0.2" : price[:value]
 
     (doc/"table.customfields"/"tr").each do |field|
-      parse_field field.at("th").inner_text, field.at("td").inner_text
+      parse_field field.at("th").inner_text, field.at("td").inner_text, doc
     end
+
+    if @realty.realty_type.blank?
+      realty_type = get_realty_type(doc)
+      if realty_type == "continue"
+        return ""
+      else
+        @realty.realty_type = realty_type
+      end
+    end
+
+    puts "Realty type: #{@realty.realty_type.name}. Purpose:#{@realty.realty_type.realty_purpose.name}"
 
     description = doc.at("div.additional-text p")
     parse_field "Description", description.inner_text unless description.blank?
@@ -150,7 +157,7 @@ class IrrRealEstate
     @realty.save!
   end
 
-  def parse_field field_name, field_value
+  def parse_field field_name, field_value, doc = ""
     field_name = field_name.strip.gsub(":","").gsub("?","")
     field_value = field_value.strip
 
@@ -159,6 +166,8 @@ class IrrRealEstate
     if field_name == "Price"
       @realty.price = field_value.blank? ? 0 : field_value.to_d
       @realty.currency = Currency.find_by_short_name "РУБ"
+    elsif field_name == "Тип объекта"
+      @realty.realty_type = get_realty_type(doc, field_value)
     elsif field_name == "Тип предложения"
       @realty.service_type = get_service_type field_value
     elsif field_name == "Регион"
@@ -255,7 +264,7 @@ class IrrRealEstate
     raise "Can't find service type:#{text}" if $1.nil?
   end
 
-  def get_realty_type doc
+  def get_realty_type doc, type = ""
     live_purpose = RealtyPurpose.find_by_name "Жилое"
     return live_purpose.realty_types.find_by_name("Комната") unless doc.at("a.arrdown[@href='/real-estate/rent/rooms-offers/']").nil?
     return live_purpose.realty_types.find_by_name("Комната") unless doc.at("a.arrdown[@href='/real-estate/secondary/rooms-sale/']").nil?
@@ -263,6 +272,8 @@ class IrrRealEstate
     return live_purpose.realty_types.find_by_name("Квартира") unless doc.at("a.arrdown[@href='/real-estate/secondary/appartments-sale/']").nil?
     return live_purpose.realty_types.find_by_name("Дом") unless doc.at("a.arrdown[@href='/real-estate/out-of-town/houses/']").nil?
     return live_purpose.realty_types.find_by_name("Участок") unless doc.at("a.arrdown[@href='/real-estate/out-of-town/lands/']").nil?
+    return live_purpose.realty_types.find_by_name("Комната") if !doc.at("a.arrdown[@href='/real-estate/rent/']").nil? && type == "комната"
+    return live_purpose.realty_types.find_by_name("Квартира") if !doc.at("a.arrdown[@href='/real-estate/rent/']").nil?
 
     other_purpose = RealtyPurpose.find_by_name "Другое"
     return other_purpose.realty_types.find_by_name("Гараж") unless doc.at("a.arrdown[@href='/real-estate/garage/']").nil?
@@ -314,6 +325,7 @@ class IrrRealEstate
       #now we should have district and street
       geodata = retrieve_geodata location.name
       @realty.is_exact = !geodata.nil?
+      use_default_street if geodata.nil?
     end
   end
 
@@ -383,10 +395,19 @@ class IrrRealEstate
   end
 
   def parse_street_from_text text
-    $KCODE = "UTF8"
+    #$KCODE = "UTF8"
     puts "Parse string from text: #{text}"
-    r_name = '\w+[^,\w]*\w*'
+    r_name = '\w+[^,\(\)\w]*\w*'
     text =~ /ул\W+((?!план\.)#{r_name})/i
+    text =~ /[^\w]дер\.\W*(#{r_name})/i if $1.nil?
+    text =~ /[^\w]д\.\W*(#{r_name})/i if $1.nil?
+    text =~ /[^\w]с\.\W*(#{r_name})/i if $1.nil?
+    text =~ /[^\w]ст\.\W*(\w+[^,\w]*\w*)/i if $1.nil?
+    text =~ /[^\w]г\.\W*(#{r_name})/i if $1.nil?
+    text =~ /в селе\W+(#{r_name})/i if $1.nil?
+    text =~ /в деревне\W+(#{r_name})/i if $1.nil?
+    text =~ /[П|п]оселок\W+(#{r_name})/i if $1.nil?
+    text =~ /[Г|г]ород\W+(#{r_name})/i if $1.nil?
     text =~ /на\W+(#{r_name})\W+пр/i if $1.nil?
     text =~ /пр-кт\W+(#{r_name})/i if $1.nil?
     text =~ /просп\W+(#{r_name})/i if $1.nil?
@@ -395,9 +416,10 @@ class IrrRealEstate
     text =~ /пр\W+(#{r_name})/i if $1.nil?
     text =~ /на\W+((?!.+\sсрок)#{r_name})/i if $1.nil?
     text =~ /в\W+(#{r_name})\W+в\/г/i if $1.nil?
+    
 
     street = $1
-    if !street.nil? && !street.scan(/(К|комн)|(М|малосем)/i).blank?
+    if !street.nil? && !street.scan(/([К|к]омн)|([М|м]алосем)/i).blank?
       text =~ /(#{r_name})\W+ул\W+/i
       text =~ /(#{r_name})\W+пр\W+/i if $1.nil?
       text =~ /(#{r_name})\W+м\/р-н\W+/i if $1.nil?

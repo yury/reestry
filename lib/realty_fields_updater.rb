@@ -44,7 +44,7 @@ class RealtyFieldsUpdater
         field.irr_parsers.destroy_all
 
          unless irr_name.blank?
-           irr_name.split(",").each do |name|     
+           irr_name.split(";").each do |name|
              field.irr_parsers << IrrParser.new(:name => name.strip, :parser => irr_parser)
            end
          end

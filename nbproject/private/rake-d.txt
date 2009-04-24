@@ -43,6 +43,7 @@ doc\:plugins\:bj=Generate documentation for the bj plugin
 doc\:plugins\:geokit-rails=Generate documentation for the geokit-rails plugin
 doc\:plugins\:jrails=Generate documentation for the jrails plugin
 doc\:plugins\:paperclip=Generate documentation for the paperclip plugin
+doc\:plugins\:plugin=Generate documentation for the plugin plugin
 doc\:plugins\:restful_authentication=Generate documentation for the restful_authentication plugin
 doc\:plugins\:russian=Generate documentation for the russian plugin
 doc\:plugins\:spawn=Generate documentation for the spawn plugin
