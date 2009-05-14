@@ -2,7 +2,7 @@ class RealtyFieldsUpdater
   require 'csv'
 
   def self.update
-    realty_types_cell = 7
+    realty_types_cell = 8
     is_first_row = true
     realty_types = []
     CSV.open(Dir.getwd + "/doc/realty_fields.csv", "r", "\t") do |row|
@@ -24,10 +24,11 @@ class RealtyFieldsUpdater
          field_name = row[0].trim
          field_type = RealtyFieldType.find_by_name row[1].trim
          group_name = row[2].trim
-         list_values = row[3].nil? ? "" : row[3].trim
-         irr_name = row[4].nil? ? nil : row[4].trim
-         irr_parser = row[5].nil? ? nil : row[5].trim
-         service_name = row[6].nil? ? "" : row[6].trim
+         is_predict = row[3].nil? ? false : true
+         list_values = row[4].nil? ? "" : row[4].trim
+         irr_name = row[5].nil? ? nil : row[5].trim
+         irr_parser = row[6].nil? ? nil : row[6].trim
+         service_name = row[7].nil? ? "" : row[7].trim
 
          group = RealtyFieldGroup.find_by_name group_name
          group = RealtyFieldGroup.create :name => group_name if group.blank?
@@ -40,8 +41,9 @@ class RealtyFieldsUpdater
 
          field.realty_field_type = field_type
          field.realty_field_group = group
+         field.predict = is_predict
 
-        field.irr_parsers.destroy_all
+         field.irr_parsers.destroy_all
 
          unless irr_name.blank?
            irr_name.split(";").each do |name|
@@ -53,15 +55,19 @@ class RealtyFieldsUpdater
 
          index = 1
          is_default = true
-         list_values.split(',').each do |value|
-          list_value = ListFieldValue.find_by_name_and_realty_field_id value.trim, field.id
-         list_value = ListFieldValue.new :name => value.trim, :realty_field => field if list_value.blank?
-         list_value.field_value = index
-         list_value.default = is_default
-         list_value.save!
+         list_values.split(',').each do |value_with_weight|
+           value = value_with_weight.split(':')[0]
+           weight = value_with_weight.split(':')[1]
+
+           list_value = ListFieldValue.find_by_name_and_realty_field_id value.trim, field.id
+           list_value = ListFieldValue.new :name => value.trim, :realty_field => field if list_value.blank?
+           list_value.field_value = index
+           list_value.default = is_default
+           list_value.weight = weight
+           list_value.save!
           
-          index = index + 1
-          is_default = false
+           index = index + 1
+           is_default = false
          end
 
         RealtyFieldSetting.delete_all :realty_field_id => field.id

@@ -58,7 +58,7 @@
   <% realties.each do |realty|%>
     <% index = index + 1 %>
     <tr onclick="document.location = '<%= realty_path realty%>'">
-      <td class="center middle"><div class="realty_index bold"><br/><%= index %></div></td>
+      <td class="center middle"><div class="realty_index bold"><br/><a name="r<%= index %>"><%= index %></a></div></td>
       <td class="center" width="100px">
         <%=h truncate(realty.district.location.name, 30) %><br/>
         <%=h truncate(realty.district.name, 30) %><br/>
@@ -83,3 +83,10 @@
     </tr>
   <% end %>
 </table>
+
+<div style="float:right;margin-top:10px;">
+  <%= will_paginate realties %>
+  <div style="float:left;margin-left:10px;margin-top:2px;">
+    <strong>Всего: </strong><%= realties.total_entries %>
+  </div>
+</div>

@@ -42,8 +42,13 @@ class IrrRealEstate
   end
 
   def parse_estate_type estate_type
-    for page in 5..30 do
+    @exist_adverts = 0
+    for page in 1..30 do
       parse_page estate_type, page
+      if @exist_adverts >= 20
+        puts "Breaking parsing due existing adverts"
+        break
+      end
     end
   end
   
@@ -83,7 +88,12 @@ class IrrRealEstate
 
     irr_id = doc.at("input#ad_id")[:value]
     @realty = Realty.find_by_irr_id irr_id
-    @realty = Realty.new :irr_id => irr_id if @realty.blank?
+    if @realty.blank?
+      @realty = Realty.new :irr_id => irr_id
+    else
+      @exist_adverts += 1
+    end
+
 
     @realty.street = nil
 
@@ -207,7 +217,7 @@ class IrrRealEstate
   def add_contact contact_type, value
     contact = Contact.find_by_value_and_contact_type_id(value, contact_type.id)
     contact = Contact.new(:user => @realty.user, :contact_type => contact_type, :value => value) if contact.blank?
-    @realty.contacts << contact
+    @realty.contacts << contact unless @realty.contacts.find_by_value_and_contact_type_id(contact.value, contact.contact_type_id)
     contact
   end
 

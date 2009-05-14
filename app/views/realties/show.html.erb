@@ -26,6 +26,10 @@
 
 <%= map(@realty, :large_map => true, :small_zoom => false, :map_type => true, :width => 750, :height => 400) if @realty.is_exact %>
 
+<% tab "Описание", :style=>"margin-top:20px;" do %>
+  <%=h @realty.description %>
+<% end %>
+
 <% tab_style = "width:212px;margin-bottom:15px;" %>
 
 <% content_for :left do %>
@@ -49,7 +53,7 @@
 
 <% button_style = "width:130px;float:right;margin-right:15px;" %>
 <div style="clear:both;padding-top:25px;">
-  <%= button "Назад", "back", :style =>button_style, :path=>realties_path %>
+  <%= button "Назад", "back", :style =>button_style, :js=>"history.back()" %>
   <% if @realty.user == current_user %>
     <%= button "Редактировать фото", "edit", :style =>button_style, :path=>photos_realty_path(@realty) %>
     <%= button "Редактировать контакты", "edit", :style =>button_style, :path=>contacts_realty_path(@realty) %>

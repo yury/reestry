@@ -21,10 +21,17 @@
     index = 0
     realties.each do |realty|
       index = index + 1
-      map.overlay_init(GMarker.new([realty.lat, realty.lng], 
-          :title => "Объект №#{index}",
-          :icon => icon,
-          :info_window => simple_format(word_wrap("#{realty.description}", 30)))) if realty.is_exact
+      if realty.is_exact
+        marker = GMarker.new([realty.lat, realty.lng],
+            :title => "Объект №#{index}",
+            :icon => icon,
+            :info_window => simple_format(word_wrap("#{realty.description}", 30)))
+
+        map.declare_init(marker, "m#{index}")
+        map.overlay_init(marker)
+        map.event_init(marker, :click, "function(){window.location.href = '#r#{index}';}")
+
+      end
     end
   %>
 
