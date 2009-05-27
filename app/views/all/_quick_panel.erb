@@ -18,11 +18,13 @@
         $(".quick_panel .panel_content").each(function(){
                 $(this).hide();
             });
+        $('.bottom').hide();
             
         if(!alreadyVisible) {
             $("#" + pid + "_btn").addClass("selected");
             $(".panel").each(function(){
                 $(this).show();
+                $('.bottom').show();
             });
             $.cookie("quick_panel", $("#" + pid)[0].id);
             $("#" + pid).show();
@@ -45,7 +47,7 @@
   <tr class="panel" style="display:none;">
     <td colspan="7" class="vl_line vr_line content" style="padding:5px;"><%= body %> </td>
   </tr>
-  <tr class="panel" style="display:none;">
+  <tr class="bottom" style="display:none;">
     <td class="lb"></td>
     <td colspan="5" class="hb_line content" style="line-height:1px;">&nbsp;</td>
     <td class="rb"></td>

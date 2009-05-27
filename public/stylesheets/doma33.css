@@ -518,13 +518,11 @@ div.pagination span.disabled {
 	color:#B2B2B2;
 }
 
-#modalOverlay { background-color:#000; cursor:wait; }
+#simplemodal-overlay { background-color:#000; cursor:wait; }
 
-.modalContainer {
+.simplemodal-container {
     left:50%;
     top:50%;
-    margin-top:-100px;
-    margin-left:-100px;
 }
 
 a { color: #222; }
