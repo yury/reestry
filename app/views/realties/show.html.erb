@@ -26,7 +26,7 @@
 
 <%= map(@realty, :large_map => true, :small_zoom => false, :map_type => true, :width => 750, :height => 400) if @realty.is_exact %>
 
-<% tab "Описание", :style=>"margin-top:20px;" do %>
+<% tab "Описание", :style=>"margin-top:20px;width:100%" do %>
   <%=h @realty.description %>
 <% end %>
 

@@ -30,7 +30,7 @@ class IrrRealEstate
     parse_estate_type "secondary/appartments-sale"
     parse_estate_type "garage"
     parse_estate_type "out-of-town/houses"
-    #parse_estate_type "out-of-town/lands"
+    parse_estate_type "out-of-town/lands"
     #parse_estate_type "commercial"
 
     puts "Errors:"
@@ -45,7 +45,7 @@ class IrrRealEstate
     @exist_adverts = 0
     for page in 1..30 do
       parse_page estate_type, page
-      if @exist_adverts >= 20
+      if @exist_adverts >= 40
         puts "Breaking parsing due existing adverts"
         break
       end
@@ -53,7 +53,7 @@ class IrrRealEstate
   end
   
   def parse_page estate_type, page
-    puts "Parsing page #{page}"
+    puts "Parsing page #{page}. Estate type:#{estate_type}"
     doc = Nokogiri::HTML(open("http:\/\/vladimir.irr.ru\/real-estate\/#{estate_type}\/page#{page}"))
     (doc/"table#adListTable"/"*[@onclick*='document.location']").each do |ad|
       advert = ad["onclick"].scan(%r{document.location = '(.*)'})  
@@ -69,7 +69,7 @@ class IrrRealEstate
           wait_for_user
         else
           @have_errors = @have_errors + 1
-          @errors << exc.message
+          @errors << "Advert:#{advert}. #{exc.message}"
           wait_for_user
         end
       end
@@ -79,6 +79,22 @@ class IrrRealEstate
 
   def wait_for_user
     raise "User break" if @wait && gets.strip == "s"
+  end
+
+  def parse_advert_by_id irr_id
+    @default_street = 'Не определена'
+    @wait = false
+    @pause = false
+    @have_errors = 0
+    @total_count = 0
+    @errors = []
+    @exist_adverts = 0
+
+    begin
+      parse_advert "/advert/#{irr_id}"
+    rescue Exception => exc
+      puts exc
+    end
   end
 
   def parse_advert advert_link
@@ -158,10 +174,17 @@ class IrrRealEstate
     
     date = doc.at("li#ad_date_create")
     date = Time.at date.inner_text.to_i
+    
     puts "Created Date: #{date}"
-    @realty.created_at = date
+    @realty.created_at = date if @realty.id.blank?
 
     parse_place_and_district #if @realty.district_id.blank?
+
+    if @realty.id.blank? && @realty.service_type_id.blank?
+      puts 'Use default service type'
+      wait_for_user
+      @realty.service_type = ServiceType.find_by_name("Продажа")
+    end
 
     puts @realty.inspect
     @realty.save!
@@ -198,7 +221,7 @@ class IrrRealEstate
     elsif field_name == "Дом"
       @realty.number = field_value
     elsif field_name == "Description"
-      @realty.description = field_value
+      @realty.description = clear_description field_value
       continue_if_agency
       parse_street_from_text @realty.description if @realty.street.blank?
     else
@@ -229,8 +252,7 @@ class IrrRealEstate
         value = field_value
         value = 1 if realty_field.realty_field_type.name == 'bool'
       else
-        parser = JSON.parse(irr_parser.parser)
-        value = parse_field_value parser, field_value if parser.class == {}.class
+        value = parse_field_value irr_parser.parser, field_value
       end
 
       if realty_field.realty_field_type.name == 'list'
@@ -247,6 +269,7 @@ class IrrRealEstate
       end
 
       rfv.value = value
+      rfv.save! unless @realty.id.blank?
     end
       
     raise "Can't find value of field:#{field_name}, value:#{field_value}" if value.blank?
@@ -254,7 +277,10 @@ class IrrRealEstate
   end
 
   def parse_field_value parser_hash, field_value
-    parser_hash.each do |reg_exp, value|
+    parser_hash.split(',').each do |reg_exp_with_value|
+      reg_exp = reg_exp_with_value.split(':')[0].strip
+      value = reg_exp_with_value.split(':')[1]
+      
       field_value =~ Regexp.new(reg_exp, 'i')
       return value unless $&.nil?
     end
@@ -284,6 +310,7 @@ class IrrRealEstate
     return live_purpose.realty_types.find_by_name("Участок") unless doc.at("a.arrdown[@href='/real-estate/out-of-town/lands/']").nil?
     return live_purpose.realty_types.find_by_name("Комната") if !doc.at("a.arrdown[@href='/real-estate/rent/']").nil? && type == "комната"
     return live_purpose.realty_types.find_by_name("Квартира") if !doc.at("a.arrdown[@href='/real-estate/rent/']").nil?
+    return live_purpose.realty_types.find_by_name("Участок") if !doc.at("a.arrdown[@href='/real-estate/out-of-town/lands/']").nil?
 
     other_purpose = RealtyPurpose.find_by_name "Другое"
     return other_purpose.realty_types.find_by_name("Гараж") unless doc.at("a.arrdown[@href='/real-estate/garage/']").nil?
@@ -382,6 +409,10 @@ class IrrRealEstate
   def get_geodata_by_address address
     puts "Get geodata by '#{address}'"
     return GoogleGeocoder.geocode(address)
+  end
+
+  def clear_description desc
+     desc.gsub(/\WДата выхода объявления.+/, '')
   end
 
   def continue_if_agency

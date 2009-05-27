@@ -69,7 +69,7 @@
         <div class="f_part">
           <div class="text">
             <span><%= Russian.strftime(Time.now, "На %d %B %Y года")%></span><br/>
-            <span>обработано <%= "#{Realty.count} #{Russian.p(Realty.count, "объект", "объекта", "объектов")}" %></span><br/>
+            <span><%= "#{Russian.p(Realty.count, "обработан", "обработано", "обработано")} #{Realty.count} #{Russian.p(Realty.count, "объект", "объекта", "объектов")}" %></span><br/>
             <span class="bold">&nbsp;
             <% if logged_in? %>
               Пользователь: <%=h current_user.login %>
@@ -78,8 +78,8 @@
             <span class="bold underline" style="font-size:12px">Владимир и Владимирская область</span>
           </div>
           <div class="menu">
-            <div class="<%= menu_item_class "service=1", true %>"><div id="leasing">Аренда</div></div>
-            <div class="<%= menu_item_class "service=2" %>"><div id="sale">Продажа</div></div>
+            <div class="<%= menu_item_class "service=1", :service, 1 %>"><div id="leasing">Аренда</div></div>
+            <div class="<%= menu_item_class "service=2", :service, 2 %>"><div id="sale">Продажа</div></div>
             <div class="<%= menu_item_class "analysis" %>"><div id="analysis">Анализ</div></div>
             <div class="<%= menu_item_class "organizations" %>"><div id="agencies">Агентства</div></div>
             <div class="<%= menu_item_class "profile" %>"><div id="profile">Профиль</div></div>

@@ -76,7 +76,7 @@
     <td>Район:</td>
     <td>
       <span id="realty_district_select">
-        <%= render :partial => "realty_district_select", :locals => { :location_id => realty.get_location_id} %>
+        <%= render :partial => "realty_district_select", :locals => { :location_id => realty.get_location_id, :is_search => false} %>
       </span>
       <font class="mandatory">*</font>
     </td>
@@ -113,7 +113,7 @@
   </tr>
   <tr>
     <td>Комментарии:</td>
-    <td colspan="4"><%= text_area(:realty, :total_area, :class=>'resizable', :rows=>2) %></td>
+    <td colspan="4"><%= text_area(:realty, :description, :class=>'resizable', :rows=>2) %></td>
   </tr>
 </table>
 

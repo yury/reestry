@@ -15,6 +15,8 @@ class RealtiesController < ApplicationController
   # GET /realties
   # GET /realties.xml
   def index
+    params[:service] = 1 if params[:service].blank?
+
     @pars = params
     @realties = Realty.select params
     

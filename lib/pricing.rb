@@ -111,7 +111,7 @@ module Pricing
       error = 0.0
       trials.times do
         training, testing = divide_data(data, test)
-        error += test_algorithm(training, test_algorithm, &algo)
+        error += test_algorithm(training, testing, &algo)
       end
       error / trials
     end
