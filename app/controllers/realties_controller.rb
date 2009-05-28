@@ -12,6 +12,11 @@ class RealtiesController < ApplicationController
                                             :destroy,
                                             :delete_photo
                                             ]
+
+  def home
+    redirect_to "/home.html"
+  end
+
   # GET /realties
   # GET /realties.xml
   def index
