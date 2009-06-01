@@ -4,7 +4,7 @@ module ApplicationHelper
   def block_to_partial(partial_name, options = {}, &block)
     options.reverse_merge!(:style => "")
     options.merge!(:body => capture(&block))
-    concat(render(:partial => partial_name, :locals => options), block.binding)
+    concat(render(:partial => partial_name, :locals => options))
   end
   
   def tab title, options = {}, &block
@@ -15,7 +15,7 @@ module ApplicationHelper
     concat(render(:partial => "all/quick_panel", 
       :locals => {:left_panels=>left_panels, 
                   :right_panels=>right_panels,
-                  :body=>capture(&block)}), block.binding)
+                  :body=>capture(&block)}))
   end
   
   def button title, name, options = {}

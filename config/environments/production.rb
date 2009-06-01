@@ -7,10 +7,15 @@ config.cache_classes = true
 # Use a different logger for distributed setups
 # config.logger = SyslogLogger.new
 
+config.whiny_nils = true
+config.action_view.debug_rjs                         = true
+
 # Full error reports are disabled and caching is turned on
 config.action_controller.consider_all_requests_local = false
 config.action_controller.perform_caching             = true
 config.action_view.cache_template_loading            = true
+
+config.log_level = :debug
 
 # Use a different cache store in production
 # config.cache_store = :mem_cache_store

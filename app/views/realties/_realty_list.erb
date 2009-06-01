@@ -60,17 +60,17 @@
     <tr onclick="document.location = '<%= realty_path realty%>'">
       <td class="center middle"><div class="realty_index bold"><br/><a name="r<%= index %>"><%= index %></a></div></td>
       <td class="center" width="100px">
-        <%=h truncate(realty.district.location.name, 30) %><br/>
-        <%=h truncate(realty.district.name, 30) %><br/>
-        <%=h truncate(realty.street, 20) %>
+        <%=h truncate(realty.district.location.name, :length => 30) %><br/>
+        <%=h truncate(realty.district.name, :length => 30) %><br/>
+        <%=h truncate(realty.street, :length => 20) %>
       </td>
       <td>
-        <%= truncate(get_description(realty), 135) %><br/>
+        <%= truncate(get_description(realty), :length => 135) %><br/>
           <div>
             <div style="float:left">
             <%= image_tag "p.png" unless realty.realty_photos.empty? %>
             </div>
-            <div class="small right"><%=h truncate(realty.description, 65) %></div>
+            <div class="small right"><%=h truncate(realty.description, :length => 65) %></div>
           </div>
       </td>
 

@@ -1,6 +1,8 @@
 $KCODE='u'
 
 class IrrRealEstate
+  require 'geokit'
+  require 'vendor/plugins/geokit-rails/init.rb'
   require 'rubygems'
   require 'nokogiri'
   require 'open-uri'

@@ -1,5 +1,5 @@
 class CurrenciesController < ApplicationController
-  before_filter :admin_login_required
+  #before_filter :admin_login_required
   
   # GET /currencies
   # GET /currencies.xml

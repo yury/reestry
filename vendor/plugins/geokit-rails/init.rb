@@ -6,6 +6,7 @@
 #  with this line:   config.gem "andre-geokit", :lib=>'geokit', :source => 'http://gems.github.com'
 #
 if defined? Geokit
+  require 'geokit'
   require 'geokit-rails/defaults'
   require 'geokit-rails/acts_as_mappable'
   require 'geokit-rails/ip_geocode_lookup'

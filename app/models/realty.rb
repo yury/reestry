@@ -1,4 +1,5 @@
 class Realty < ActiveRecord::Base
+
   validates_presence_of :street, :price, :currency_id, :realty_type_id, :service_type_id, :district_id
   validates_numericality_of :price
   
