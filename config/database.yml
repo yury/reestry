@@ -38,7 +38,7 @@ test:
 production:
   adapter: mysql
   encoding: utf8
-  database: reestry_production
+  database: reestry
   username: root
   password: password1
   host: localhost
