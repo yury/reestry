@@ -34,7 +34,7 @@ class IrrRealEstate
     parse_estate_type "out-of-town/houses"
     parse_estate_type "out-of-town/lands"
     #parse_estate_type "commercial"
-
+#
     puts "Errors:"
     @errors.each do |error|
       puts error

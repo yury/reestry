@@ -58,6 +58,7 @@ class RealtyFieldsUpdater
          list_values.split(',').each do |value_with_weight|
            value = value_with_weight.split(':')[0]
            weight = value_with_weight.split(':')[1]
+           weight = 0 if weight.blank?
 
            list_value = ListFieldValue.find_by_name_and_realty_field_id value.trim, field.id
            list_value = ListFieldValue.new :name => value.trim, :realty_field => field if list_value.blank?
