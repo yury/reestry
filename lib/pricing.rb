@@ -52,7 +52,8 @@ module Pricing
       dlist = distances(data, vector)
       avg = 0.0
 
-      dlist.each_with_index do |e, i|
+      #dlist.each_with_index do |e, i|
+      for i in 0...[k, dlist.length].min
         idx = dlist[i][1]
         avg += data[idx].result
       end
@@ -98,7 +99,8 @@ module Pricing
       error = 0.0
       testset.each do |row|
         guess = algo.call(trainset, row.input)
-        error += (row.result - guess) ** 2
+        #error += (row.result - guess) ** 2
+        error += (row.result - guess > 0.15*row.result ? 1 : 0)
       end
       error / testset.size
     end
@@ -108,9 +110,15 @@ module Pricing
     # data with a number of trials. The result is the average error
     # of each trial.
     def cross_validate(data, trials=100, test=0.05, &algo)
+      if data.length < 2
+        return 0
+      end
+      
       error = 0.0
       trials.times do
         training, testing = divide_data(data, test)
+        testing << training.slice!(1) if testing.blank?
+        #puts "Training length:#{training.length}. Test length: #{testing.length}"
         error += test_algorithm(training, testing, &algo)
       end
       error / trials
