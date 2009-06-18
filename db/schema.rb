@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090620232814) do
+ActiveRecord::Schema.define(:version => 20090618074343) do
 
   create_table "area_units", :force => true do |t|
     t.string   "name",       :null => false
@@ -119,6 +119,8 @@ ActiveRecord::Schema.define(:version => 20090620232814) do
     t.integer  "user_id",                                                                          :null => false
     t.integer  "district_id",                                                                      :null => false
     t.datetime "expire_at"
+    t.decimal  "distance",                        :precision => 10, :scale => 3
+    t.decimal  "predict_price",                   :precision => 19, :scale => 2
   end
 
   add_index "realties", ["area_unit_id"], :name => "fk_realty_area_units"

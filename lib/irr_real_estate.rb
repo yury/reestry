@@ -179,6 +179,7 @@ class IrrRealEstate
     
     puts "Created Date: #{date}"
     @realty.created_at = date if @realty.id.blank?
+    @realty.expire_at = date.advance(:months => 1) if @realty.id.blank?
 
     parse_place_and_district #if @realty.district_id.blank?
 
@@ -403,7 +404,7 @@ class IrrRealEstate
 
   def check_geodata? location, geodata
     @center = get_geodata_by_address "#{location},Россия" if @center.blank?
-    distance = Realty.distance_between(@center, geodata, :units => :kms)
+    @realty.distance = Realty.distance_between(@center, geodata, :units => :kms)
     puts "Distance from #{location} is #{distance}"
     geodata.success? && distance < 220
   end

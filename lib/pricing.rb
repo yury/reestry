@@ -18,7 +18,7 @@ module Pricing
     # methods in this module. The returned object is an
     # <tt>OpenStruct</tt> with the fields <tt>input</tt> and
     # <tt>result</tt>.
-    def make_data(result, *input)
+    def make_data(result, input)
       OpenStruct.new(:result => result, :input => input)
     end
 
