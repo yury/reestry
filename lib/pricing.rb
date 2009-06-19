@@ -40,7 +40,8 @@ module Pricing
       distances = []
       data.each_with_index do |d, i|
         v2 = d.input
-        distances << [euclidean(vector, v2), i]
+        dist = [euclidean(vector, v2), i]
+        distances << dist unless dist.nil?
       end
       distances.sort
     end
@@ -70,8 +71,9 @@ module Pricing
       distances = distances(data, vector)
       avg = 0.0
       total_weight = 0.0
-      k.times do |i|
+      [k, distances.length].min.times do |i|
         dist, idx = distances[i]
+        raise "Dist is #{dist}. Idx: #{idx}" if dist.nil?
         weight = block.call(dist)
         avg += weight * data[idx].result
         total_weight += weight

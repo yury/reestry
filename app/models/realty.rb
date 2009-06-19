@@ -75,7 +75,7 @@ class Realty < ActiveRecord::Base
                    "type" => "realty_type_id", 
                    "location" => "district_id",
                    "address" => "concat(ifnull(place,''), ifnull(street,''), ifnull(number,''))",
-                   "price" => "price",
+                   "price" => "if(price>1, price, predict_price)",
                    "area" => "total_area"
                    }
       sort = sort_pars[params[:sort]] || "price"
@@ -100,7 +100,15 @@ class Realty < ActiveRecord::Base
     result[:non_agency] = Realty.count_by_sql("select sum(c) from (select count(*) c from realties group by user_id having count(*) = 1) a") * 100.00 / Realty.count
     result
   end
-  
+
+  def price_or_predict
+    price_blank? ? predict_price : price
+  end
+
+  def price_blank?
+    price < 1
+  end
+
   protected
   def validate
     errors.add(:price, "должна быть не менее 0.01") if price.nil? || price < 0.01

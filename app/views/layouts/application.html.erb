@@ -1,8 +1,8 @@
 <% content_for :head do%>
   <script language="javascript" type="text/javascript">
     $(document).ready(function() {
-      $("#leasing").click(function() { document.location = "/?service=1"; });
-      $("#sale").click(function() { document.location = "/?service=2"; });
+      $("#leasing").click(function() { document.location = "/realties?service=1"; });
+      $("#sale").click(function() { document.location = "/realties?service=2"; });
       $("#agencies").click(function() { document.location = "/organizations"; });
       $("#profile").click(function() {
   <% if current_user %>
@@ -117,7 +117,9 @@
       </div>
 
     <div id="footer">&nbsp;</div>
-    <div id="footer_text">AnjLab, 2009. Все права защищены.</div>
+    <div id="footer_text">
+      AnjLab, 2009. Все права защищены. Powered with RMathModel v.<%= Pricer.version %>.
+    </div>
 
   </body>
 </html>

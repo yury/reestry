@@ -1,22 +1,46 @@
 class Pricer
   
-  cattr_reader(:data_cache)
+  cattr_reader(:data_cache, :version)
   
   @@data_cache = {}
+  @@version = '1.2'
 
   def self.predict_price realty
     start_time = Time.now
 
     data = get_data_for_pricing realty
     vector = get_input_from_realty realty
-    price = Pricing.knn_estimate(data, vector)
+    price = Pricing.weighted_knn_estimate(data,vector) {|dist| Pricing::Weights.gaussian(dist)}
 
     puts "Execution time: #{Time.now - start_time}"
-    price
+    price.nan? ? nil : round_price(price)
+  end
+
+  def self.round_price price
+    price = price.round.to_f
+    price.round(-price.round.to_s.length + 2)
+  end
+
+  def self.recalculate_prices
+    realties = Realty.find(:all, :conditions => "price < 1 and predict_price is null")
+    puts "Recalculate prices for #{realties.length} realties"
+    counter = 0
+    realties.each do |realty|
+      puts "Realty: #{realty.id}"
+      realty.predict_price = predict_price(realty)
+      realty.save!
+      counter += 1
+      puts "Progress: #{counter*100/realties.length}%"
+    end
+    puts 'Done'
   end
 
   def self.analyze_algorithms
-    puts 'Analize weighted_knn_estimate algorithm (k=5)'
+    puts 'Analize weighted_knn_estimate algorithm (k=5) with inverse weight'
+    analyze_algorithm() { |data, vector| Pricing.weighted_knn_estimate(data,vector) {|dist| Pricing::Weights.inverse(dist)}}
+    puts 'Analize weighted_knn_estimate algorithm (k=5) with subtract weight'
+    analyze_algorithm() { |data, vector| Pricing.weighted_knn_estimate(data,vector) {|dist| Pricing::Weights.subtract_weight(dist)}}
+    puts 'Analize weighted_knn_estimate algorithm (k=5) with gaussian weight'
     analyze_algorithm() { |data, vector| Pricing.weighted_knn_estimate(data,vector) {|dist| Pricing::Weights.subtract_weight(dist)}}
     puts 'Analize knn_estimate algorithm (k=3)'
     analyze_algorithm() { |data, vector| Pricing.knn_estimate(data, vector) }
@@ -34,6 +58,16 @@ class Pricer
     end
 
     puts "Overall result: #{overall_result*100/tries}%"
+  end
+
+  def self.warmup
+    puts 'Clearing cache'
+    clear_cache
+
+    Realty.find_by_sql("select * from realties group by service_type_id, realty_type_id").each do |realty|
+      get_data_for_pricing(realty)
+    end
+    puts 'Pricer is warm.'
   end
 
   def self.list_cache realty
@@ -97,6 +131,10 @@ class Pricer
 
   def self.get_data_id realty
     "service_type_id = #{realty.service_type.name} and realty_type_id = #{realty.realty_type.name}".hash
+  end
+
+  def self.clear_cache
+    @@data_cache.clear
   end
 
   def self.get_data_from_cache realty

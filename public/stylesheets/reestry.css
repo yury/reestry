@@ -293,6 +293,11 @@ table.grid .price {
     width:100px;
 }
 
+table.grid .predict_price {
+    color:#8b8;
+    font-weight:normal;
+}
+
 table.grid .realty_index {
     background: transparent url(/images/r.gif) no-repeat scroll center center;
     width:43px;
@@ -553,6 +558,10 @@ div.grippie {
     margin-bottom:0pt;
     width:95%;
     height: 20%;
+}
+
+div.map {
+    overflow:hidden;
 }
 
 

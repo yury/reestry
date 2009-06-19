@@ -74,7 +74,9 @@
           </div>
       </td>
 
-  <td class="price"><%=h number_to_currency(realty.price, :precision => 0) %></td>
+  <td class="price<%= ' predict_price' if realty.price_blank? %>" <%= "title='Предполагаемая цена'" if realty.price_blank? %> >
+    <%=h number_to_currency(realty.price_or_predict, :precision => 0) %>
+  </td>
       
       <td class="image" style="padding-right:5px;">
         <%= image_tag "nic.png", :mouseover=>"ic.png", :alt => "В блокнот" %>
