@@ -82,7 +82,7 @@ class Pricer
 
   def self.get_conditions realty
     ["service_type_id = ? and realty_type_id = ? and price > 0.2 and expire_at >= ?",
-        realty.service_type_id, realty.realty_type_id, Time.today.advance(:months => -2)]
+        realty.service_type_id, realty.realty_type_id, Date.today.advance(:months => -2)]
   end
 
   def self.get_data_for_pricing realty

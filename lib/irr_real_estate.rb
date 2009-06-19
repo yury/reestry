@@ -405,8 +405,8 @@ class IrrRealEstate
   def check_geodata? location, geodata
     @center = get_geodata_by_address "#{location},Россия" if @center.blank?
     @realty.distance = Realty.distance_between(@center, geodata, :units => :kms)
-    puts "Distance from #{location} is #{distance}"
-    geodata.success? && distance < 220
+    puts "Distance from #{location} is #{@realty.distance}"
+    geodata.success? && @realty.distance < 220
   end
 
   def get_geodata_by_address address
