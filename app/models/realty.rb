@@ -109,6 +109,10 @@ class Realty < ActiveRecord::Base
     price < 1
   end
 
+  def user_can_edit? current_user
+    user_id == current_user.id || current_user.is_admin
+  end
+
   protected
   def validate
     errors.add(:price, "должна быть не менее 0.01") if price.nil? || price < 0.01

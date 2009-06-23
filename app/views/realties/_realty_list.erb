@@ -1,14 +1,14 @@
 <% content_for :head do %>
   <script language="javascript" type="text/javascript">
-      $(document).ready(function() {
-          $("#r_list tbody tr").hover(
-          function () {
-              $(this).addClass("hover");
-          },
-          function () {
-              $(this).removeClass("hover");
-          }
-          );
+    $(document).ready(function() {
+      $("#r_list tbody tr").hover(
+      function () {
+        $(this).addClass("hover");
+      },
+      function () {
+        $(this).removeClass("hover");
+      }
+    );
 
       $(".image").click(function(){
         $.ajax({
@@ -24,7 +24,7 @@
         });
         return false;
       });
-      });
+    });
   </script>
 <% end %>
 
@@ -39,7 +39,7 @@
 
 <% content_for :left do %>
   <% tab "Карта", :style => "margin-top:10px;" do%>
-      <%= map(realties, :width => 253, :height => 400) %>
+    <%= map(realties, :width => 253, :height => 400) %>
   <% end %>
 <% end %>
 
@@ -58,7 +58,17 @@
   <% realties.each do |realty|%>
     <% index = index + 1 %>
     <tr onclick="document.location = '<%= realty_path realty%>'">
-      <td class="center middle"><div class="realty_index bold"><br/><a name="r<%= index %>"><%= index %></a></div></td>
+      <td class="center middle">
+        <div class="realty_index bold"><br/><a name="r<%= index %>"><%= index %></a></div>
+        <% if realty.user_can_edit?(current_user) %>
+          <% link_to edit_realty_path(realty) do %>
+            <%= image_tag "layout_edit.png", :style => "border:0px", :title => "Редактировать" %>
+          <% end %>
+          <% link_to(realty, :confirm => 'Вы уверены, что хотите удалить это объявление?', :method => :delete) do %>
+            <%= image_tag "delete.png", :style => "border:0px", :title => "Удалить" %>
+          <% end %>
+        <% end %>
+      </td>
       <td class="center" width="100px">
         <%=h truncate(realty.district.location.name, :length => 30) %><br/>
         <%=h truncate(realty.district.name, :length => 30) %><br/>
@@ -66,22 +76,23 @@
       </td>
       <td>
         <%= truncate(get_description(realty), :length => 135) %><br/>
-          <div>
-            <div style="float:left">
+        <div>
+          <div style="float:left">
             <%= image_tag "p.png" unless realty.realty_photos.empty? %>
-            </div>
-            <div class="small right"><%=h truncate(realty.description, :length => 65) %></div>
           </div>
+          <div class="small right"><%=h truncate(realty.description, :length => 65) %></div>
+        </div>
       </td>
 
-  <td class="price<%= ' predict_price' if realty.price_blank? %>" <%= "title='Предполагаемая цена'" if realty.price_blank? %> >
-    <%=h number_to_currency(realty.price_or_predict, :precision => 0) %>
-  </td>
-      
+      <td class="price<%= ' predict_price' if realty.price_blank? %>" <%= "title='Предполагаемая цена'" if realty.price_blank? %> >
+        <%=h number_to_currency(realty.price_or_predict, :precision => 0) %>
+      </td>
+
       <td class="image" style="padding-right:5px;">
         <%= image_tag "nic.png", :mouseover=>"ic.png", :alt => "В блокнот" %>
         <%= hidden_field_tag "id_#{realty.id}", realty.id %>
       </td>
+
     </tr>
   <% end %>
 </table>

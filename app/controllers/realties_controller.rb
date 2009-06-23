@@ -194,7 +194,7 @@ private
   def check_access
     if authorized?
       realty = Realty.find(params[:id])
-      if !realty.nil? && realty.user_id == current_user.id
+      if !realty.nil? && realty.user_can_edit?(current_user)
         return true
       elsif
         flash[:notice] = 'Доступ запрещен.'

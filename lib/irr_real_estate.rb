@@ -25,16 +25,13 @@ class IrrRealEstate
 
     beginning = Time.now
     
-    #old parse_estate_type "rent/rooms-offers"
-    #old parse_estate_type "rent/appartments-offers"
-    parse_estate_type "rent"
-    parse_estate_type "secondary/rooms-sale"
-    parse_estate_type "secondary/appartments-sale"
-    parse_estate_type "garage"
-    parse_estate_type "out-of-town/houses"
-    parse_estate_type "out-of-town/lands"
+    #parse_estate_type "rent"
+    parse_estate_type "apartments-sale/secondary/"
+    #parse_estate_type "garage"
+    #parse_estate_type "out-of-town/houses"
+    #parse_estate_type "out-of-town/lands"
     #parse_estate_type "commercial"
-#
+
     puts "Errors:"
     @errors.each do |error|
       puts error
@@ -122,6 +119,9 @@ class IrrRealEstate
       parse_field field.at("th").inner_text, field.at("td").inner_text, doc
     end
 
+    description = doc.at("div.additional-text p")
+    parse_field "Description", description.inner_text unless description.blank?
+
     if @realty.realty_type.blank?
       realty_type = get_realty_type(doc)
       if realty_type == "continue"
@@ -132,9 +132,6 @@ class IrrRealEstate
     end
 
     puts "Realty type: #{@realty.realty_type.name}. Purpose:#{@realty.realty_type.realty_purpose.name}"
-
-    description = doc.at("div.additional-text p")
-    parse_field "Description", description.inner_text unless description.blank?
 
     phone = doc.at("li.ico-phone")
     phone = phone.inner_text.gsub(/\D/, "") unless phone.blank?
@@ -298,6 +295,7 @@ class IrrRealEstate
     return ServiceType.find_by_name("Аренда") unless $1.nil?
     text =~ /(продам)/i
     text =~ /(куплю)/i if $1.nil?
+    text =~ /(предложение)/i if $1.nil?
     return ServiceType.find_by_name("Продажа") unless $1.nil?
 
     raise "Can't find service type:#{text}" if $1.nil?
@@ -306,9 +304,9 @@ class IrrRealEstate
   def get_realty_type doc, type = ""
     live_purpose = RealtyPurpose.find_by_name "Жилое"
     return live_purpose.realty_types.find_by_name("Комната") unless doc.at("a.arrdown[@href='/real-estate/rent/rooms-offers/']").nil?
-    return live_purpose.realty_types.find_by_name("Комната") unless doc.at("a.arrdown[@href='/real-estate/secondary/rooms-sale/']").nil?
+    return live_purpose.realty_types.find_by_name("Комната") if !doc.at("a.arrdown[@href='/real-estate/apartments-sale/secondary/']").nil? && !@realty.description.scan(/[К|к]омнату/i).blank?
     return live_purpose.realty_types.find_by_name("Квартира") unless doc.at("a.arrdown[@href='/real-estate/rent/appartments-offers/']").nil?
-    return live_purpose.realty_types.find_by_name("Квартира") unless doc.at("a.arrdown[@href='/real-estate/secondary/appartments-sale/']").nil?
+    return live_purpose.realty_types.find_by_name("Квартира") unless doc.at("a.arrdown[@href='/real-estate/apartments-sale/secondary/']").nil?
     return live_purpose.realty_types.find_by_name("Дом") unless doc.at("a.arrdown[@href='/real-estate/out-of-town/houses/']").nil?
     return live_purpose.realty_types.find_by_name("Участок") unless doc.at("a.arrdown[@href='/real-estate/out-of-town/lands/']").nil?
     return live_purpose.realty_types.find_by_name("Комната") if !doc.at("a.arrdown[@href='/real-estate/rent/']").nil? && type == "комната"
