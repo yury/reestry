@@ -110,7 +110,7 @@ class Realty < ActiveRecord::Base
   end
 
   def user_can_edit? current_user
-    user_id == current_user.id || current_user.is_admin
+    !current_user.blank? && (user_id == current_user.id || current_user.is_admin)
   end
 
   protected

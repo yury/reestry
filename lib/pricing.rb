@@ -28,7 +28,8 @@ module Pricing
     def euclidean(v1, v2)
       d = 0.0
       v1.each_with_index do |e, i|
-        d += (v1[i] - v2[i]) ** 2
+        dist = (v1[i] - v2[i]) ** 2
+        d += dist unless dist.to_f.nan?
       end
       Math.sqrt(d)
     end
