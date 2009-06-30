@@ -39,7 +39,7 @@
 
 <% content_for :left do %>
   <% tab "Карта", :style => "margin-top:10px;" do%>
-    <%# = map(realties, :width => 253, :height => 400) %>
+    <%= map(realties, :width => 253, :height => 400) %>
   <% end %>
 <% end %>
 
@@ -61,14 +61,6 @@
       <td class="center middle">
         <div class="realty_index bold"><br/><a name="r<%= index %>"><%= index %></a></div>
         <div class="small" style="margin-top:2px;<%= "color:#009245;" if realty.new? %>"><%= Russian.strftime(realty.created_at, "%d %b") %></div>
-        <% if realty.user_can_edit?(current_user) %>
-          <% link_to edit_realty_path(realty) do %>
-            <%= image_tag "layout_edit.png", :style => "border:0px", :title => "Редактировать" %>
-          <% end %>
-          <% link_to(realty, :confirm => 'Вы уверены, что хотите удалить это объявление?', :method => :delete) do %>
-            <%= image_tag "delete.png", :style => "border:0px", :title => "Удалить" %>
-          <% end %>
-        <% end %>
       </td>
       <td class="center" width="100px">
         <%=h truncate(realty.district.location.name, :length => 30) %><br/>
@@ -80,8 +72,16 @@
         <div>
           <div style="float:left">
             <%= image_tag "p.png" unless realty.realty_photos.empty? %>
+            <% if realty.user_can_edit?(current_user) %>
+              <% link_to edit_realty_path(realty) do %>
+                <%= image_tag "layout_edit.png", :style => "border:0px", :title => "Редактировать" %>
+              <% end %>
+              <% link_to(realty, :confirm => 'Вы уверены, что хотите удалить это объявление?', :method => :delete) do %>
+                <%= image_tag "delete.png", :style => "border:0px", :title => "Удалить" %>
+              <% end %>
+            <% end %>
           </div>
-          <div class="small right"><%=h truncate(realty.description, :length => 65) %></div>
+          <div class="small right"><%=h truncate(realty.description, :length => 55) %></div>
         </div>
       </td>
 
@@ -90,8 +90,8 @@
       </td>
 
       <td class="image" style="padding-right:5px;">
-          <%= image_tag "nic.png", :mouseover=>"ic.png", :alt => "В блокнот" %>
-          <%= hidden_field_tag "id_#{realty.id}", realty.id %>
+        <%= image_tag "nic.png", :mouseover=>"ic.png", :alt => "В блокнот" %>
+        <%= hidden_field_tag "id_#{realty.id}", realty.id %>
       </td>
 
     </tr>
