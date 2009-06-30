@@ -56,7 +56,7 @@ class Realty < ActiveRecord::Base
       end
     end
     
-    query += " WHERE expire_at <> now()"
+    query += " WHERE expire_at <= now()"
     query += equal pars, params[:service], "service_type_id"
     query += equal pars, params[:district], "district_id"
     query += equal pars, params[:type], "realty_type_id"
