@@ -117,7 +117,7 @@ class Realty < ActiveRecord::Base
   end
 
   def new?
-    (Time.now - created_at)/3600/24 <= 30
+    (Time.now - created_at)/3600/24 <= 7
   end
 
   protected
