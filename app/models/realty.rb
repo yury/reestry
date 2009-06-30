@@ -56,7 +56,7 @@ class Realty < ActiveRecord::Base
       end
     end
     
-    query += " WHERE expire_at >= now()"
+    query += " WHERE expire_at <> now()"
     query += equal pars, params[:service], "service_type_id"
     query += equal pars, params[:district], "district_id"
     query += equal pars, params[:type], "realty_type_id"
@@ -76,10 +76,13 @@ class Realty < ActiveRecord::Base
                    "location" => "district_id",
                    "address" => "concat(ifnull(place,''), ifnull(street,''), ifnull(number,''))",
                    "price" => "if(price>1, price, predict_price)",
-                   "area" => "total_area"
+                   "area" => "total_area",
+                   "date" => "created_at"
                    }
       sort = sort_pars[params[:sort]] || "price"
-      query += " ORDER BY #{sort} #{sort_dir}"
+      query += " ORDER BY #{sort} #{sort_dir}, created_at desc"
+    else
+      query += " ORDER BY created_at desc"
     end
         
     result = []
@@ -111,6 +114,10 @@ class Realty < ActiveRecord::Base
 
   def user_can_edit? current_user
     !current_user.blank? && (user_id == current_user.id || current_user.is_admin)
+  end
+
+  def new?
+    (Time.now - created_at)/3600/24 <= 30
   end
 
   protected

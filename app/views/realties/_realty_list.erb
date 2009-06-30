@@ -39,14 +39,14 @@
 
 <% content_for :left do %>
   <% tab "Карта", :style => "margin-top:10px;" do%>
-    <%= map(realties, :width => 253, :height => 400) %>
+    <%# = map(realties, :width => 253, :height => 400) %>
   <% end %>
 <% end %>
 
 <table class="grid" cellpadding="0" cellspacing="0" border="0" id="r_list">
   <thead>
     <tr>
-      <th>&nbsp;</th>
+      <th class="header"><%= sort_link "Дата", "date" %></th>
       <th>&nbsp;</th>
       <th>&nbsp;</th>
       <th class="header"><%= sort_link "Цена", "price" %></th>
@@ -60,6 +60,7 @@
     <tr onclick="document.location = '<%= realty_path realty%>'">
       <td class="center middle">
         <div class="realty_index bold"><br/><a name="r<%= index %>"><%= index %></a></div>
+        <div class="small" style="margin-top:2px;<%= "color:#009245;" if realty.new? %>"><%= Russian.strftime(realty.created_at, "%d %b") %></div>
         <% if realty.user_can_edit?(current_user) %>
           <% link_to edit_realty_path(realty) do %>
             <%= image_tag "layout_edit.png", :style => "border:0px", :title => "Редактировать" %>
@@ -89,8 +90,8 @@
       </td>
 
       <td class="image" style="padding-right:5px;">
-        <%= image_tag "nic.png", :mouseover=>"ic.png", :alt => "В блокнот" %>
-        <%= hidden_field_tag "id_#{realty.id}", realty.id %>
+          <%= image_tag "nic.png", :mouseover=>"ic.png", :alt => "В блокнот" %>
+          <%= hidden_field_tag "id_#{realty.id}", realty.id %>
       </td>
 
     </tr>

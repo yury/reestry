@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :users
 
-  map.resource :session
+  map.resources :sessions
 
   map.resources :list_field_values
 

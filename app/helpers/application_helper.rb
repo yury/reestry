@@ -23,7 +23,7 @@ module ApplicationHelper
     js = "document.location.href = '#{options[:path]}';#{js}" if options.key?(:path)
     js = "#{options[:js]};#{js}" if options.key?(:js)
     #js = "$('##{name}').click();#{js}" if options.key?(:submit) && options[:submit] == true
-    js = "$(this).parents('form').submit();#{js}" if options.key?(:submit) && options[:submit] == true
+    js = "$(this).parents('form')[0].onsubmit();#{js}" if options.key?(:submit) && options[:submit] == true
 
     options = options.reverse_merge!(:submit=>false, :klass=>"", :js=>js)
     options = options.merge(:title => title)

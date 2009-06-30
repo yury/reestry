@@ -1,6 +1,10 @@
 <div class="bold" style="margin-bottom:10px">Вход в систему:</div>
 
-<% form_tag session_path, :id => "login_form" do -%>
+<% form_remote_tag :url => '/sessions',
+                   :method => :post,
+                   :loading => "$('#login_info').html('<div class=\"login_loading\">проверка данных...</div>')",
+                   :id=> "login_form" do -%>
+
  <table>
    <tr>
      <td><label for="login">Логин: </label></td>
@@ -14,7 +18,11 @@
      <td colspan="2" align="center"><label for="remember_me">Запомнить меня: </label><%= check_box_tag 'remember_me' %></td>
    </tr>
    <tr>
-     <td colspan="2">
+     <td colspan="2" align="center">
+      <div id="login_info"></div>
+     </td>
+   <tr>
+     <td colspan="2" align="center">
       <%= button "Войти", "login_button", :style => "width:100px;float:left;margin-top:10px;margin-right:10px", :submit => true %>
       <%= button "Отмена", "cancel", :style => "width:100px;float:left;margin-top:10px;margin-bottom:5px;", :klass => "simplemodal-close" %>
     </td>
