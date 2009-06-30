@@ -23,7 +23,7 @@
      </td>
    <tr>
      <td colspan="2" align="center">
-      <%= button "Войти", "login_button", :style => "width:100px;float:left;margin-top:10px;margin-right:10px", :submit => true %>
+      <%= button "Войти", "login_button", :style => "width:100px;float:left;margin-top:10px;margin-right:10px", :js => "$(this).parents('form')[0].onsubmit();" %>
       <%= button "Отмена", "cancel", :style => "width:100px;float:left;margin-top:10px;margin-bottom:5px;", :klass => "simplemodal-close" %>
     </td>
    </tr>
