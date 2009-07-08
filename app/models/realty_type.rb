@@ -3,4 +3,5 @@ class RealtyType < ActiveRecord::Base
   
   belongs_to :realty_purpose
   has_many :realty
+  
 end

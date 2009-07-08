@@ -2,7 +2,9 @@
   <tr>
     <td class="h_lu"></td>
     <td class="">
-      <div class="ht_line header" align="center"><%= title %></div>
+      <div class="ht_line header" align="center" 
+      style='<%= "background-image:url(#{image});background-position:0 1px;background-repeat:no-repeat;padding-left:20px;" unless image.blank? %>'>
+<%= title %></div>
       <div class="h_mu"></div>
       <div class="h_f"></div>
     </td>

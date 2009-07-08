@@ -38,8 +38,8 @@
 <div style="clear:both"></div>
 
 <% content_for :left do %>
-  <% tab "Карта", :style => "margin-top:10px;" do%>
-    <%= map(realties, :width => 253, :height => 400) %>
+  <% tab "Карта", :image => "/images/map.png", :style => "margin-top:10px;" do%>
+    <%#= map(realties, :width => 253, :height => 400) %>
   <% end %>
 <% end %>
 
@@ -85,7 +85,10 @@
         </div>
       </td>
 
-      <td class="price<%= ' predict_price' if realty.price_blank? %>" <%= "title='Предполагаемая цена'" if realty.price_blank? %> >
+      <td class="price">
+        <% if realty.price_blank? %>
+          <span class="<%= ' predict_price' if realty.price_blank? %>">ориентировочно<br/></span>
+        <% end %>
         <%=h number_to_currency(realty.price_or_predict, :precision => 0) %>
       </td>
 

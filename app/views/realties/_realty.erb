@@ -83,9 +83,10 @@
   </tr>
   <tr>
     <td colspan="3"></td>
-    <td><div class="place_div" style="display:none;">Населенный пункт:</div></td>
+    <% place_style = 'display:none;' if realty.district.location.is_place %>
+    <td><div class="place_div" style="<%= place_style %>">Населенный пункт:</div></td>
     <td>
-      <div class="place_div" style="display:none;">
+      <div class="place_div" style="<%= place_style %>">
         <%= text_field(:realty, :place, :class=>'fixed') %>
       </div>
     </td>

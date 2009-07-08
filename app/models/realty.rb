@@ -120,6 +120,18 @@ class Realty < ActiveRecord::Base
     (Time.now - created_at)/3600/24 <= 7
   end
 
+  def update_geodata
+    loc = "Россия,#{district.location.name},#{district.name if !district.location.is_place},#{place},#{street},#{number}"
+    geodata = Geokit::Geocoders::GoogleGeocoder.geocode(loc)
+    geodata = Geokit::Geocoders::YandexGeocoder.geocode(loc) unless geodata.success
+    if geodata.success
+      self.lat = geodata.lat
+      self.lng = geodata.lng
+      self.is_exact = true
+    end
+    geodata
+  end
+  
   protected
   def validate
     errors.add(:price, "должна быть не менее 0.01") if price.nil? || price < 0.01

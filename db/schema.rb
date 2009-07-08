@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090618074343) do
+ActiveRecord::Schema.define(:version => 20090707154057) do
 
   create_table "area_units", :force => true do |t|
     t.string   "name",       :null => false
@@ -190,9 +190,10 @@ ActiveRecord::Schema.define(:version => 20090618074343) do
   add_index "realty_photos", ["realty_id"], :name => "fk_realty_photos_realties"
 
   create_table "realty_purposes", :force => true do |t|
-    t.string   "name",       :null => false
+    t.string   "name",                          :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "disabled",   :default => false, :null => false
   end
 
   create_table "realty_types", :force => true do |t|

@@ -1,9 +1,6 @@
 <% content_for :head do%>
   <script language="javascript" type="text/javascript">
     $(document).ready(function() {
-      $("#leasing").click(function() { document.location = "/realties?service=1"; });
-      $("#sale").click(function() { document.location = "/realties?service=2"; });
-      $("#agencies").click(function() { document.location = "/organizations"; });
       $("#profile").click(function() {
   <% if current_user %>
           document.location = "<%= profile_user_path current_user%> ";
@@ -26,16 +23,34 @@
       $('#registration_form').validate();
       $('.accordion').accordion({autoHeight:false});
 
-      <% if params[:login].to_i == 1 %>
+      $('.checkbox').hover(
+      function () {
+        $(this).addClass("hover");
+      },
+      function () {
+        $(this).removeClass("hover");
+      });
+
+      $('.checkbox').click(
+      function() {
+        $(this).parents(".checkbox_group").children(".checked").removeClass("checked").addClass("unchecked");
+        $(this).removeClass("unchecked");
+        $(this).addClass("checked");
+      }
+    );
+
+  <% if params[:login].to_i == 1 %>
         showLoginDialog();
-      <%  end %>
+  <%  end %>
     });
 
     function showLoginDialog() {
       $("#login_dialog").modal({close: false, persist: true});
     }
 
-    
+    function menu_item_path(type_id) {
+      return "/realties/" + ($('#rent').hasClass('checked') ? 'rent' : 'sale') + "?type=" + type_id;
+    }
   </script>
 <% end %>
 
@@ -53,7 +68,7 @@
       "jquery.textarearesizer.compressed.js",
       "jquery.validate.pack.js",
       "jquery.galleriffic.min"
-    %>
+  %>
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
     <script>
       $(document).ajaxSend(function(event, request, settings) {
@@ -65,30 +80,36 @@
     <%= yield :head %>
   </head>
   <body>
-    
+
     <div id="airlock">
       <div id="header">
-        <div class="l_part"></div>
-        <div class="f_part">
-          <div class="text">
-            <span><%= Russian.strftime(Time.now, "На %d %B %Y года")%></span><br/>
-            <span><%= "#{Russian.p(Realty.count, "обработан", "обработано", "обработано")} #{Realty.count} #{Russian.p(Realty.count, "объект", "объекта", "объектов")}" %></span><br/>
-            <span class="bold">&nbsp;
-            <% if logged_in? %>
-              Пользователь: <%=h current_user.login %>
-            <% end %>
-            </span><br/><br/>
-            <span class="bold underline" style="font-size:12px">Владимир и Владимирская область</span>
+        <div class="l_part">
+          <div class="bold underline" style="font-size:12px;margin-top:72px;margin-left:100px;">Владимир и Владимирская область</div>
+        </div>
+        <div class="c_part" align="center">
+          <div style="width:50%" class="checkbox_group">
+            <%= checkbox 'rent', 'Аренда', params[:service] == '1', :style => 'float:left;margin-right:10px;font-size:12px;' %>
+            <%= checkbox 'sale', 'Продажа', params[:service] == '2', :style => 'float:left;margin-left:10px;font-size:12px;' %>
           </div>
+          <div style="clear:both;padding-top:10px;">
+            <% RealtyType.all.select {|type| !type.realty_purpose.disabled }.each do |type| %>
+              <div class="<%= "menu_item #{'selected' if params[:type] == type.id.to_s}" %>" 
+                   style="background-image: url(/images/rt_<%= type.id %>.png)"
+                    onclick="document.location = menu_item_path(<%= type.id%>);">
+                <div class="menu_item_text"><%= type.name%></div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="r_part">
           <div class="menu">
-            <div class="<%= menu_item_class "service=1", :service, 1 %>"><div id="leasing">Аренда</div></div>
-            <div class="<%= menu_item_class "service=2", :service, 2 %>"><div id="sale">Продажа</div></div>
-            <div class="<%= menu_item_class "analysis" %>"><div id="analysis">Анализ</div></div>
-            <div class="<%= menu_item_class "organizations" %>"><div id="agencies">Агентства</div></div>
-            <div class="<%= menu_item_class "profile" %>"><div id="profile">Профиль</div></div>
-            <div class="<%= menu_item_class %>" id="<%= logged_in? ? 'logout' : 'login_b' %>">
-              <div><%= logged_in? ? "Выход" : "Вход"%></div>
-            </div>
+            <% if logged_in? %>
+              <span class="button" id="profile">Профиль</span>
+              <span class="button" id="logout">Выход</span>
+              <div class="bold">Пользователь: <%=h current_user.login %></div>
+            <% else %>
+              <span class="button" id="login_b">Вход</span>
+            <% end %>
           </div>
         </div>
       </div>
@@ -106,19 +127,20 @@
       </table>
 
       <%= render :partial => "create_user_request", :locals => { :params => @pars, :created => false} if params[:unavailable] && @pars %>
-    
+
     </div>
 
     <div class="modalContainer">
-        <div id="login_dialog" class="modal" align="center">
-          <div id="login_part"><%= render :partial => "sessions/login" %></div>
-          <div id="register_part" style="display:none;"><%= render :partial => "users/new" %></div>
-        </div>
+      <div id="login_dialog" class="modal" align="center">
+        <div id="login_part"><%= render :partial => "sessions/login" %></div>
+        <div id="register_part" style="display:none;"><%= render :partial => "users/new" %></div>
       </div>
+    </div>
 
     <div id="footer">&nbsp;</div>
     <div id="footer_text">
       AnjLab, 2009. Все права защищены. Powered with RMathModel v.<%= Pricer.version %>.
+      <%= "Всего #{Russian.p(Realty.count, "обработан", "обработано", "обработано")} #{Realty.count} #{Russian.p(Realty.count, "объект", "объекта", "объектов")}." %>
     </div>
 
   </body>

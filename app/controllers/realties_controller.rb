@@ -20,8 +20,14 @@ class RealtiesController < ApplicationController
   # GET /realties
   # GET /realties.xml
   def index
-    params[:service] = 1 if params[:service].blank?
-
+    if params[:service_name] == 'sale' || params[:service] == '2'
+      params[:service] = '2'
+    else
+      params[:service] = '1'
+    end
+    
+    params[:type] = '1' if params[:type].blank?
+   
     @pars = params
     @realties = Realty.select params
     
@@ -35,6 +41,8 @@ class RealtiesController < ApplicationController
   # GET /realties/1.xml
   def show
     @realty = Realty.find(params[:id])
+    params[:service] = @realty.service_type_id.to_s
+    params[:type] = @realty.realty_type_id.to_s
 
     respond_to do |format|
       format.html # show.html.erb
@@ -71,6 +79,19 @@ class RealtiesController < ApplicationController
            :hide_place => params[:location_id].blank? || Location.find(params[:location_id]).is_place}.to_json
       }
     end
+  end
+
+  def update_realty_geodata
+    realty = Realty.find(params[:realty_id])
+    realty.update_geodata
+
+     respond_to do |format|
+       if realty.is_exact
+         format.html { render :partial => "map", :locals => {:realties => [realty]}}
+       else
+         format.html { render :text => "<div class='geodata_error'>Адрес не может быть найден на карте. Проверьте правильность введенного адреса.</div>" }
+       end
+     end
   end
   
   def photos

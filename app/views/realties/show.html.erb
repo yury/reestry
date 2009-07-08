@@ -33,14 +33,14 @@
 
 <%= map(@realty, :large_map => true, :small_zoom => false, :map_type => true, :width => 750, :height => 400) if @realty.is_exact %>
 
-<% tab "Описание", :style=>"margin-top:20px;width:100%" do %>
+<% tab "Описание", :image => "/images/comment.png", :style=>"margin-top:20px;width:100%" do %>
   <%=h @realty.description %>
 <% end %>
 
 <% tab_style = "width:212px;margin-bottom:15px;" %>
 
 <% content_for :left do %>
-  <% tab "Контакты", :style=>tab_style do%>
+  <% tab "Контакты", :image => "/images/contact.png", :style=>tab_style do%>
     <% for contact in @realty.contacts %>
       <b><%=h contact.contact_type.name%>:</b> <%=h contact.value %><br/>
     <% end %>
@@ -50,7 +50,7 @@
   <% end %>
 
   <% @realty.realty_field_values.group_by(&:field_group).each do |group, values | %>
-    <% tab group.name, :style=>tab_style do%>
+    <% tab group.name, :image =>"/images/home.png", :style=>tab_style do%>
       <% for value in values %>
         ●&nbsp;<%=h value.string_value_with_name %><br/>
       <% end %>

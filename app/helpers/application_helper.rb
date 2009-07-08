@@ -8,6 +8,7 @@ module ApplicationHelper
   end
   
   def tab title, options = {}, &block
+    options.reverse_merge!(:image => "")
     block_to_partial('all/tab', options.merge(:title => title), &block)
   end
   
@@ -16,6 +17,14 @@ module ApplicationHelper
       :locals => {:left_panels=>left_panels, 
                   :right_panels=>right_panels,
                   :body=>capture(&block)}))
+  end
+
+  def checkbox id, text, checked, options = {}
+    options.reverse_merge!(:style => "")
+    options.merge!(:id => id)
+    options.merge!(:text => text)
+    options.merge!(:checked => checked)
+    render :partial=>"all/checkbox", :locals => options
   end
   
   def button title, name, options = {}
@@ -44,12 +53,6 @@ module ApplicationHelper
     end
     
     link_to name + direction_sign, params.merge(:sort=>sort_field, :sdir=> direction)  
-  end
-
-  def menu_item_class url_path = "", param = "", value = ""
-    klass = "menu_item bold vr_line"
-    klass += " selected" if (params[param] == value) || (url_path.length > 0 && request.url.include?(url_path))
-    klass
   end
   
 end
