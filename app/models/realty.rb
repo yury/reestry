@@ -121,7 +121,7 @@ class Realty < ActiveRecord::Base
   end
 
   def update_geodata
-    loc = "Россия,#{district.location.name},#{district.name if !district.location.is_place},#{place},#{street},#{number}"
+    loc = "Россия,#{district.location.name},#{district.name if !district.location.is_place},#{place if !district.location.is_place},#{street},#{number}"
     geodata = Geokit::Geocoders::GoogleGeocoder.geocode(loc)
     geodata = Geokit::Geocoders::YandexGeocoder.geocode(loc) unless geodata.success
     if geodata.success

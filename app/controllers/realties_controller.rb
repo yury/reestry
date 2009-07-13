@@ -74,6 +74,7 @@ class RealtiesController < ApplicationController
   
   def update_realty_district
     respond_to do |format|
+      puts " Formt: #{format.inspect}"
       format.js { render :text => {:html => render_to_string(:partial => "realty_district_select",
            :locals => {:is_search => params[:is_search], :location_id => params[:location_id]}),
            :hide_place => params[:location_id].blank? || Location.find(params[:location_id]).is_place}.to_json
@@ -82,14 +83,18 @@ class RealtiesController < ApplicationController
   end
 
   def update_realty_geodata
-    realty = Realty.find(params[:realty_id])
+    realty = Realty.new
+    realty.street = params[:street]
+    realty.place = params[:place]
+    realty.number = params[:number]
+    realty.district_id = params[:district]
     realty.update_geodata
 
      respond_to do |format|
        if realty.is_exact
-         format.html { render :partial => "map", :locals => {:realties => [realty]}}
+         format.js { render :text => [realty.lat, realty.lng].to_json }
        else
-         format.html { render :text => "<div class='geodata_error'>Адрес не может быть найден на карте. Проверьте правильность введенного адреса.</div>" }
+         format.js { render :text => "" }
        end
      end
   end
@@ -147,6 +152,7 @@ class RealtiesController < ApplicationController
       @realty.district_id = params[:district]
       @realty.user = current_user
       @realty.realty_field_values = get_realty_fields
+      @realty.update_geodata
       
       respond_to do |format|
         if @realty.save
@@ -166,6 +172,7 @@ class RealtiesController < ApplicationController
     @realty = Realty.find(params[:id])
     @realty.realty_field_values.delete_all
     @realty.realty_field_values.push(get_realty_fields)
+    @realty.update_geodata
     
     respond_to do |format|
       if @realty.update_attributes(params[:realty])

@@ -36,6 +36,24 @@
           });
     });
 
+    $('.geoupdate').change(function(){
+      $.ajax({
+            type: "POST",
+            url: "<%=update_realty_geodata_realties_path%>",
+            data: 'district=' + $('#district').val() + '&place=' + $('#realty_place').val() + '&street=' + $('#realty_street').val() + '&number=' + $('#realty_number').val(),
+            async: false,
+            dataType: "json",
+            success: function(json) {
+              latLng = new GLatLng(json[0],json[1]);
+              map.clearOverlays();
+              map.centerAndZoomOnPoints([latLng]);
+              var m1 = new GMarker(latLng,{icon : icon,title : ""});
+              map.addOverlay(m1);
+              map.setZoom(13);
+            }
+          });
+    });
+
     $('form').validate();
   });
 </script>
@@ -66,7 +84,7 @@
   <tr>
     <td>Местоположение:</td>
     <td>
-      <select id="location" class="required">
+      <select id="location" class="required geoupdate">
         <option value="" selected></option>
         <%= options_from_collection_for_select(Location.find(:all), "id", "name", realty.get_location_id) %>
       </select>
@@ -87,16 +105,16 @@
     <td><div class="place_div" style="<%= place_style %>">Населенный пункт:</div></td>
     <td>
       <div class="place_div" style="<%= place_style %>">
-        <%= text_field(:realty, :place, :class=>'fixed') %>
+        <%= text_field(:realty, :place, :class=>'fixed geoupdate') %>
       </div>
     </td>
   </tr>
   <tr>
     <td>Улица:</td>
-    <td><%= text_field(:realty, :street, :class=>"fixed required") %> <font class="mandatory">*</font></td>
+    <td><%= text_field(:realty, :street, :class=>"fixed required geoupdate") %> <font class="mandatory">*</font></td>
     <td></td>
     <td>Номер:</td>
-    <td><%= text_field(:realty, :number, :class=>"fixed") %></td>
+    <td><%= text_field(:realty, :number, :class=>"fixed geoupdate") %></td>
   </tr>
   <tr>
     <td>Цена:</td>
@@ -117,6 +135,9 @@
     <td colspan="4"><%= text_area(:realty, :description, :class=>'resizable', :rows=>2) %></td>
   </tr>
 </table>
+
+Карта:
+<%= map(@realty, :large_map => true, :small_zoom => false, :map_type => true, :width => 750, :height => 400) %>
 
 <div id="realty_fields_div" style="margin-top:15px">
   <%= render :partial => "realty_fields", :locals => {:realty => @realty} %>

@@ -106,7 +106,7 @@
             <% if logged_in? %>
               <span class="button" id="profile">Профиль</span>
               <span class="button" id="logout">Выход</span>
-              <div class="bold">Пользователь: <%=h current_user.login %></div>
+              <div class="bold text">Пользователь: <%=h current_user.login %></div>
             <% else %>
               <span class="button" id="login_b">Вход</span>
             <% end %>

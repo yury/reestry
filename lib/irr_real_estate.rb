@@ -257,14 +257,15 @@ class IrrRealEstate
 
       if realty_field.realty_field_type.name == 'list'
         lfv = ListFieldValue.find_by_name_and_realty_field_id(value, realty_field.id)
-        puts "Found list field value: #{value}. Field: #{realty_field.id}"
         raise "Can't find list field value: #{value}. Field: #{realty_field.id}" if lfv.blank?
+        puts "Found list field value: #{lfv.id}. Field: #{realty_field.id}"
         value = lfv.id
       end
 
       rfv = @realty.realty_field_values.find_by_realty_field_id(realty_field.id)
       if rfv.blank?
         rfv = RealtyFieldValue.new(:realty_field => realty_field, :realty => @realty)
+        rfv.value = value
         @realty.realty_field_values << rfv
       end
 

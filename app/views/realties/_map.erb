@@ -5,7 +5,12 @@
 	map.control_init(:map_type => map_type, :small_zoom => small_zoom, :large_map => large_map)
 
     points = (realties.map { |r| [r.lat, r.lng] if r.is_exact}).compact
-    map.center_zoom_on_points_init(points)
+    if points.length == 1
+      map.center_zoom_init(points[0], 13)
+    else
+      map.center_zoom_on_points_init(points)
+    end
+    
 
     map.icon_global_init(GIcon.new(
         :image => "http://labs.google.com/ridefinder/images/mm_20_red.png",
