@@ -423,7 +423,7 @@ div.right {
 div.gallery_container {
     width:780px;
 }
-
+/*
 div.content {
     float:left;
     width:475px;
@@ -557,6 +557,8 @@ div.pagination a:hover {
 div.pagination span.disabled {
 	color:#B2B2B2;
 }
+
+*/
 
 #simplemodal-overlay { background-color:#000; cursor:wait; }
 

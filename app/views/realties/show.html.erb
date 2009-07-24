@@ -31,7 +31,12 @@
 
 <%= render :partial => "realty_photo_gallery", :locals => { :realty => @realty } %>
 
-<%= map(@realty, :large_map => true, :small_zoom => false, :map_type => true, :width => 750, :height => 400) if @realty.is_exact %>
+<div style="clear:both;">
+  Карта:
+  <%= map(@realty, :large_map => true, :small_zoom => false, :map_type => true, :width => 750, :height => 400) if @realty.is_exact %>
+</div>
+
+
 
 <% tab "Описание", :image => "/images/comment.png", :style=>"margin-top:20px;width:100%" do %>
   <%=h @realty.description %>

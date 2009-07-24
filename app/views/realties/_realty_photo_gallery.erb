@@ -2,13 +2,15 @@
 <div class="gallery_container">
   <div id="photo_gallery" class="content vl_line vr_line ht_line hb_line">
     <div id="controls" class="controls"></div>
-    <div id="slideshow" class="slideshow"></div>
+    <div id="loading"></div>
+    <div id="slideshow"></div>
   </div>
-  <div id="navigation" class="navigation">
+  <div id="thumbs" class="navigation">
     <ul class="thumbs noscript">
       <% for realty_photo in realty.realty_photos %>
         <li>
-          <a href="<%=h realty_photo.photo.url(:original) %>" 
+          <a class="thumb"
+             href="<%=h realty_photo.photo.url(:original) %>"
              original="<%=h realty_photo.photo.url(:original) %>" 
              title="<%=h get_address(realty) %>" 
              description="<%=h realty.service_type.name %>">
@@ -21,10 +23,25 @@
   </div>
 </div>
 
-<script type="text/javascript">			
+<script type="text/javascript">
     $(document).ready(function() {
-        var gallery = $('#photo_gallery').galleriffic('#navigation', {
-            delay:                3000,
+
+      // Initially set opacity on thumbs and add
+			// additional styling for hover effect on thumbs
+			var onMouseOutOpacity = 0.77;
+			$('#thumbs ul.thumbs li').css('opacity', onMouseOutOpacity)
+				.hover(
+					function () {
+						$(this).not('.selected').fadeTo('fast', 1.0);
+					},
+					function () {
+						$(this).not('.selected').fadeTo('fast', onMouseOutOpacity);
+					}
+				);
+
+
+        var gallery = $('#photo_gallery').galleriffic('#thumbs', {
+            delay:                5000,
             numThumbs:            6,
             enableTopPager:       true,
             enableBottomPager:    false,
@@ -34,6 +51,7 @@
             titleContainerSel:    '#image-title',
             descContainerSel:     '#image-desc',
             downloadLinkSel:      '#download-link',
+            loadingContainerSel:  '#loading', // The CSS selector for the element within which should be shown when an image is loading
             renderSSControls:     true,
             renderNavControls:    true,
             playLinkText:         'Смотреть слайды',
@@ -41,16 +59,28 @@
             prevLinkText:         'Предыдущее',
             nextLinkText:         'Следующее',
             nextPageLinkText:     '►',
-            prevPageLinkText:     '◄'
+            prevPageLinkText:     '◄',
+            enableHistory:          true,
+			autoStart:            <%= realty.realty_photos.length > 2 ? 'true' : 'false' %>,
+					onChange:               function(prevIndex, nextIndex) {
+						$('#thumbs ul.thumbs').children()
+							.eq(prevIndex).fadeTo('fast', onMouseOutOpacity).end()
+							.eq(nextIndex).fadeTo('fast', 1.0);
+					},
+					onTransitionOut:        function(callback) {
+						$('#caption').fadeOut('fast');
+						$('#slideshow').fadeOut('fast', callback);
+					},
+					onTransitionIn:         function() {
+						$('#slideshow, #caption').fadeIn('fast');
+					},
+					onPageTransitionOut:    function(callback) {
+						$('#thumbs ul.thumbs').fadeOut('fast', callback);
+					},
+					onPageTransitionIn:     function() {
+						$('#thumbs ul.thumbs').fadeIn('fast');
+					}
         });
-                                
-        gallery.onFadeOut = function() {
-            $('#details').fadeOut('fast');
-        };
-                                
-        gallery.onFadeIn = function() {
-            $('#details').fadeIn('fast');
-        };
     });
 </script>
 <% end %>

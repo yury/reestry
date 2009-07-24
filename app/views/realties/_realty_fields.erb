@@ -11,6 +11,8 @@
             </select>
           <% elsif setting.realty_field.realty_field_type.name == "bool" %>
             <%= check_box_tag get_realty_field_name(setting), 1, setting.realty_field_value(realty)   %>
+          <% elsif setting.realty_field.realty_field_type.name == "string" %>
+            <%= text_field_tag get_realty_field_name(setting), setting.realty_field_value(realty), :class=>'fixed' %>
           <% else %>
             <%= text_field_tag get_realty_field_name(setting), setting.realty_field_value(realty), :class=>'fixed', :class=>"number" %>
           <% end %>

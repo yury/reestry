@@ -1,0 +1,152 @@
+div.content {
+    float:left;
+    width:475px;
+}
+div.content a, div.navigation a {
+	text-decoration: none;
+	color: #777;
+}
+div.content  a:focus, div.content  a:hover, div.content  a:active {
+	text-decoration: underline;
+}
+div.controls {
+    height:23px;
+    margin-top:5px;
+}
+div.ss-controls {
+    float:left;
+}
+div.ss-controls span {
+    color:#666666;
+    cursor:pointer;
+}
+div.nav-controls {
+    float:right;
+}
+div.nav-controls a {
+    padding:5px;
+}
+
+div.loader {
+	background-image: url('images/loader.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 550px;
+	height: 350px
+}
+div.slideshow {
+	clear: both;
+}
+div.slideshow span.image-wrapper {
+	float: left;
+	padding-bottom: 12px;
+}
+div.slideshow a.advance-link {
+	padding: 2px;
+	display: block;
+	border: 1px solid #ccc;
+}
+div.slideshow img {
+	border: none;
+	display: block;
+}
+div.download {
+	float: right;
+}
+div.embox {
+	clear: both;
+	border: 1px solid #ccc;
+	background-color: #eee;
+	padding: 12px;
+}
+div.image-title {
+	font-weight: bold;
+	font-size: 1.4em;
+}
+
+div.image-desc {
+	line-height: 1.3em;
+	padding-top: 12px;
+}
+div.navigation {
+    float:left;
+    width:300px;
+}
+ul.thumbs {
+	clear:both;
+    margin-left: 20px;
+    padding:0;
+}
+ul.thumbs li {
+    float:left;
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
+    margin:5px 10px 5px 0;
+    padding:0;
+}
+a.thumb {
+	padding: 2px;
+	display: block;
+	border: 1px solid #ccc;
+}
+ul.thumbs li.selected a.thumb {
+	background:#8888FF none repeat scroll 0 0;
+}
+a.thumb:focus {
+	outline: none;
+}
+ul.thumbs img {
+	border: none;
+	display: block;
+}
+div.pagination {
+	clear: both;
+}
+div.navigation div.top {
+    height:11px;
+    float:right;
+    margin-right:16px;
+    margin-bottom:12px;
+}
+div.navigation div.bottom {
+    margin-top:12px;
+    margin-left: 10px;
+}
+div.pagination a, div.pagination span.current {
+	display: block;
+	float: left;
+	margin-right: 2px;
+	padding: 4px 7px 2px 7px;
+	border: 1px solid #ccc;
+}
+div.pagination a:hover {
+	background-color: #eee;
+	text-decoration: none;
+}
+div.pagination span.current {
+	font-weight: bold;
+	background-color: #000;
+	border-color: #000;
+	color: #fff;
+}
+
+/* Minimal Gallery Styles */
+#thumbs-min ul.thumbs li {
+	float: none;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+#thumbs-min a.thumb {
+	padding: 0px;
+	display: inline;
+	border: none;
+}
+
+#thumbs-min ul.thumbs li.selected a.thumb {
+	background: inherit;
+	color: #000;
+	font-weight: bold;
+}
