@@ -102,13 +102,10 @@ class RealtiesController < ApplicationController
   def photos
     @realty = Realty.find(params[:id])
     @realty_photo = RealtyPhoto.new(params[:realty_photo])
-    
-    if !@realty_photo.photo_file_name.nil?
-      @realty.realty_photos << @realty_photo
-      @realty.save!
-    end
-    
-    
+    @realty_photo.realty = @realty
+
+    @realty_photo.save if !@realty_photo.photo_file_name.nil?
+      
     flash[:is_step] = params[:is_step]
   end
   
@@ -170,6 +167,7 @@ class RealtiesController < ApplicationController
   # PUT /realties/1.xml
   def update
     @realty = Realty.find(params[:id])
+    @realty.district_id = params[:district]
     @realty.realty_field_values.delete_all
     @realty.realty_field_values.push(get_realty_fields)
     @realty.update_geodata

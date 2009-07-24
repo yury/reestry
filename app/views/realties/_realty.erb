@@ -41,7 +41,7 @@
             type: "POST",
             url: "<%=update_realty_geodata_realties_path%>",
             data: 'district=' + $('#district').val() + '&place=' + $('#realty_place').val() + '&street=' + $('#realty_street').val() + '&number=' + $('#realty_number').val(),
-            async: false,
+            async: true,
             dataType: "json",
             success: function(json) {
               latLng = new GLatLng(json[0],json[1]);

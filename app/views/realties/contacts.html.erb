@@ -1,5 +1,5 @@
 <% content_for :left do %>
-  <% tab "Контакты", :style=>"" do%>
+  <% tab "Контакты", :image => "/images/contact.png", :style=>"" do%>
     <%= button "Редактировать фото", "edit", :style =>"width:190px;margin-bottom:15px;", :path=>photos_realty_path(@realty) %>
     <%= button "Редактировать объект", "edit", :style =>"width:190px;margin-bottom:15px;", :path=>edit_realty_path(@realty) %>
     <%= button "Просмотр объявления", "show", :style =>"width:190px;", :path=>realty_path(@realty) %>
@@ -20,6 +20,17 @@
 <h2>Отметьте контакты для связи по объявлению:</h2>
 
 <% form_for @realty, :url => { :action => :update_contacts} do |f| %>
+    <table>
+      <% for contact in @realty.contacts do %>
+        <% if !current_user.contacts.include?(contact) %>
+          <tr>
+            <td><%= check_box_tag "contact[#{contact.id}]", 1, true %> </td>
+            <td class="bold"><%= h contact.contact_type.name %>:</td>
+            <td><%= h contact.value %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
     <%= user_contacts :allow_checking => true, :checked => @realty.contacts.map { |c| c.id } %>
 
   <div style="clear:both;padding-top:25px;">

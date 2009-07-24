@@ -49,7 +49,7 @@
     <% end %>
   <% end %>
 
-  <% @realty.realty_field_values.group_by(&:field_group).each do |group, values | %>
+  <% @realty.realty_field_values.sort_by{|f| f.field_group.id}.group_by(&:field_group).each do |group, values | %>
     <% tab group.name, :image =>"/images/home.png", :style=>tab_style do%>
       <% for value in values %>
         ●&nbsp;<%=h value.string_value_with_name %><br/>
@@ -58,10 +58,10 @@
   <% end %>
 <% end %>
 
-<% button_style = "width:130px;float:right;margin-right:15px;" %>
+<% button_style = "width:135px;float:right;margin-right:15px;" %>
 <div style="clear:both;padding-top:25px;">
   <%= button "Назад", "back", :style =>button_style, :js=>"history.back()" %>
-  <% if @realty.user == current_user %>
+  <% if @realty.user_can_edit? current_user %>
     <%= button "Редактировать фото", "edit", :style =>button_style, :path=>photos_realty_path(@realty) %>
     <%= button "Редактировать контакты", "edit", :style =>button_style, :path=>contacts_realty_path(@realty) %>
     <%= button "Редактировать объект", "edit", :style =>button_style, :path=>edit_realty_path(@realty) %>

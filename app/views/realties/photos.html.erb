@@ -9,6 +9,8 @@
 <% form_for @realty_photo,
                    :url => photos_realty_path(@realty) + (params[:is_step] ? "?is_step=1" : ""),
                    :html => { :multipart => true } do |f| -%>
+     <%= f.error_messages %>
+
     <div style="margin-bottom:15px;">
       <%= h 'Загрузка фото:' %>
       <%= f.file_field(:photo) %>
