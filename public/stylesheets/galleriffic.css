@@ -113,23 +113,6 @@ div.navigation div.bottom {
     margin-top:12px;
     margin-left: 10px;
 }
-div.pagination a, div.pagination span.current {
-	display: block;
-	float: left;
-	margin-right: 2px;
-	padding: 4px 7px 2px 7px;
-	border: 1px solid #ccc;
-}
-div.pagination a:hover {
-	background-color: #eee;
-	text-decoration: none;
-}
-div.pagination span.current {
-	font-weight: bold;
-	background-color: #000;
-	border-color: #000;
-	color: #fff;
-}
 
 /* Minimal Gallery Styles */
 #thumbs-min ul.thumbs li {

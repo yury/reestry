@@ -522,6 +522,8 @@ div.navigation div.bottom {
     margin-top:12px;
     margin-left: 10px;
 }
+
+*/
 div.pagination {
     float:left;
 	color:#00ACF2;
@@ -558,7 +560,6 @@ div.pagination span.disabled {
 	color:#B2B2B2;
 }
 
-*/
 
 #simplemodal-overlay { background-color:#000; cursor:wait; }
 
