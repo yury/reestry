@@ -101,7 +101,7 @@
   </tr>
   <tr>
     <td colspan="3"></td>
-    <% place_style = 'display:none;' if realty.district.location.is_place %>
+    <% place_style = 'display:none;' if realty.district.blank? || realty.district.location.is_place %>
     <td><div class="place_div" style="<%= place_style %>">Населенный пункт:</div></td>
     <td>
       <div class="place_div" style="<%= place_style %>">
@@ -142,3 +142,5 @@
 <div id="realty_fields_div" style="margin-top:15px">
   <%= render :partial => "realty_fields", :locals => {:realty => @realty} %>
 </div>
+
+

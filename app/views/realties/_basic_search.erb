@@ -19,6 +19,21 @@
       });
 
       $('#basic_search_form2').validate();
+
+      $("#price_slider").slider({
+			range: true,
+			min: 0,
+			max: 7000,
+            step:100,
+			values: [$("#price_from").val(), $("#price_to").val()],
+			slide: function(event, ui) {
+				$("#price_text").html(ui.values[0] + ' руб. - ' + ui.values[1] + ' руб.');
+                $("#price_from").val(ui.values[0]);
+                $("#price_to").val(ui.values[1]);
+			}
+		});
+
+		$("#price_text").html($("#price_slider").slider("values", 0) + ' руб. - ' + $("#price_slider").slider("values", 1) + ' руб.');
     });
   </script>
 <% end %>
@@ -62,12 +77,15 @@
     </tr>
     <tr>
       <td>Цена:</td>
-      <td>от<%= text_field_tag :price_from, params[:price_from], :size => 6, :class=>"number" %>
-        до<%= text_field_tag :price_to, params[:price_to], :size => 6, :class=>"number" %>
+      <td><%= text_field_tag :price_from, params[:price_from], :type=>"hidden" %>
+        <%= text_field_tag :price_to, params[:price_to], :type=>"hidden" %>
+        <div id="price_text" style="text-align:right;margin-bottom:3px;"></div>
+        <div id="price_slider"></div>
       </td>
     </tr>
     <tr>
       <td colspan="2" align="center">
+        <a href="#">Расширенный поиск</a>
         <%= button "Искать!", "basic_search", :style => "width:150px", :submit => true %>
       </td>
     </tr>

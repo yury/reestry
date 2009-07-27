@@ -5,7 +5,13 @@
   <% end %>
 <% end %>
 
-<%= render :partial => "all/quick_menu" %>
+<%#= render :partial => "all/quick_menu" %>
+
+<% content_for :left do %>
+  <% tab "Карта", :image => "/images/map.png", :style => "margin-top:10px;" do%>
+    <%= map(@realties, :width => 273, :height => 400) %>
+  <% end %>
+<% end %>
 
 <%= render :partial => "realty_list", :locals => { :realties => @realties} %>
 

@@ -41,7 +41,6 @@ doc\:guides=Generate Rails guides
 doc\:plugins=Generate documentation for all installed plugins
 doc\:plugins\:geokit-rails=Generate documentation for the geokit-rails plugin
 doc\:plugins\:jrails=Generate documentation for the jrails plugin
-doc\:plugins\:paperclip=Generate documentation for the paperclip plugin
 doc\:plugins\:restful_authentication=Generate documentation for the restful_authentication plugin
 doc\:plugins\:russian=Generate documentation for the russian plugin
 doc\:plugins\:will_paginate=Generate documentation for the will_paginate plugin
@@ -66,10 +65,6 @@ notes\:custom=Enumerate a custom annotation, specify with ANNOTATION=WTFHAX
 notes\:fixme=Enumerate all FIXME annotations
 notes\:optimize=Enumerate all OPTIMIZE annotations
 notes\:todo=Enumerate all TODO annotations
-paperclip\:clean=Cleans out invalid attachments. Useful after you've added new validations.
-paperclip\:refresh=Refreshes both metadata and thumbnails.
-paperclip\:refresh\:metadata=Regenerates content_type/size metadata for a given CLASS (and optional ATTACHMENT).
-paperclip\:refresh\:thumbnails=Regenerates thumbnails for a given CLASS (and optional ATTACHMENT).
 parse\:irr=parses irr
 rails\:freeze\:edge=Lock to latest Edge Rails, for a specific release use RELEASE=1.2.0
 rails\:freeze\:gems=Lock this application to the current gems (by unpacking them into vendor/rails)

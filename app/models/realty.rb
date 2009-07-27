@@ -96,6 +96,10 @@ class Realty < ActiveRecord::Base
     paginate_by_sql search_query(params), :page => params[:page], :per_page => 15
   end
 
+  def self.select_by_user_id user_id
+    paginate_by_user_id user_id, :page => 1, :per_page => 1
+  end
+
   def self.stats
     result = {}
     result[:count] = Realty.count

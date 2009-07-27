@@ -149,11 +149,12 @@ class RealtiesController < ApplicationController
       @realty.district_id = params[:district]
       @realty.user = current_user
       @realty.realty_field_values = get_realty_fields
+      @realty.expire_at = Time.now.advance(:months => 1)
       @realty.update_geodata
       
       respond_to do |format|
         if @realty.save
-          flash[:notice] = 'Realty was successfully created.'
+          flash[:notice] = 'Объект успешно создан.'
           format.html { redirect_to photos_realty_path(@realty) + "?is_step=1" }
           format.xml  { render :xml => @realty, :status => :created, :location => @realty }
         else

@@ -1,12 +1,9 @@
 <div  align="right">
-<% quick_panel([[:notes,"Блокнот"], [:user_realties,"Мои объявления"], [:user_requests,"Мои запросы"]],
-  [[:advanced_search,"Расширенный поиск"]]) do %>
+<% quick_panel([[:notes,"Блокнот"], [:user_realties,"Мои объявления"]], [[:advanced_search,"Расширенный поиск"]]) do %>
   <div id="notes" class="panel_content">
   </div>
   <div id="user_realties" class="panel_content" align="center">
-    <%= button "Новое объявление", "new_realty", :style =>"width:190px;", :path=>new_realty_path %>
-  </div>
-  <div id="user_requests" class="panel_content">
+    <%= logged_in? ? button("Новое объявление", "new_realty", :style =>"width:190px;", :path=>new_realty_path) : button("Новое объявление", "new_realty", :style =>"width:190px;", :js => "showLoginDialog();") %>
   </div>
   <div id="advanced_search" class="panel_content"><%= render :partial => "advanced_search" %></div>
 <% end %>

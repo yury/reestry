@@ -37,12 +37,6 @@
 
 <div style="clear:both"></div>
 
-<% content_for :left do %>
-  <% tab "Карта", :image => "/images/map.png", :style => "margin-top:10px;" do%>
-    <%#= map(realties, :width => 253, :height => 400) %>
-  <% end %>
-<% end %>
-
 <table class="grid" cellpadding="0" cellspacing="0" border="0" id="r_list">
   <thead>
     <tr>
@@ -65,7 +59,7 @@
       <td class="center" width="100px">
         <%=h truncate(realty.district.location.name, :length => 30) %><br/>
         <%=h truncate(realty.district.name, :length => 30) %><br/>
-        <%=h truncate(realty.street, :length => 20) %>
+        <%=h truncate(realty.district.location.is_place ? realty.street : realty.place, :length => 20) %>
       </td>
       <td>
         <%= truncate(get_description(realty), :length => 135) %><br/>

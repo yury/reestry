@@ -63,6 +63,7 @@
     <title>Reestry - Ваш инструмент в мире недвижимости</title>
     <%= stylesheet_link_tag 'reestry'  %>
     <%= stylesheet_link_tag 'galleriffic' %>
+    <%= stylesheet_link_tag 'redmond/jquery-ui-1.7.2.custom' %>
     <%= javascript_include_tag :defaults,
       "jquery.simplemodal-1.2.3.pack.js",
       "jquery.cookie.pack.js",
@@ -102,15 +103,23 @@
             <% end %>
           </div>
         </div>
+
         <div class="r_part">
           <div class="menu">
             <% if logged_in? %>
-              <span class="button" id="profile">Профиль</span>
-              <span class="button" id="logout">Выход</span>
+              <span class="button underline" id="profile">Профиль</span>
+              <span class="button underline" id="logout">Выход</span>
               <div class="bold text">Пользователь: <%=h current_user.login %></div>
             <% else %>
               <span class="button" id="login_b">Вход</span>
             <% end %>
+            
+            <div style="margin-top:20px">
+              <a href="#">Блокнот</a><br/>
+              <a href="<%=  new_realty_path %>" <%= "onclick='showLoginDialog();return false;'" unless logged_in? %>>Новое объявление</a><br/>
+              <a href="#" <%= "onclick='showLoginDialog();return false;'" unless logged_in? %>>Мои объявления</a><br/>
+            </div>
+
           </div>
         </div>
       </div>
