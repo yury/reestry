@@ -108,6 +108,15 @@ class Realty < ActiveRecord::Base
     result
   end
 
+  def self.price_limits service_type_id, realty_type_id
+    limit = Rails.cache.fetch("price_limits_#{service_type_id}_#{realty_type_id}") {
+      Realty.find_by_sql(["select min(price) as min, max(price) as max from realties where service_type_id = ? and realty_type_id = ? and expire_at >= now()",
+          service_type_id, realty_type_id]).map {|r| [r.min.to_i, r.max.to_i]}.first
+    }
+
+    {:min => limit[0], :max => limit[1], :step => 10**((limit[1]+100).to_s.length-3)}
+  end
+
   def price_or_predict
     price_blank? ? predict_price : price
   end

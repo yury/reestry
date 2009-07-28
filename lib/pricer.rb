@@ -1,8 +1,7 @@
 class Pricer
   
-  cattr_reader(:data_cache, :version)
+  cattr_reader(:version)
   
-  @@data_cache = {}
   @@version = '1.2'
 
   def self.predict_price realty
@@ -134,14 +133,14 @@ class Pricer
   end
 
   def self.clear_cache
-    @@data_cache.clear
+    #@@data_cache.clear
   end
 
   def self.get_data_from_cache realty
-    @@data_cache[get_data_id(realty)]
+    Rails.cache.read(get_data_id(realty))
   end
 
   def self.set_data_to_cache realty, data
-    @@data_cache[get_data_id(realty)] = data
+    Rails.cache.write(get_data_id(realty), data, :expires_in => 24.hours)
   end
 end

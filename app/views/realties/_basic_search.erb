@@ -18,23 +18,45 @@
         });
       });
 
+      $('.update_price').change(function(){
+        $.ajax({
+          type: "POST",
+          url: "<%=update_price_limits_realties_path%>",
+          data: 'service_type_id=' + $('#service').val() + '&realty_type_id=' + $('#type').val(),
+          async: false,
+          dataType: "json",
+          success: function(json) {
+            $('#price_slider').slider('option', 'min', json.min);
+            $('#price_slider').slider('option', 'max', json.max);
+            $('#price_slider').slider('option', 'step', json.step);
+            update_price_text();
+          }
+        });
+      });
+
       $('#basic_search_form2').validate();
 
       $("#price_slider").slider({
 			range: true,
-			min: 0,
-			max: 7000,
-            step:100,
+			min: <%= @price_limit[:min] %>,
+			max: <%= @price_limit[:max] %>,
+            step: <%= @price_limit[:step] %>,
 			values: [$("#price_from").val(), $("#price_to").val()],
 			slide: function(event, ui) {
-				$("#price_text").html(ui.values[0] + ' руб. - ' + ui.values[1] + ' руб.');
+				update_price_text();
                 $("#price_from").val(ui.values[0]);
                 $("#price_to").val(ui.values[1]);
 			}
 		});
 
-		$("#price_text").html($("#price_slider").slider("values", 0) + ' руб. - ' + $("#price_slider").slider("values", 1) + ' руб.');
+		update_price_text();
     });
+
+    function update_price_text() {
+      $("#price_text").html($("#price_slider").slider("values", 0) + ' руб. - ' + $("#price_slider").slider("values", 1) + ' руб.');
+    }
+
+
   </script>
 <% end %>
 
@@ -42,12 +64,12 @@
   <table>
     <tr>
       <td>Услуга:</td>
-      <td><%= select_tag(:service, options_from_collection_for_select(ServiceType.find(:all), :id, :name, params["service"].to_i))  %></td>
+      <td><%= select_tag(:service, options_from_collection_for_select(ServiceType.find(:all), :id, :name, params["service"].to_i), :class => "update_price")  %></td>
     </tr>
     <tr>
       <td>Вид объекта:</td>
       <td>
-        <select name="type">
+        <select name="type" id="type" class="update_price">
           <%=  option_groups_from_collection_for_select(RealtyPurpose.find_all_by_disabled(false), :realty_types, :name, :id, :name, params[:type].to_i)  %>
         </select>
       </td>
@@ -79,7 +101,7 @@
       <td>Цена:</td>
       <td><%= text_field_tag :price_from, params[:price_from], :type=>"hidden" %>
         <%= text_field_tag :price_to, params[:price_to], :type=>"hidden" %>
-        <div id="price_text" style="text-align:right;margin-bottom:3px;"></div>
+        <div id="price_text" style="text-align:right;margin-bottom:3px;font-size:10px;"></div>
         <div id="price_slider"></div>
       </td>
     </tr>

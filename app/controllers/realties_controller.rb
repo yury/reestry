@@ -30,6 +30,7 @@ class RealtiesController < ApplicationController
    
     @pars = params
     @realties = Realty.select params
+    @price_limit = Realty.price_limits params[:service], params[:type]
     
     respond_to do |format|
       format.html # index.html.erb
@@ -45,7 +46,7 @@ class RealtiesController < ApplicationController
     params[:type] = @realty.realty_type_id.to_s
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html # show.html.erb.change()
       format.xml  { render :xml => @realty }
     end
   end
@@ -79,6 +80,13 @@ class RealtiesController < ApplicationController
            :locals => {:is_search => params[:is_search], :location_id => params[:location_id]}),
            :hide_place => params[:location_id].blank? || Location.find(params[:location_id]).is_place}.to_json
       }
+    end
+  end
+
+  def update_price_limits
+    price_limit = Realty.price_limits params[:service_type_id], params[:realty_type_id]
+    respond_to do |format|
+      format.js { render :text => {:min => price_limit[:min], :max => price_limit[:max], :step => price_limit[:step]}.to_json}
     end
   end
 
