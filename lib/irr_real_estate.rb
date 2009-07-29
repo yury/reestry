@@ -25,8 +25,8 @@ class IrrRealEstate
 
     beginning = Time.now
     
-    parse_estate_type "rent"
-    parse_estate_type "apartments-sale/secondary/"
+    #parse_estate_type "rent"
+    parse_estate_type "apartments-sale/secondary"
     parse_estate_type "garage"
     parse_estate_type "out-of-town/houses"
     parse_estate_type "out-of-town/lands"
@@ -52,8 +52,9 @@ class IrrRealEstate
   end
   
   def parse_page estate_type, page
-    puts "Parsing page #{page}. Estate type:#{estate_type}"
-    doc = Nokogiri::HTML(open("http:\/\/vladimir.irr.ru\/real-estate\/#{estate_type}\/page#{page}"))
+    url = "http:\/\/vladimir.irr.ru\/real-estate\/#{estate_type}\/page#{page}"
+    puts "Parsing page #{page}. Estate type:#{estate_type}. Url: #{url}"
+    doc = Nokogiri::HTML(open(url))
     (doc/"table#adListTable"/"*[@onclick*='document.location']").each do |ad|
       advert = ad["onclick"].scan(%r{document.location = '(.*)'})  
       begin
