@@ -101,8 +101,8 @@
     </tr>
     <tr>
       <td>Площадь:</td>
-      <td>от<%=  text_field_tag :area_from, params[:area_from], :size => 6, :class=>"number" %>
-        до<%= text_field_tag :area_to, params[:area_to], :size => 6, :class=>"number" %>
+      <td><%=  text_field_tag :area_from, params[:area_from], :size => 7, :class=>"number" %>
+        - <%= text_field_tag :area_to, params[:area_to], :size => 7, :class=>"number" %>
       </td>
     </tr>
   </table>

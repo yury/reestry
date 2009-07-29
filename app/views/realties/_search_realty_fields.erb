@@ -1,35 +1,35 @@
 <div class="accordion">
   <% get_realty_field_setting_groups_for(realty_type_id, service_type_id).each do |group, settings| %>
-    <div class="bold hb_line button"><%=h group.name %></div>
+    <div class="bold hb_line button" style="padding-left:25px;"><%=h group.name %></div>
     <table width="100%">
-      <% settings.in_groups_of(2) do |pair| %>
+      <% settings.in_groups_of(1) do |pair| %>
         <tr>
           <% pair.each do |setting| %>
             <% if setting.blank? %>
               <td></td><td></td>
             <% else %>
-              <td><%=h setting.realty_field.name %></td>
+              <td><%=h setting.realty_field.name %>:</td>
 
               <td>
                 <% if setting.realty_field.realty_field_type.name == "list" %>
                   <select name="<%=h get_realty_field_name(setting)%>">
                     <option value="">Не имеет значения</option>
-                    <%= options_from_collection_for_select(get_list_field_values(setting), "id", "name", params[get_realty_field_name(setting)].to_i) %>
-                  </select>
-                <% elsif setting.realty_field.realty_field_type.name == "bool" %>
-                  <select name="<%=get_realty_field_name(setting)%>">
-                    <option value="">Не имеет значения</option>
-                    <%= options_for_select({"Да"=>1, "Нет"=>0}, params[get_realty_field_name(setting)]) %>
-                  </select>
-                <% else %>
-                  от<%= text_field_tag get_realty_field_name(setting, "_from"), params[get_realty_field_name(setting, "_from")],  :size => 6, :class=>"number" %>
-                  до<%= text_field_tag get_realty_field_name(setting, "_to"), params[get_realty_field_name(setting, "_to")], :size => 6, :class=>"number" %>
-                <% end %>
-              </td>
+                    <%= options_from_collection_for_select(get_list_field_values(setting), "id", "name", get_realty_field_value(setting, params, :f, true)) %>
+                    </select>
+                  <% elsif setting.realty_field.realty_field_type.name == "bool" %>
+                    <select name="<%=get_realty_field_name(setting)%>">
+                      <option value="">Не имеет значения</option>
+                      <%= options_for_select({"Да"=>1, "Нет"=>0}, get_realty_field_value(setting, params, :f, true)) %>
+                    </select>
+                  <% else %>
+                    <%= text_field_tag get_realty_field_name(setting, "_from"), get_realty_field_value(setting, params, :f_from, true),  :size => 7, :class=>"number" %>
+                    - <%= text_field_tag get_realty_field_name(setting, "_to"), get_realty_field_value(setting, params, :f_to, true), :size => 7, :class=>"number" %>
+                  <% end %>
+                </td>
+              <% end %>
             <% end %>
-          <% end %>
-        </tr>
-      <% end %>
-    </table>
-  <% end %>
-</div>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </div>

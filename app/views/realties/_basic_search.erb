@@ -18,58 +18,53 @@
         });
       });
 
-      $('.update_price').change(function(){
+      $('.cause_fields_update').change(function(){
+        $('#search_realty_fields').hide();
+
         $.ajax({
           type: "POST",
-          url: "<%=update_price_limits_realties_path%>",
-          data: 'service_type_id=' + $('#service').val() + '&realty_type_id=' + $('#type').val(),
+          url: "<%=update_realty_fields_realties_path%>",
+          data: 'is_search=1&realty_type_id=' + $('#type').val() + '&service_type_id=' + $('#service').val(),
           async: false,
           dataType: "json",
           success: function(json) {
+            $('#search_realty_fields').html(json.html);
             $('#price_slider').slider('option', 'min', json.min);
             $('#price_slider').slider('option', 'max', json.max);
             $('#price_slider').slider('option', 'step', json.step);
-            update_price_text();
+            $('.accordion').accordion({autoHeight:false});
           }
         });
+
+        $('#search_realty_fields').show();
       });
 
-      $('#basic_search_form2').validate();
-
-      $("#price_slider").slider({
-			range: true,
-			min: <%= @price_limit[:min] %>,
-			max: <%= @price_limit[:max] %>,
-            step: <%= @price_limit[:step] %>,
-			values: [$("#price_from").val(), $("#price_to").val()],
-			slide: function(event, ui) {
-				update_price_text();
-                $("#price_from").val(ui.values[0]);
-                $("#price_to").val(ui.values[1]);
-			}
-		});
-
-		update_price_text();
+    $('#advance_search_link').click(function(event) {
+      event.preventDefault();
+      $('#search_realty_fields').toggle();
+      $('#es').val($('#search_realty_fields').is(':visible'));
     });
 
-    function update_price_text() {
-      $("#price_text").html($("#price_slider").slider("values", 0) + ' руб. - ' + $("#price_slider").slider("values", 1) + ' руб.');
-    }
+    $('#clear_search_link').click(function(event) {
+      event.preventDefault();
+      $('#basic_search_form :input').val('');
+    });
 
-
+      $('#basic_search_form').validate();
+    });
   </script>
 <% end %>
 
 <% form_tag realties_path, :method => "get", :id => "basic_search_form" do %>
-  <table>
+  <table style="margin:auto;">
     <tr>
       <td>Услуга:</td>
-      <td><%= select_tag(:service, options_from_collection_for_select(ServiceType.find(:all), :id, :name, params["service"].to_i), :class => "update_price")  %></td>
+      <td><%= select_tag(:service, options_from_collection_for_select(ServiceType.find(:all), :id, :name, params["service"].to_i), :class => "cause_fields_update")  %></td>
     </tr>
     <tr>
       <td>Вид объекта:</td>
       <td>
-        <select name="type" id="type" class="update_price">
+        <select name="type" id="type" class="cause_fields_update">
           <%=  option_groups_from_collection_for_select(RealtyPurpose.find_all_by_disabled(false), :realty_types, :name, :id, :name, params[:type].to_i)  %>
         </select>
       </td>
@@ -99,17 +94,23 @@
     </tr>
     <tr>
       <td>Цена:</td>
-      <td><%= text_field_tag :price_from, params[:price_from], :type=>"hidden" %>
-        <%= text_field_tag :price_to, params[:price_to], :type=>"hidden" %>
-        <div id="price_text" style="text-align:right;margin-bottom:3px;font-size:10px;"></div>
-        <div id="price_slider"></div>
+      <td><%= slider "price", :style=>"font-size:9px;", :unit => "руб.", :min => @price_limit[:min], :max => @price_limit[:max],
+                    :step => @price_limit[:step] %>
       </td>
     </tr>
     <tr>
       <td colspan="2" align="center">
-        <a href="#">Расширенный поиск</a>
-        <%= button "Искать!", "basic_search", :style => "width:150px", :submit => true %>
+        <%= text_field_tag :es, params[:es], :type => 'hidden' %>
+        <a id="advance_search_link" href="#">Расширенный поиск</a>
+        <a id="clear_search_link" href="#">Очистить поиск</a>
       </td>
     </tr>
   </table>
+
+  <div id="search_realty_fields" style="<%= 'display:none;' unless params['es'] == 'true' %>">
+    <%= render :partial => "search_realty_fields", :locals => { :realty_type_id => params[:type].to_i, :service_type_id => params["service"].to_i } %>
+  </div>
+
+
+    <%= button "Искать!", "basic_search", :style => "width:150px;margin:5px auto auto auto;", :submit => true %>
 <% end %>

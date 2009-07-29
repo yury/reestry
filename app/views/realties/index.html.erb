@@ -1,15 +1,13 @@
 
 <% content_for :left do %>
-  <% tab "Поиск", :image => "/images/find.png" do%>
+  <% tab "Поиск", :image => "/images/find.png", :style => "width:315px" do%>
     <%= render :partial => "basic_search" %>
   <% end %>
 <% end %>
 
-<%#= render :partial => "all/quick_menu" %>
-
 <% content_for :left do %>
-  <% tab "Карта", :image => "/images/map.png", :style => "margin-top:10px;" do%>
-    <%= map(@realties, :width => 273, :height => 400) %>
+  <% tab "Карта", :image => "/images/map.png", :style => "margin-top:10px;width:315px;" do%>
+    <%= map(@realties, :width => 290, :height => 400) %>
   <% end %>
 <% end %>
 

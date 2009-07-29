@@ -29,11 +29,10 @@ class Realty < ActiveRecord::Base
     unless params[:f].blank?
       params[:f].each_with_index do |p, i|
         unless p[1].blank?
-          f = RealtyField.find(p[0])
           join_table = "rfv" + i.to_s
           query += " INNER JOIN realty_field_values as #{join_table} ON realties.id = #{join_table}.realty_id AND #{join_table}.realty_field_id = ?"
           pars << p[0]
-          query += " AND #{join_table}.value = '?'"
+          query += " AND #{join_table}.value = ?"
           pars << p[1]
         end
       end
@@ -42,16 +41,21 @@ class Realty < ActiveRecord::Base
     unless params[:f_from].blank?
       params[:f_from].each do |p_from|
         join_table = "rfvf#{p_from[0]}"
-        unless p_from[1].blank?
+        p_to = params[:f_to][p_from[0]]
+
+        if !p_from[1].blank? || !p_to[1].blank?
           query += " INNER JOIN realty_field_values as #{join_table} ON realties.id = #{join_table}.realty_id AND #{join_table}.realty_field_id = ?"
           pars << p_from[0]
-          query += " AND #{join_table}.value >= '?'"
-          pars << p_from[1]
-        end
-        p_to = params[:f_to][p_from[0]]
-        unless p_to[1].blank?
-          query += " AND #{join_table}.value <= '?'"
-          pars << p_to[1]
+
+          unless p_from[1].blank?
+            query += " AND #{join_table}.value >= ?"
+            pars << p_from[1]
+          end
+
+          unless p_to[1].blank?
+            query += " AND #{join_table}.value <= '?'"
+            pars << p_to[1]
+          end
         end
       end
     end

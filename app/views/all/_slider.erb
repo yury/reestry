@@ -1,0 +1,29 @@
+<% slider_name = "#{name}_slider"
+   from_name = "#{name}_from"
+   to_name = "#{name}_to"
+%>
+
+<% content_for :head do%>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#<%= slider_name %>").slider({
+			range: true,
+			min: <%= min %>,
+			max: <%= max %>,
+            step: <%= step %>,
+			values: [$("#<%= from_name %>").val(), $("#<%= to_name %>").val()],
+			slide: function(event, ui) {
+                $("#<%= from_name %>").val(ui.values[0]);
+                $("#<%= to_name %>").val(ui.values[1]);
+			}
+		});
+    });
+  </script>
+<% end %>
+
+<div style="<%= style %>">
+  <%= text_field_tag from_name, params[from_name], :size=>7 %>
+  - <%= text_field_tag to_name, params[to_name], :size=>7 %>
+  <%= unit %>
+  <div id="<%= slider_name%>" style="margin-top:3px;"></div>
+</div>

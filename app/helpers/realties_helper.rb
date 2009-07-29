@@ -69,4 +69,13 @@ module RealtiesHelper
       "f#{suffix}[#{setting.realty_field.id}]"
     end
 
+    def get_realty_field_value setting, params, key, to_i = false
+      realty_field_id = setting.realty_field_id.to_s
+      value = nil
+      if !params[key].blank? && !params[key][realty_field_id].blank?
+        value = params[key][realty_field_id]
+        value = value.to_i if to_i
+      end
+      value
+    end
 end

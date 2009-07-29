@@ -38,7 +38,6 @@ ActionController::Routing::Routes.draw do |map|
                                             :update_realty_fields => :any, 
                                             :update_realty_district => :any,
                                             :update_realty_geodata => :post,
-                                            :update_price_limits => :post,
                                             :note => :post
                                           },
                                :member => { :photos => :any, 

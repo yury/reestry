@@ -10,11 +10,16 @@ h2 {
 }
 
 select {
-    width:160px;
+    width:152px;
+    font-size:1em;
+}
+
+input {
+    font-size:1em;
 }
 
 input.fixed {
-    width:154px;
+    width:148px;
 }
 
 input.error, select.error {
@@ -168,7 +173,7 @@ input.error, select.error {
 }
 
 .tab .header {
-    background: #E6E6E6;
+    background: #E0E9F2;
     font-weight: bold;
     text-align:center;
     padding:5px 5px 12px 5px;
@@ -203,7 +208,7 @@ input.error, select.error {
 }
 
 .content {
-    background: #E6E6E6;
+    background: #E0E9F2;
 }
 
 .quick_panel .left {
@@ -226,8 +231,8 @@ input.error, select.error {
 }
 
 .quick_panel .selected {
-    background: #E6E6E6;
-    border-bottom: 1px solid #E6E6E6;
+    background: #E0E9F2;
+    border-bottom: 1px solid #E0E9F2;
     font-weight:bold;
 }
 

@@ -65,7 +65,12 @@ class RealtiesController < ApplicationController
   def update_realty_fields
     respond_to do |format|
       if(params[:is_search])
-        format.js { render :partial => "search_realty_fields", :locals => {:realty_type_id => params[:realty_type_id], :service_type_id => params[:service_type_id].to_i} }
+        price_limit = Realty.price_limits params[:service_type_id], params[:realty_type_id]
+        format.js { render :text => {:min => price_limit[:min], :max => price_limit[:max], :step => price_limit[:step],
+                           :html => render_to_string(
+                           :partial => "search_realty_fields",
+                           :locals => {:realty_type_id => params[:realty_type_id], :service_type_id => params[:service_type_id].to_i})
+                       }.to_json}
       elsif
         @realty = Realty.new(:realty_type_id => params[:realty_type_id], :service_type_id => params[:service_type_id]) 
         format.js { render :partial => "realty_fields", :locals => {:realty => @realty} }
@@ -80,13 +85,6 @@ class RealtiesController < ApplicationController
            :locals => {:is_search => params[:is_search], :location_id => params[:location_id]}),
            :hide_place => params[:location_id].blank? || Location.find(params[:location_id]).is_place}.to_json
       }
-    end
-  end
-
-  def update_price_limits
-    price_limit = Realty.price_limits params[:service_type_id], params[:realty_type_id]
-    respond_to do |format|
-      format.js { render :text => {:min => price_limit[:min], :max => price_limit[:max], :step => price_limit[:step]}.to_json}
     end
   end
 

@@ -19,6 +19,17 @@ module ApplicationHelper
                   :body=>capture(&block)}))
   end
 
+  def slider name, options = {}
+    options.reverse_merge!(:style => "")
+    options.reverse_merge!(:min => 0)
+    options.reverse_merge!(:max => 10000)
+    options.reverse_merge!(:step => 100)
+    options.reverse_merge!(:unit => "")
+    options.merge!(:name => name)
+
+    render :partial=>"all/slider", :locals => options
+  end
+
   def checkbox id, text, checked, options = {}
     options.reverse_merge!(:style => "")
     options.merge!(:id => id)
