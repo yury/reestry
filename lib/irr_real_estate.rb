@@ -15,7 +15,7 @@ class IrrRealEstate
     irr.parse_irr wait, pause
   end
 
-  def parse_irr wait = true, pause = true
+  def parse_irr wait = true, pause = true, estate_type = ''
     @default_street = 'Не определена'
     @wait = wait
     @pause = pause
@@ -25,13 +25,17 @@ class IrrRealEstate
 
     beginning = Time.now
     
-    parse_estate_type "rent"
-    parse_estate_type "apartments-sale/secondary"
-    parse_estate_type "garage"
-    parse_estate_type "out-of-town/houses"
-    parse_estate_type "out-of-town/lands"
-    #parse_estate_type "commercial"
-
+    unless estate_type.blank?
+      parse_estate_type estate_type
+    else
+      parse_estate_type "rent"
+      parse_estate_type "apartments-sale/secondary"
+      parse_estate_type "garage"
+      parse_estate_type "out-of-town/houses"
+      parse_estate_type "out-of-town/lands"
+      #parse_estate_type "commercial"  
+    end
+    
     puts "Errors:"
     @errors.each do |error|
       puts error
