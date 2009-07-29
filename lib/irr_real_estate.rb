@@ -25,7 +25,7 @@ class IrrRealEstate
 
     beginning = Time.now
     
-    #parse_estate_type "rent"
+    parse_estate_type "rent"
     parse_estate_type "apartments-sale/secondary"
     parse_estate_type "garage"
     parse_estate_type "out-of-town/houses"
@@ -411,7 +411,9 @@ class IrrRealEstate
 
   def get_geodata_by_address address
     puts "Get geodata by '#{address}'"
-    return GoogleGeocoder.geocode(address)
+    geodata = YandexGeocoder.geocode(address)
+    geodata = GoogleGeocoder.geocode(address) unless geodata.success
+    geodata
   end
 
   def clear_description desc
