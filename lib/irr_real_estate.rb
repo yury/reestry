@@ -10,9 +10,9 @@ class IrrRealEstate
   require 'base64'
   include Geokit::Geocoders
 
-  def self.parse wait = true, pause = true
+  def self.parse wait = true, pause = true, estate_type = ''
     irr = IrrRealEstate.new
-    irr.parse_irr wait, pause
+    irr.parse_irr wait, pause, estate_type
   end
 
   def parse_irr wait = true, pause = true, estate_type = ''
