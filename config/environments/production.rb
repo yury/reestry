@@ -24,17 +24,17 @@ config.log_level = :debug
 # config.action_controller.asset_host                  = "http://assets.example.com"
 
 # Disable delivery errors, bad email addresses will be ignored
-# config.action_mailer.raise_delivery_errors = false
+config.action_mailer.raise_delivery_errors = true
 
 config.action_mailer.delivery_method = :smtp
 
 # these options are only needed if you choose smtp delivery
 config.action_mailer.smtp_settings = {
-  :tls            => true,
-  :address        => 'smtp.gmail.com',
-  :port           => 587,
+  :enable_starttls_auto => true,
+  :address => 'smtp.gmail.com',
+  :port => 587,
   :authentication => :plain,
-  :domain         => "reestry.ru",
-  :user_name      => 'admin@reestry.ru',
-  :password       => 'password1'
+  :domain => "reestry.ru",
+  :user_name => 'admin@reestry.ru',
+  :password => 'password1'
 }

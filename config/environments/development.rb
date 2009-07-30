@@ -14,17 +14,17 @@ config.action_view.debug_rjs                         = true
 config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
-config.action_mailer.raise_delivery_errors = false
+config.action_mailer.raise_delivery_errors = true
 
 config.action_mailer.delivery_method = :smtp
 
 # these options are only needed if you choose smtp delivery
 config.action_mailer.smtp_settings = {
-  :tls            => true,
-  :address        => 'smtp.gmail.com',
-  :port           => 587,
+  :enable_starttls_auto => true,
+  :address => 'smtp.gmail.com',
+  :port => 587,
   :authentication => :plain,
-  :domain         => "reestry.ru",
-  :user_name      => 'admin@reestry.ru',
-  :password       => 'password1'
+  :domain => "reestry.ru",
+  :user_name => 'admin@reestry.ru',
+  :password => 'password1'
 }
