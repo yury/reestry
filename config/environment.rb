@@ -26,6 +26,8 @@ Rails::Initializer.run do |config|
    config.gem "mislav-will_paginate", :source => "http://gems.github.com", :lib => "will_paginate"
    config.gem "geokit", :version => "1.4.2"
    config.gem "thoughtbot-paperclip", :lib => 'paperclip'
+   config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
+
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
@@ -65,13 +67,15 @@ Rails::Initializer.run do |config|
   config.whiny_nils = true
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
-end
 
+end
 
 WillPaginate::ViewHelpers.pagination_options[:prev_label] = '◄';
 WillPaginate::ViewHelpers.pagination_options[:next_label] = '►'
 
 Geokit::Geocoders::yandex = 'AEL-TUoBAAAAnzrvMwIAO2wx34Bqga5VkBuzh8WSPsSVFfQAAAAAAAAAAACdC9WVUGKzt1u6rY35drPrYXIHZQ=='
+
+require 'whenever'
 
 module OpenURI
   def OpenURI.open_http(buf, target, proxy, options) # :nodoc:

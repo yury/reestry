@@ -2,10 +2,15 @@ require 'rake'
 
 namespace :parse do
 
-  desc "parses irr"
-  task :irr => :environment  do
-    irr_url = ENV["irr_url"]
+  desc "parses realties from sources"
+  task :start => :environment  do
+    puts "Start parsing at #{Time.now}"
 
-    IrrRealEstate.parse
+    puts "Parsing irr..."
+    result = IrrRealEstate.parse false, false, "wf"
+    puts "Sending email"
+    AdminMailer.deliver_parse_notification "Irr", result
+
+    puts "End parsing at #{Time.now}"
   end
 end

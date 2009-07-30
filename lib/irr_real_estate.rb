@@ -33,25 +33,31 @@ class IrrRealEstate
       parse_estate_type "garage"
       parse_estate_type "out-of-town/houses"
       parse_estate_type "out-of-town/lands"
-      #parse_estate_type "commercial"  
-    end
-    
-    puts "Errors:"
-    @errors.each do |error|
-      puts error
+      #parse_estate_type "commercial"
     end
 
-    "Total:#{@total_count}. Errors:#{@have_errors}(#{100*@have_errors/@total_count}%). Execution time: #{Time.now - beginning}"
+    result = "Parsing results:"
+    @errors.each do |error|
+      result += "\r\n#{error}"
+    end
+
+    result += "\r\nTotal:#{@total_count}. Errors:#{@have_errors}(#{100*@have_errors/@total_count}%). Execution time: #{Time.now - beginning}"
+    result
   end
 
   def parse_estate_type estate_type
     @exist_adverts = 0
-    for page in 1..30 do
-      parse_page estate_type, page
-      if @exist_adverts >= 40
-        puts "Breaking parsing due existing adverts"
-        break
+    begin
+      for page in 1..30 do
+        parse_page estate_type, page
+        if @exist_adverts >= 40
+          puts "Breaking parsing due existing adverts"
+          break
+        end
       end
+    rescue Exception => exc
+      @errors << "Critical error while parsing estate_type: #{estate_type}. Exception: #{exc}"
+      @total_count += 1
     end
   end
   
