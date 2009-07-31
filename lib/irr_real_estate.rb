@@ -145,10 +145,10 @@ class IrrRealEstate
     puts "Realty type: #{@realty.realty_type.name}. Purpose:#{@realty.realty_type.realty_purpose.name}"
 
     phone = doc.at("li.ico-phone")
-    phone = phone.inner_text.gsub(/\D/, "") unless phone.blank?
+    phone = phone.inner_text unless phone.blank?
     
     m_phone = doc.at("li.ico-mphone")
-    m_phone = m_phone.inner_text.gsub(/\D/, "") unless m_phone.blank?
+    m_phone = m_phone.inner_text unless m_phone.blank?
 
     puts "Parsing contact and email"
     contact_p = doc.at("div.contacts-info p")
@@ -158,7 +158,7 @@ class IrrRealEstate
       elsif !m_phone.blank?
         contact = m_phone
       else
-        raise "Can't create contact beacause phones are empty"
+        raise "Can't create contact because phones are empty"
       end
     else
       contact = contact_p.inner_text

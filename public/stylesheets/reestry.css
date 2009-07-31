@@ -33,6 +33,7 @@ input.error, select.error {
     width: 984px;
 }
 
+
 #header {
 }
 
@@ -306,7 +307,7 @@ table.grid tbody tr {
 table.grid tbody tr.odd td {
 	background-color:#F0F0F6;
 }
-table.grid tbody tr.hover td {
+table.grid tbody tr:hover td {
     background: transparent url(/images/s.png) repeat-x;
 }
 table.grid thead tr .headerSortUp {
