@@ -10,28 +10,36 @@
       //}
     //);
 
-      $(".image").click(function(){
-        $.ajax({
-          type: "POST",
-          url: "<%= note_realties_path %>",
-          dataType: "script",
-          data: "id=" + $(this).children("input").val(),
-          success: function(result) {
-            img = $('#id_' + result).parent("td").children("img");
-            img.attr('src', '<%= image_path "ic.png" %>');
-            img.attr('onmouseout', "this.src='<%= image_path "ic.png" %>'");
-          }
-        });
+      $(".image").click(function(event){
+        
         return false;
       });
     });
+
+    function add_note(element, realty_id) {
+      $.ajax({
+          type: "POST",
+          url: "<%= note_realties_path %>",
+          dataType: "script",
+          data: "id=" + realty_id,
+          success: function(result) {
+            if(result == 'true')
+              element.addClass('true');
+            else
+              element.removeClass('true');
+          }
+        });
+
+        return false;
+    }
+
   </script>
 <% end %>
 
 <div style="float:right;margin-top:10px;">
   <%= will_paginate realties %>
   <div style="float:left;margin-left:10px;margin-top:2px;">
-    <strong>Всего: </strong><%= realties.total_entries %>
+    <strong>Всего: </strong><%= "#{realties.total_entries} #{Russian.p(realties.total_entries, "объект", "объекта", "объектов")}" %>
   </div>
 </div>
 
@@ -86,9 +94,8 @@
         <%=h number_to_currency(realty.price_or_predict, :precision => 0) %>
       </td>
 
-      <td class="image" style="padding-right:5px;">
-        <%= image_tag "nic.png", :mouseover=>"ic.png", :alt => "В блокнот" %>
-        <%= hidden_field_tag "id_#{realty.id}", realty.id %>
+      <td class="image" style="padding-right:0px;">
+        <div class="noted <%= 'true' if in_notepad?(realty.id)%>" title="В блокнот" onclick="return add_note($(this), <%= realty.id %>);"></div>
       </td>
 
     </tr>
@@ -98,6 +105,6 @@
 <div style="float:right;margin-top:10px;">
   <%= will_paginate realties %>
   <div style="float:left;margin-left:10px;margin-top:2px;">
-    <strong>Всего: </strong><%= realties.total_entries %>
+    <strong>Всего: </strong><%= "#{realties.total_entries} #{Russian.p(realties.total_entries, "объект", "объекта", "объектов")}" %>
   </div>
 </div>

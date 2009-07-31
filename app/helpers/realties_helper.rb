@@ -78,4 +78,8 @@ module RealtiesHelper
       end
       value
     end
+
+    def in_notepad? realty_id
+      !session[:notepad].blank? && session[:notepad].include?(realty_id)
+    end
 end

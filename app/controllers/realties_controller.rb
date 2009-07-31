@@ -1,4 +1,6 @@
 class RealtiesController < ApplicationController
+  include RealtiesHelper
+  
   before_filter :login_required, :only => [ :new, 
                                             :create
                                           ]
@@ -143,9 +145,15 @@ class RealtiesController < ApplicationController
 
   def note
     @realty = Realty.find(params[:id])
-    session[:cart] = @realty.id
+    session[:notepad] = [] if session[:notepad].blank?
+    session[:notepad] << @realty.id unless session[:notepad].delete(@realty.id)
 
-    render :text => @realty.id
+    render :text => session[:notepad].include?(@realty.id)
+  end
+
+  def notepad
+    @realties = []
+    @realties = Realty.paginate(session[:notepad], :page => params[:page], :per_page => 15) unless session[:notepad].blank?
   end
 
   # POST /realties

@@ -325,6 +325,17 @@ table.grid .image {
     text-align: center;
 }
 
+table.grid .noted {
+    background: transparent url(/images/nic.png) no-repeat;
+    width:19px;
+    height:19px;
+    margin:5px;
+}
+
+table.grid .noted.true {
+    background-image: url(/images/ic.png);
+}
+
 table.grid .price {
     color:#009245;
     font-weight:bold;

@@ -33,6 +33,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.service '/realties/:service_name', :controller => 'realties', :action => 'index', :requirements => { :service_name => /sale|rent/i}
 
+  map.service '/realties/notepad', :controller => 'realties', :action => 'notepad'
+
   map.resources :realties, :collection => { 
                                             :create_user_request => :post,
                                             :update_realty_fields => :any, 

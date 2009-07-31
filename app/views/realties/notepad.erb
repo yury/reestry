@@ -1,0 +1,18 @@
+<% content_for :left do %>
+  <% tab "Блокнот", :image => "/images/notes.png", :style => "width:315px" do%>
+    Используйте отобранную информацию для более удобного сравнения и выбора подходящего объекта недвижимости.
+    Чтобы добавить объявление в блокнот или убрать из блокнота, щелкните на звездочке справа от объявления.
+  <% end %>
+<% end %>
+
+<% unless @realties.blank? %>
+  <% content_for :left do %>
+    <% tab "Карта", :image => "/images/map.png", :style => "margin-top:10px;width:315px;" do%>
+      <%= map(@realties, :width => 290, :height => 400) %>
+    <% end %>
+  <% end %>
+
+  <%= render :partial => "realty_list", :locals => { :realties => @realties} %>
+<% else %>
+   В блокноте нет ни одного выбранного объявления.
+<% end %>
