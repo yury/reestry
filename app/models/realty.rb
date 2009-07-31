@@ -72,6 +72,8 @@ class Realty < ActiveRecord::Base
     query += op pars, params[:area_from], ">=", "total_area"
     query += op pars, params[:area_to], "<=", "total_area"
     query += range("district_id", District.find_all_by_location_id(params[:location]).map(&:id)) unless params[:location].blank?
+
+    query += " GROUP BY user_id HAVING count(*) = 1" if params[:non_agency]
     
     if params[:sort]
       sort_dir = params[:sdir] == "asc" ? "asc" : "desc"

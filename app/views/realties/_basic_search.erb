@@ -19,7 +19,7 @@
       });
 
       $('.cause_fields_update').change(function(){
-        $('#search_realty_fields').hide();
+        $('#advanced_seach').hide();
 
         $.ajax({
           type: "POST",
@@ -28,7 +28,7 @@
           async: false,
           dataType: "json",
           success: function(json) {
-            $('#search_realty_fields').html(json.html);
+            $('#advanced_seach').html(json.html);
             $('#price_slider').slider('option', 'min', json.min);
             $('#price_slider').slider('option', 'max', json.max);
             $('#price_slider').slider('option', 'step', json.step);
@@ -36,13 +36,13 @@
           }
         });
 
-        $('#search_realty_fields').show();
+        $('#advanced_seach').show();
       });
 
     $('#advance_search_link').click(function(event) {
       event.preventDefault();
-      $('#search_realty_fields').toggle();
-      $('#es').val($('#search_realty_fields').is(':visible'));
+      $('#advanced_seach').toggle();
+      $('#es').val($('#advanced_seach').is(':visible'));
     });
 
     $('#clear_search_link').click(function(event) {
@@ -107,7 +107,23 @@
     </tr>
   </table>
 
-  <div id="search_realty_fields" style="<%= 'display:none;' unless params['es'] == 'true' %>">
+  <div id="advanced_seach" style="<%= 'display:none;' unless params['es'] == 'true' %>">
+    <table style="margin:auto;">
+      <tr>
+      <td width="105px">Улица:</td>
+      <td><%= text_field_tag :street, params[:street], :size => 20, :class=>"fixed" %></td>
+    </tr>
+    <tr>
+      <td>Площадь:</td>
+      <td><%=  text_field_tag :area_from, params[:area_from], :size => 7, :class=>"number" %>
+        - <%= text_field_tag :area_to, params[:area_to], :size => 7, :class=>"number" %>
+      </td>
+    </tr>
+    <tr>
+      <td align="right"><%= check_box_tag :non_agency, 1, params[:non_agency]%></td>
+      <td>Исключить агентства</td>
+    </tr>
+    </table>
     <%= render :partial => "search_realty_fields", :locals => { :realty_type_id => params[:type].to_i, :service_type_id => params["service"].to_i } %>
   </div>
 

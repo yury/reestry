@@ -12,5 +12,10 @@ namespace :parse do
     AdminMailer.deliver_parse_notification "Irr", result
 
     puts "End parsing at #{Time.now}"
+
+    puts "Start recalculating prices at #{Time.now}"
+    Pricer.warmup
+    Pricer.recalculate_prices
+    puts "End recalculating prices at #{Time.now}"
   end
 end
