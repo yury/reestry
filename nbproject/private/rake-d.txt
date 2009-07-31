@@ -65,7 +65,7 @@ notes\:custom=Enumerate a custom annotation, specify with ANNOTATION=WTFHAX
 notes\:fixme=Enumerate all FIXME annotations
 notes\:optimize=Enumerate all OPTIMIZE annotations
 notes\:todo=Enumerate all TODO annotations
-parse\:irr=parses irr
+parse\:start=parses realties from sources
 rails\:freeze\:edge=Lock to latest Edge Rails, for a specific release use RELEASE=1.2.0
 rails\:freeze\:gems=Lock this application to the current gems (by unpacking them into vendor/rails)
 rails\:template=Applies the template supplied by LOCATION=/path/to/template
