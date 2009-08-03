@@ -1,15 +1,6 @@
 <% content_for :head do %>
   <script language="javascript" type="text/javascript">
     $(document).ready(function() {
-      //$("#r_list tbody tr").hover(
-      //function () {
-      //  $(this).addClass("hover");
-      //},
-      //function () {
-       // $(this).removeClass("hover");
-      //}
-    //);
-
       $(".image").click(function(event){
         
         return false;
@@ -70,7 +61,7 @@
         <%=h truncate(realty.district.location.is_place ? realty.street : realty.place, :length => 20) %>
       </td>
       <td>
-        <%= truncate(get_description(realty), :length => 135) %><br/>
+        <%= truncate(realty.full_description + get_description(realty), :length => 135) %><br/>
         <div>
           <div style="float:left">
             <%= image_tag "p.png" unless realty.realty_photos.empty? %>

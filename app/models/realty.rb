@@ -150,8 +150,27 @@ class Realty < ActiveRecord::Base
     end
     geodata
   end
+
+  def full_description
+    result = ""
+    if realty_type == RealtyType.find_by_name("Квартира")
+      result += "#{field_value("Количество комнат")}-комн. "
+    elsif realty_type == RealtyType.find_by_name("Комната")
+    elsif realty_type == RealtyType.find_by_name("Дом")
+    elsif realty_type == RealtyType.find_by_name("Участок")
+    elsif realty_type == RealtyType.find_by_name("Гараж")
+      result += description
+    end
+
+    result
+  end
   
   protected
+  def field_value name
+    value = realty_field_values.find_by_realty_field_id(RealtyField.find_by_name(name))
+    value.string_value unless value.blank?
+  end
+
   def validate
     errors.add(:price, "должна быть не менее 0.01") if price.nil? || price < 0.01
   end
