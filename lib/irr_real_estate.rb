@@ -169,7 +169,7 @@ class IrrRealEstate
 
     email_script = doc.at("ul.cont-ico script")
     if email_script.blank?
-      email = "#{contact}@street33.ru"
+      email = "#{contact}@reestry.ru"
     else
       email = Base64.decode64(/base64_decode\('([^']+)'\)/.match(email_script.inner_text)[1])
     end
@@ -247,13 +247,14 @@ class IrrRealEstate
     puts "Creating user with name #{name} and email #{email}"
     user = User.find_by_email(email)
     user = User.new :login => name, :email => email,
-      :password => email, :password_confirmation => email if user.blank?
+      :password => 'password', :password_confirmation => 'password' if user.blank?
     @realty.user = user
   end
 
   def add_contact contact_type, value
     contact = Contact.find_by_value_and_contact_type_id(value, contact_type.id)
-    contact = Contact.new(:user => @realty.user, :contact_type => contact_type, :value => value) if contact.blank?
+    contact = @realty.user.contacts.new(:contact_type => contact_type, :value => value) if contact.blank?
+    puts @realty.inspect
     @realty.contacts << contact unless @realty.contacts.find_by_value_and_contact_type_id(contact.value, contact.contact_type_id)
     contact
   end
