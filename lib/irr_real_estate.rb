@@ -175,6 +175,7 @@ class IrrRealEstate
     end
 
     create_user contact, email
+    puts @realty.user.inspect
     parse_field "Contact", contact unless contact_p.blank?
 
     parse_field "Phone", phone unless phone.blank?
@@ -201,6 +202,7 @@ class IrrRealEstate
     end
 
     puts @realty.inspect
+    puts @realty.user.inspect
     @realty.save!
   end
 
