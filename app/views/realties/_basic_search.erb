@@ -99,6 +99,11 @@
       </td>
     </tr>
     <tr>
+      <td>Исключить агентства:</td>
+      <td><%= check_box_tag :non_agency, 1, params[:non_agency]%></td>
+      
+    </tr>
+    <tr>
       <td colspan="2" align="center">
         <%= text_field_tag :es, params[:es], :type => 'hidden' %>
         <a id="advance_search_link" href="#">Расширенный поиск</a>
@@ -118,10 +123,6 @@
       <td><%=  text_field_tag :area_from, params[:area_from], :size => 7, :class=>"number" %>
         - <%= text_field_tag :area_to, params[:area_to], :size => 7, :class=>"number" %>
       </td>
-    </tr>
-    <tr>
-      <td align="right"><%= check_box_tag :non_agency, 1, params[:non_agency]%></td>
-      <td>Исключить агентства</td>
     </tr>
     </table>
     <%= render :partial => "search_realty_fields", :locals => { :realty_type_id => params[:type].to_i, :service_type_id => params["service"].to_i } %>

@@ -120,19 +120,22 @@ class IrrRealEstate
       @exist_adverts += 1
     end
 
-
     @realty.street = nil
 
+    puts "Parse price"
     price = doc.at("input#ar_price")
     parse_field "Price", price.nil? ? "0.2" : price[:value]
 
+    puts "Parse custom fields"
     (doc/"table.customfields"/"tr").each do |field|
       parse_field field.at("th").inner_text, field.at("td").inner_text, doc
     end
 
+    puts "Parse description"
     description = doc.at("div.additional-text p")
     parse_field "Description", description.inner_text unless description.blank?
 
+    puts "Parse realty type"
     if @realty.realty_type.blank?
       realty_type = get_realty_type(doc)
       if realty_type == "continue"
@@ -316,7 +319,7 @@ class IrrRealEstate
   def get_realty_type doc, type = ""
     live_purpose = RealtyPurpose.find_by_name "Жилое"
     return live_purpose.realty_types.find_by_name("Комната") unless doc.at("a.arrdown[@href='/real-estate/rent/rooms-offers/']").nil?
-    return live_purpose.realty_types.find_by_name("Комната") if !doc.at("a.arrdown[@href='/real-estate/apartments-sale/secondary/']").nil? && !@realty.description.scan(/[К|к]омнату/i).blank?
+    return live_purpose.realty_types.find_by_name("Комната") if !doc.at("a.arrdown[@href='/real-estate/apartments-sale/secondary/']").nil? && !@realty.description.blank? && !@realty.description.scan(/[К|к]омнату/i).blank?
     return live_purpose.realty_types.find_by_name("Квартира") unless doc.at("a.arrdown[@href='/real-estate/rent/appartments-offers/']").nil?
     return live_purpose.realty_types.find_by_name("Квартира") unless doc.at("a.arrdown[@href='/real-estate/apartments-sale/secondary/']").nil?
     return live_purpose.realty_types.find_by_name("Дом") unless doc.at("a.arrdown[@href='/real-estate/out-of-town/houses/']").nil?
