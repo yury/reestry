@@ -203,7 +203,7 @@ class IrrRealEstate
 
     puts @realty.inspect
     puts @realty.user.inspect
-    #@realty.save!
+    @realty.save!
     @realty
   end
 
