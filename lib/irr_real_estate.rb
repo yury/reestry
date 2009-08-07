@@ -249,7 +249,7 @@ class IrrRealEstate
   def create_user name, email
     puts "Creating user with name #{name} and email #{email}"
     user = User.find_by_email(email)
-    user = User.find_by_login(email) if user.blank?
+    user = User.find_by_login(name) if user.blank?
     user = User.new :login => name, :email => email,
       :password => 'password', :password_confirmation => 'password' if user.blank?
     @realty.user = user
