@@ -1,18 +1,15 @@
 <% content_for :head do %>
   <script language="javascript" type="text/javascript">
     $(document).ready(function() {
-      $(".image").click(function(event){
-        
-        return false;
-      });
-    });
-
-    function add_note(element, realty_id) {
-      $.ajax({
+      $('.noted').click(function(event){
+        event.stopPropagation();
+        id = $(this).closest('tr').attr('id');
+        element = $(this);
+        $.ajax({
           type: "POST",
           url: "<%= note_realties_path %>",
           dataType: "script",
-          data: "id=" + realty_id,
+          data: "id=" + id,
           success: function(result) {
             if(result == 'true')
               element.addClass('true');
@@ -20,10 +17,27 @@
               element.removeClass('true');
           }
         });
+      });
 
-        return false;
-    }
+      $('.delete_link').click(function(event){
+        event.stopPropagation();
+        id = $(this).closest('tr').attr('id');
+        if (confirm('Вы уверены, что хотите удалить это объявление?')) {
+          $.ajax({
+            type: "POST",
+            url: "/realties/" + id,
+            dataType: "html",
+            data: "_method=delete&id=" + id,
+            success: function() {
+              document.location.reload(true);
+          }});
+        }
+      });
 
+      $('#r_list tr').click(function(){
+        document.location = '/realties/' + $(this).attr('id');
+      });
+    });
   </script>
 <% end %>
 
@@ -50,7 +64,7 @@
   <% index = 0 %>
   <% realties.each do |realty|%>
     <% index = index + 1 %>
-    <tr onclick="document.location = '<%= realty_path realty%>'">
+    <tr id="<%= realty.id %>" onclick2="document.location = '<%= realty_path realty%>'">
       <td class="center middle">
         <div class="realty_index bold"><br/><a name="r<%= index %>"><%= index %></a></div>
         <div class="small" style="margin-top:2px;<%= "color:#009245;" if realty.new? %>"><%= Russian.strftime(realty.created_at, "%d %b") %></div>
@@ -69,9 +83,7 @@
               <% link_to edit_realty_path(realty) do %>
                 <%= image_tag "layout_edit.png", :style => "border:0px", :title => "Редактировать" %>
               <% end %>
-              <% link_to(realty, :confirm => 'Вы уверены, что хотите удалить это объявление?', :method => :delete) do %>
-                <%= image_tag "delete.png", :style => "border:0px", :title => "Удалить" %>
-              <% end %>
+              <%= image_tag "delete.png", :style => "border:0px", :title => "Удалить", :class=>"delete_link"%>
             <% end %>
           </div>
           <div class="small right"><%=h truncate(realty.description, :length => 55) %></div>
@@ -86,7 +98,7 @@
       </td>
 
       <td class="image" style="padding-right:0px;">
-        <div class="noted <%= 'true' if in_notepad?(realty.id)%>" title="В блокнот" onclick="return add_note($(this), <%= realty.id %>);"></div>
+        <div class="noted <%= 'true' if in_notepad?(realty.id)%>" title="В блокнот"></div>
       </td>
 
     </tr>

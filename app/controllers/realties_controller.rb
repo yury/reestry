@@ -153,7 +153,9 @@ class RealtiesController < ApplicationController
 
   def notepad
     @realties = []
-    @realties = Realty.paginate(session[:notepad], :page => params[:page], :per_page => 15) unless session[:notepad].blank?
+    if !session[:notepad].blank? && session[:notepad].length > 0
+      @realties = Realty.paginate(:conditions => ["id in (#{session[:notepad].join(',')})"], :page => params[:page], :per_page => 15) unless session[:notepad].blank?
+    end
   end
 
   # POST /realties
@@ -206,7 +208,7 @@ class RealtiesController < ApplicationController
     @realty.destroy
 
     respond_to do |format|
-      format.html { redirect_to(realties_url) }
+      format.html { render :text => '' }
       format.xml  { head :ok }
     end
   end
