@@ -203,7 +203,8 @@ class IrrRealEstate
 
     puts @realty.inspect
     puts @realty.user.inspect
-    @realty.save!
+    #@realty.save!
+    @realty
   end
 
   def parse_field field_name, field_value, doc = ""
@@ -248,6 +249,7 @@ class IrrRealEstate
   def create_user name, email
     puts "Creating user with name #{name} and email #{email}"
     user = User.find_by_email(email)
+    user = User.find_by_login(email) if user.blank?
     user = User.new :login => name, :email => email,
       :password => 'password', :password_confirmation => 'password' if user.blank?
     @realty.user = user
@@ -255,8 +257,7 @@ class IrrRealEstate
 
   def add_contact contact_type, value
     contact = Contact.find_by_value_and_contact_type_id(value, contact_type.id)
-    contact = @realty.user.contacts.new(:contact_type => contact_type, :value => value) if contact.blank?
-    puts @realty.inspect
+    contact = Contact.new(:user => @realty.user, :contact_type => contact_type, :value => value) if contact.blank?
     @realty.contacts << contact unless @realty.contacts.find_by_value_and_contact_type_id(contact.value, contact.contact_type_id)
     contact
   end
