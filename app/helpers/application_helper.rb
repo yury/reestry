@@ -8,8 +8,10 @@ module ApplicationHelper
   end
   
   def tab title, options = {}, &block
+    @use_tab_buttons = true
     options.reverse_merge!(:image => "")
     block_to_partial('all/tab', options.merge(:title => title), &block)
+    @use_tab_buttons = false
   end
   
   def quick_panel left_panels = [], right_panels = [], &block
@@ -37,17 +39,18 @@ module ApplicationHelper
     options.merge!(:checked => checked)
     render :partial=>"all/checkbox", :locals => options
   end
-  
+
   def button title, name, options = {}
     js = "return false;"
     js = "document.location.href = '#{options[:path]}';#{js}" if options.key?(:path)
     js = "#{options[:js]};#{js}" if options.key?(:js)
-    #js = "$('##{name}').click();#{js}" if options.key?(:submit) && options[:submit] == true
     js = "$(this).parents('form').submit();#{js}" if options.key?(:submit) && options[:submit] == true
 
-    options = options.reverse_merge!(:submit=>false, :klass=>"", :js=>js)
+    options = options.reverse_merge!(:submit=>false, :klass=>"blue", :js=>js)
     options = options.merge(:title => title)
     options = options.merge(:name => name)
+    options[:klass] += " t" if @use_tab_buttons == true
+
     render :partial=>"all/button", :locals => options
   end
   

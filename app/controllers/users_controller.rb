@@ -24,11 +24,12 @@ class UsersController < ApplicationController
     puts @user.inspect
     if @user.errors.empty?
       self.current_user = @user
-      redirect_back_or_default('/')
       flash[:notice] = "Регистрация прошла успешно!"
+
+      reload_page
     else
       flash[:notice] = "Регистрация невозможна!"
-      redirect_back_or_default('/')
+      replace_html 'registration_info', "<div class='error'>#{@user.errors.first}</div>"
     end
   end
 

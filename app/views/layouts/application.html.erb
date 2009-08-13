@@ -69,7 +69,8 @@
       "jquery.cookie.pack.js",
       "jquery.textarearesizer.compressed.js",
       "jquery.validate.pack.js",
-      "jquery.galleriffic.min"
+      "jquery.galleriffic.min",
+      "swfobject.js"
   %>
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
     <script>
@@ -117,9 +118,8 @@
             <div style="margin-top:20px">
               <a href="/realties/notepad">Блокнот</a><br/>
               <a href="<%=  new_realty_path %>" <%= "onclick='showLoginDialog();return false;'" unless logged_in? %>>Новое объявление</a><br/>
-              <a href="#" <%= "onclick='showLoginDialog();return false;'" unless logged_in? %>>Мои объявления</a><br/>
+              <a href="<%= "/#{current_user.login}/realties" if logged_in? %>" <%= "onclick='showLoginDialog();return false;'" unless logged_in? %>>Мои объявления</a><br/>
             </div>
-
           </div>
         </div>
       </div>

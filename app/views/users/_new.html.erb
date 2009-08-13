@@ -1,6 +1,11 @@
 <div class="bold" style="margin-bottom:10px">Регистрация:</div>
-<%= error_messages_for :user %>
-<% form_for :user, :url => users_path, :html => {:id=>"registration_form"} do |f| -%>
+<%#= error_messages_for :user %>
+<%# form_for :user, :url => users_path, :html => {:id=>"registration_form"} do |f| -%>
+<% remote_form_for :user,
+                   :url => users_path,
+                   :method => :post,
+                   :loading => "$('#registration_info').html('<div class=\"login_loading\">проверка данных...</div>')",
+                   :id=> "registration_form" do |f|-%>
  <table>
    <tr>
      <td><label for="login">Логин: </label></td>
@@ -19,8 +24,13 @@
      <td><%= f.password_field :password_confirmation, :class => "required" %></td>
    </tr>
    <tr>
-     <td colspan="2">
-      <%= button "Регистрация", "register_button", :style => "width:120px;float:left;margin-top:10px;margin-right:10px", :submit => true %>
+     <td colspan="2" align="center">
+      <div id="registration_info"></div>
+     </td>
+   </tr>
+   <tr>
+     <td colspan="2" align="center">
+      <%= button "Регистрация", "register_button", :style => "width:120px;float:left;margin-top:10px;margin-right:10px", :js => "$(this).parents('form')[0].onsubmit();" %>
       <%= button "Отмена", "cancel", :style => "width:120px;float:left;margin-top:10px;margin-bottom:5px;", :klass => "simplemodal-close" %>
     </td>
    </tr>

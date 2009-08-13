@@ -13,19 +13,7 @@ class SessionsController < ApplicationController
      reload_page
     else
       flash[:notice] = "Неверное имя пользователя или пароль"
-      replace_html 'login_info', "<div class='login_error'>неверное имя или пароль</div>"
-    end
-  end
-
-  def reload_page
-    render :update, :layout => false do |page|
-      page << "location.href = location.href.split('#')[0]"
-    end
-  end
-
-  def replace_html id, html
-    render :update, :layout => false do |page|
-      page.replace_html  id, html
+      replace_html 'login_info', "<div class='error'>неверное имя или пароль</div>"
     end
   end
 
@@ -34,6 +22,6 @@ class SessionsController < ApplicationController
     cookies.delete :auth_token
     reset_session
     flash[:notice] = "You have been logged out."
-    redirect_back_or_default('/')
+    redirect_back_or_default('/realties')
   end
 end

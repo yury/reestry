@@ -35,12 +35,15 @@ ActionController::Routing::Routes.draw do |map|
 
   map.service '/realties/notepad', :controller => 'realties', :action => 'notepad'
 
+  map.service '/:user_login/realties', :controller => 'realties', :action => 'user_realties'
+
   map.resources :realties, :collection => { 
                                             :create_user_request => :post,
                                             :update_realty_fields => :any, 
                                             :update_realty_district => :any,
                                             :update_realty_geodata => :post,
-                                            :note => :post
+                                            :note => :post,
+                                            :chart => :get
                                           },
                                :member => { :photos => :any, 
                                             :delete_photo => :any, 

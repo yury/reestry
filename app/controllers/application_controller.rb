@@ -20,4 +20,16 @@ class ApplicationController < ActionController::Base
     args = options.map { |name, value| "#{name.to_s.upcase}='#{value}'" }
     system "rake #{task} #{args.join(' ')} --trace >> #{Rails.root}/log/rake.log &"
   end
+
+  def reload_page
+    render :update, :layout => false do |page|
+      page << "location.href = location.href.split('#')[0]"
+    end
+  end
+
+  def replace_html id, html
+    render :update, :layout => false do |page|
+      page.replace_html  id, html
+    end
+  end
 end

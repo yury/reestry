@@ -65,12 +65,12 @@
   <% end %>
 <% end %>
 
-<% button_style = "width:135px;float:right;margin-right:15px;" %>
+<% button_style = "float:right;margin-right:15px;" %>
 <div style="clear:both;padding-top:25px;">
-  <%= button "Назад", "back", :style =>button_style, :js=>"history.back()" %>
+  <%= button "Назад", "back", :style =>"width:130px;" + button_style, :js=>"history.back()" %>
   <% if @realty.user_can_edit? current_user %>
-    <%= button "Редактировать фото", "edit", :style =>button_style, :path=>photos_realty_path(@realty) %>
-    <%= button "Редактировать контакты", "edit", :style =>button_style, :path=>contacts_realty_path(@realty) %>
-    <%= button "Редактировать объект", "edit", :style =>button_style, :path=>edit_realty_path(@realty) %>
+    <%= button "Редактировать фото", "edit", :style =>"width:150px;" + button_style, :path=>photos_realty_path(@realty) %>
+    <%= button "Редактировать контакты", "edit", :style =>"width:170px;" + button_style, :path=>contacts_realty_path(@realty) %>
+    <%= button "Редактировать объект", "edit", :style =>"width:160px;" + button_style, :path=>edit_realty_path(@realty) %>
   <% end %>
 </div>

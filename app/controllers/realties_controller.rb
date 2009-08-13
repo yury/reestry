@@ -2,18 +2,18 @@ class RealtiesController < ApplicationController
   include RealtiesHelper
   
   before_filter :login_required, :only => [ :new, 
-                                            :create
-                                          ]
+    :create
+  ]
                                           
   before_filter :check_access, :only => [
-                                            :update_realty_type, 
-                                            :photos, 
-                                            :contacts, 
-                                            :edit,
-                                            :update,
-                                            :destroy,
-                                            :delete_photo
-                                            ]
+    :update_realty_type,
+    :photos,
+    :contacts,
+    :edit,
+    :update,
+    :destroy,
+    :delete_photo
+  ]
 
   def home
     redirect_to "/home.html"
@@ -33,10 +33,73 @@ class RealtiesController < ApplicationController
     @pars = params
     @realties = Realty.select params
     @price_limit = Realty.price_limits params[:service], params[:type]
-    
+
+    @graph = open_flash_chart_object( 600, 300, url_for( :action => 'chart', :format => :json ) )
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @realties }
+    end
+  end
+
+  def chart
+    respond_to do |format|
+      format.json {
+       title = Title.new("Multiple Lines")
+
+    data1 = []
+    data2 = []
+    data3 = []
+
+    10.times do |x|
+      data1 << rand(5) + 1
+      data2 << rand(6) + 7
+      data3 << rand(5) + 14
+    end
+
+    line_dot = LineDot.new
+    line_dot.text = "Line Dot"
+    line_dot.width = 4
+    line_dot.colour = '#DFC329'
+    line_dot.dot_size = 5
+    line_dot.values = data1
+
+    line_hollow = LineHollow.new
+    line_hollow.text = "Line Hollow"
+    line_hollow.width = 1
+    line_hollow.colour = '#6363AC'
+    line_hollow.dot_size = 5
+    line_hollow.values = data2
+
+    line = Line.new
+    line.text = "Line"
+    line.width = 1
+    line.colour = '#5E4725'
+    line.dot_size = 5
+    line.values = data3
+
+    y = YAxis.new
+    y.set_range(0,20,5)
+
+    x_legend = XLegend.new("MY X Legend")
+    x_legend.set_style('{font-size: 20px; color: #778877}')
+
+    y_legend = YLegend.new("MY Y Legend")
+    y_legend.set_style('{font-size: 20px; color: #770077}')
+
+    chart =OpenFlashChart.new
+    chart.set_title(title)
+    chart.set_x_legend(x_legend)
+    chart.set_y_legend(y_legend)
+    chart.y_axis = y
+
+    chart.add_element(line_dot)
+    chart.add_element(line_hollow)
+    chart.add_element(line)
+
+    render :text => chart.to_s
+
+      }
     end
   end
 
@@ -69,10 +132,10 @@ class RealtiesController < ApplicationController
       if(params[:is_search])
         price_limit = Realty.price_limits params[:service_type_id], params[:realty_type_id]
         format.js { render :text => {:min => price_limit[:min], :max => price_limit[:max], :step => price_limit[:step],
-                           :html => render_to_string(
-                           :partial => "search_realty_fields",
-                           :locals => {:realty_type_id => params[:realty_type_id], :service_type_id => params[:service_type_id].to_i})
-                       }.to_json}
+            :html => render_to_string(
+              :partial => "search_realty_fields",
+              :locals => {:realty_type_id => params[:realty_type_id], :service_type_id => params[:service_type_id].to_i})
+          }.to_json}
       elsif
         @realty = Realty.new(:realty_type_id => params[:realty_type_id], :service_type_id => params[:service_type_id]) 
         format.js { render :partial => "realty_fields", :locals => {:realty => @realty} }
@@ -84,8 +147,8 @@ class RealtiesController < ApplicationController
     respond_to do |format|
       puts " Formt: #{format.inspect}"
       format.js { render :text => {:html => render_to_string(:partial => "realty_district_select",
-           :locals => {:is_search => params[:is_search], :location_id => params[:location_id]}),
-           :hide_place => params[:location_id].blank? || Location.find(params[:location_id]).is_place}.to_json
+            :locals => {:is_search => params[:is_search], :location_id => params[:location_id]}),
+          :hide_place => params[:location_id].blank? || Location.find(params[:location_id]).is_place}.to_json
       }
     end
   end
@@ -98,13 +161,13 @@ class RealtiesController < ApplicationController
     realty.district_id = params[:district]
     realty.update_geodata
 
-     respond_to do |format|
-       if realty.is_exact
-         format.js { render :text => [realty.lat, realty.lng].to_json }
-       else
-         format.js { render :text => "" }
-       end
-     end
+    respond_to do |format|
+      if realty.is_exact
+        format.js { render :text => [realty.lat, realty.lng].to_json }
+      else
+        format.js { render :text => "" }
+      end
+    end
   end
   
   def photos
@@ -158,26 +221,35 @@ class RealtiesController < ApplicationController
     end
   end
 
+  def user_realties
+    @user = User.find_by_login(params[:user_login])
+    if @user.blank?
+      redirect_to realties_path
+    else
+      @realties = Realty.paginate(:conditions => ["user_id = ?", @user.id], :page => params[:page], :per_page => 15)
+    end
+  end
+
   # POST /realties
   # POST /realties.xml
   def create
-      @realty = Realty.new(params[:realty])
-      @realty.district_id = params[:district]
-      @realty.user = current_user
-      @realty.realty_field_values = get_realty_fields
-      @realty.expire_at = Time.now.advance(:months => 1)
-      @realty.update_geodata
+    @realty = Realty.new(params[:realty])
+    @realty.district_id = params[:district]
+    @realty.user = current_user
+    @realty.realty_field_values = get_realty_fields
+    @realty.expire_at = Time.now.advance(:months => 1)
+    @realty.update_geodata
       
-      respond_to do |format|
-        if @realty.save
-          flash[:notice] = 'Объект успешно создан.'
-          format.html { redirect_to photos_realty_path(@realty) + "?is_step=1" }
-          format.xml  { render :xml => @realty, :status => :created, :location => @realty }
-        else
-          format.html { render :action => "new" }
-          format.xml  { render :xml => @realty.errors, :status => :unprocessable_entity }
-        end
+    respond_to do |format|
+      if @realty.save
+        flash[:notice] = 'Объект успешно создан.'
+        format.html { redirect_to photos_realty_path(@realty) + "?is_step=1" }
+        format.xml  { render :xml => @realty, :status => :created, :location => @realty }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @realty.errors, :status => :unprocessable_entity }
       end
+    end
   end
 
   # PUT /realties/1
@@ -233,7 +305,7 @@ class RealtiesController < ApplicationController
     end
   end
   
-private
+  private
   def check_access
     if authorized?
       realty = Realty.find(params[:id])
@@ -248,15 +320,15 @@ private
   end
   
   def get_realty_fields
-      realty_fields = [];
+    realty_fields = [];
 
-      return realty_fields if params["f"].blank?
+    return realty_fields if params["f"].blank?
       
-      for p in params["f"]
-          realty_fields << RealtyFieldValue.new(:realty_field_id => p[0], :value => p[1]) unless p[1].blank?
-      end  
-      
-      realty_fields
+    for p in params["f"]
+      realty_fields << RealtyFieldValue.new(:realty_field_id => p[0], :value => p[1]) unless p[1].blank?
     end
- # end
+      
+    realty_fields
+  end
+  # end
 end

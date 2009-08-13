@@ -22,6 +22,7 @@ class IrrRealEstate
     @have_errors = 0
     @total_count = 0
     @errors = []
+    @new_realties = 0
 
     beginning = Time.now
     
@@ -41,7 +42,7 @@ class IrrRealEstate
       result += "\r\n#{error}"
     end
 
-    result += "\r\nTotal:#{@total_count}. Errors:#{@have_errors}(#{100*@have_errors/@total_count}%). Execution time: #{Time.now - beginning}"
+    result += "\r\nTotal:#{@total_count}. New: #{@new_realties}. Errors:#{@have_errors}(#{100*@have_errors/@total_count}%). Execution time: #{Time.now - beginning}"
     result
   end
 
@@ -99,6 +100,7 @@ class IrrRealEstate
     @total_count = 0
     @errors = []
     @exist_adverts = 0
+    @new_realties = 0
 
     begin
       parse_advert "/advert/#{irr_id}"
@@ -190,8 +192,11 @@ class IrrRealEstate
     date = Time.at date.inner_text.to_i
     
     puts "Created Date: #{date}"
-    @realty.created_at = date if @realty.id.blank?
-    @realty.expire_at = date.advance(:months => 1) if @realty.id.blank?
+    if @realty.id.blank?
+      @realty.created_at = date
+      @realty.expire_at = date.advance(:months => 1)
+      @new_realties += 1
+    end
 
     parse_place_and_district #if @realty.district_id.blank?
 
