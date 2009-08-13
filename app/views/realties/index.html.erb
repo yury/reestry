@@ -1,5 +1,3 @@
-
-<%= @graph %>
 <% content_for :left do %>
   <% tab "Поиск", :image => "/images/find.png", :style => "width:315px" do%>
     <%= render :partial => "basic_search" %>
@@ -9,6 +7,14 @@
 <% content_for :left do %>
   <% tab "Карта", :image => "/images/map.png", :style => "margin-top:10px;width:315px;" do%>
     <%= map(@realties, :width => 290, :height => 400) %>
+  <% end %>
+<% end %>
+
+<% content_for :left do %>
+  <% tab "Динамика цен", :image => "/images/home.png", :style => "margin-top:10px;width:315px" do%>
+    <div class="vr_line vl_line hb_line ht_line">
+      <%= @graph %>
+    </div>
   <% end %>
 <% end %>
 

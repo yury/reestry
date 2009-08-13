@@ -34,7 +34,7 @@ class RealtiesController < ApplicationController
     @realties = Realty.select params
     @price_limit = Realty.price_limits params[:service], params[:type]
 
-    @graph = open_flash_chart_object( 600, 300, url_for( :action => 'chart', :format => :json ) )
+    @graph = open_flash_chart_object( 290, 300, url_for( :action => 'chart', :format => :json ))
 
     respond_to do |format|
       format.html # index.html.erb
@@ -45,59 +45,67 @@ class RealtiesController < ApplicationController
   def chart
     respond_to do |format|
       format.json {
-       title = Title.new("Multiple Lines")
+        title = Title.new("Количество комнат")
+        title.set_style('{font-size: 11px; color: #222222}')
 
-    data1 = []
-    data2 = []
-    data3 = []
+        data1 = []
+        data2 = []
+        data3 = []
 
-    10.times do |x|
-      data1 << rand(5) + 1
-      data2 << rand(6) + 7
-      data3 << rand(5) + 14
-    end
+        50.times do |x|
+          data1 << rand(4000) + 1000
+          data2 << rand(4000) + 5000
+          data3 << rand(4000) + 10000
+        end
 
-    line_dot = LineDot.new
-    line_dot.text = "Line Dot"
-    line_dot.width = 4
-    line_dot.colour = '#DFC329'
-    line_dot.dot_size = 5
-    line_dot.values = data1
+        line1 = Line.new
+        line1.text = "1"
+        line1.width = 1.5
+        line1.colour = '#009245'
+        line1.dot_size = 3
+        line1.values = data1
 
-    line_hollow = LineHollow.new
-    line_hollow.text = "Line Hollow"
-    line_hollow.width = 1
-    line_hollow.colour = '#6363AC'
-    line_hollow.dot_size = 5
-    line_hollow.values = data2
+        line2 = Line.new
+        line2.text = "2"
+        line2.width = 1.5
+        line2.colour = '#920045'
+        line2.dot_size = 3
+        line2.values = data2
 
-    line = Line.new
-    line.text = "Line"
-    line.width = 1
-    line.colour = '#5E4725'
-    line.dot_size = 5
-    line.values = data3
+        line3 = Line.new
+        line3.text = "3"
+        line3.width = 1.5
+        line3.colour = '#aaaaff'
+        line3.dot_size = 3
+        line3.values = data3
 
-    y = YAxis.new
-    y.set_range(0,20,5)
+        y = YAxis.new
+        y.set_range(1000,15000,1000)
+        y.set_colours('#818D9D','#BDC5D7')
 
-    x_legend = XLegend.new("MY X Legend")
-    x_legend.set_style('{font-size: 20px; color: #778877}')
+        x = XAxis.new
+        x.set_range(0,50,5)
+        x.set_colours('#818D9D','#BDC5D7')
+       
+        x_legend = XLegend.new("Дата")
+        x_legend.set_style('{font-size: 11px; color: #818D9D}')
 
-    y_legend = YLegend.new("MY Y Legend")
-    y_legend.set_style('{font-size: 20px; color: #770077}')
+        y_legend = YLegend.new("Цена")
+        y_legend.set_style('{font-size: 11px; color: #818D9D}')
 
-    chart =OpenFlashChart.new
-    chart.set_title(title)
-    chart.set_x_legend(x_legend)
-    chart.set_y_legend(y_legend)
-    chart.y_axis = y
+        chart = OpenFlashChart.new
+        chart.set_title(title)
+        chart.set_x_legend(x_legend)
+        chart.set_y_legend(y_legend)
+        chart.y_axis = y
+        chart.x_axis = x
+        chart.set_bg_colour('#FFFFFF')
 
-    chart.add_element(line_dot)
-    chart.add_element(line_hollow)
-    chart.add_element(line)
+        chart.add_element(line1)
+        chart.add_element(line2)
+        chart.add_element(line3)
 
-    render :text => chart.to_s
+        render :text => chart.to_s
 
       }
     end
