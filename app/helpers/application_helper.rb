@@ -46,7 +46,7 @@ module ApplicationHelper
     js = "#{options[:js]};#{js}" if options.key?(:js)
     js = "$(this).parents('form').submit();#{js}" if options.key?(:submit) && options[:submit] == true
 
-    options = options.reverse_merge!(:submit=>false, :klass=>"blue", :js=>js)
+    options = options.reverse_merge!(:submit=>false, :klass=>"blue", :js=>js, :style=>"")
     options = options.merge(:title => title)
     options = options.merge(:name => name)
     options[:klass] += " t" if @use_tab_buttons == true
