@@ -75,7 +75,7 @@
     <td>Вид объекта:</td>
     <td>
       <select name="realty[realty_type_id]" id="realty_realty_type_id" class="cause_fields_update">
-              <%=  option_groups_from_collection_for_select(RealtyPurpose.find(:all), :realty_types, :name, :id, :name, realty.realty_type_id)  %>
+              <%=  option_groups_from_collection_for_select(RealtyPurpose.find_all_by_disabled(false), :realty_types, :name, :id, :name, realty.realty_type_id)  %>
       </select>
     </td>
     <td></td>
