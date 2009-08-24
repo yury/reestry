@@ -1,48 +1,40 @@
+<%
+  points = (realties.map { |r| [r.lat, r.lng] if r.is_exact}).compact
+
+  x_min_max = points.minmax { |a, b| a[0] <=> b[0] }
+  y_min_max = points.minmax { |a, b| a[1] <=> b[1] }
+
+  left_bottom_point = [x_min_max[1][0], y_min_max[0][1]]
+  right_top_point = [x_min_max[0][0], y_min_max[1][1]]
+%>
+
 <% content_for :head do %>
-  <%= GMap.header %>
-  <%
-    map = GMap.new("map_div")
-	map.control_init(:map_type => map_type, :small_zoom => small_zoom, :large_map => large_map)
+  <script src="http://api-maps.yandex.ru/1.1/index.xml?key=<%= Geokit::Geocoders::yandex %>" type="text/javascript"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var map = new YMaps.Map(document.getElementById("map_div"));
+      map.addControl(new YMaps.TypeControl());
+      map.addControl(new YMaps.SmallZoom());
+      map.addControl(new YMaps.ScaleLine());
+      <% index = 0
+         realties.each do |realty|
+         index += 1
+         if realty.is_exact %>
+           var placemark = new YMaps.Placemark(new YMaps.GeoPoint(<%= realty.lng %>, <%= realty.lat %>), {style: "default#greenPoint"});
+           placemark.setIconContent('<%= index %>');
+           placemark.name = 'Объект №<%= index %>'
+           placemark.description = "<a href='<%= realty_path realty%>'>Подробнее...</a>"
+           map.addOverlay(placemark);
+        <% end %>
+      <% end %>
 
-    points = (realties.map { |r| [r.lat, r.lng] if r.is_exact}).compact
-    if points.length == 1
-      map.center_zoom_init(points[0], 13)
-    else
-      map.center_zoom_on_points_init(points)
-    end
-    
-
-    map.icon_global_init(GIcon.new(
-        :image => "http://labs.google.com/ridefinder/images/mm_20_red.png",
-        :shadow => "http://labs.google.com/ridefinder/images/mm_20_shadow.png",
-        :icon_size => GSize.new(12,20),
-        :shadow_size => GSize.new(22,20),
-        :icon_anchor => GPoint.new(6,20),
-        :info_window_anchor => GPoint.new(5,1) ),
-        "icon")
-
-   icon = Variable.new("icon");
-
-    index = 0
-    realties.each do |realty|
-      index = index + 1
-      if realty.is_exact
-        marker = GMarker.new([realty.lat, realty.lng],
-            :title => "Объект №#{index}",
-            :icon => icon,
-            :info_window => simple_format(word_wrap("#{realty.description}", 30)))
-
-        map.declare_init(marker, "m#{index}")
-        map.overlay_init(marker)
-        map.event_init(marker, :click, "function(){window.location.href = '#r#{index}';}")
-
-      end
-    end
-  %>
-
-  <%= map.to_html %>
+      map.setBounds(new YMaps.GeoBounds(new YMaps.GeoPoint(<%=left_bottom_point[1]%>, <%=left_bottom_point[0]%>),
+                                     new YMaps.GeoPoint(<%=right_top_point[1]%>, <%=right_top_point[0]%>)));
+    });
+  </script>
 <% end %>
 
-<%= map.div(:width => width, :height => height, :class => "vr_line vl_line hb_line ht_line map") %>
+<div id="map_div" style="width:<%= width %>px;height:<%= height%>px" class="vr_line vl_line hb_line ht_line map">
+</div>
 
 

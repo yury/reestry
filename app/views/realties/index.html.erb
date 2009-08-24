@@ -10,14 +10,6 @@
   <% end %>
 <% end %>
 
-<% content_for :left do %>
-  <% tab "Динамика цен", :image => "/images/home.png", :style => "margin-top:10px;width:315px" do%>
-    <div class="vr_line vl_line hb_line ht_line">
-      <%= @graph %>
-    </div>
-  <% end %>
-<% end %>
-
 <%= render :partial => "realty_list", :locals => { :realties => @realties} %>
 
 
