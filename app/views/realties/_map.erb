@@ -1,40 +1,49 @@
 <%
-  points = (realties.map { |r| [r.lat, r.lng] if r.is_exact}).compact
+points = (realties.map { |r| [r.lat, r.lng] if r.is_exact}).compact
 
-  x_min_max = points.minmax { |a, b| a[0] <=> b[0] }
-  y_min_max = points.minmax { |a, b| a[1] <=> b[1] }
+x_min_max = points.minmax { |a, b| a[0] <=> b[0] }
+y_min_max = points.minmax { |a, b| a[1] <=> b[1] }
 
-  left_bottom_point = [x_min_max[1][0], y_min_max[0][1]]
-  right_top_point = [x_min_max[0][0], y_min_max[1][1]]
+left_bottom_point = [x_min_max[1][0], y_min_max[0][1]]
+right_top_point = [x_min_max[0][0], y_min_max[1][1]]
 %>
 
 <% content_for :head do %>
   <script src="http://api-maps.yandex.ru/1.1/index.xml?key=<%= Geokit::Geocoders::yandex %>" type="text/javascript"></script>
   <script type="text/javascript">
+    var map = null;
+    
     $(document).ready(function() {
-      var map = new YMaps.Map(document.getElementById("map_div"));
+      map = new YMaps.Map(document.getElementById("map_div"));
       map.addControl(new YMaps.TypeControl());
       map.addControl(new YMaps.SmallZoom());
       map.addControl(new YMaps.ScaleLine());
-      <% index = 0
-         realties.each do |realty|
-         index += 1
-         if realty.is_exact %>
-           var placemark = new YMaps.Placemark(new YMaps.GeoPoint(<%= realty.lng %>, <%= realty.lat %>), {style: "default#greenPoint"});
-           placemark.setIconContent('<%= index %>');
-           placemark.name = 'Объект №<%= index %>'
-           placemark.description = "<a href='<%= realty_path realty%>'>Подробнее...</a>"
-           map.addOverlay(placemark);
-        <% end %>
-      <% end %>
+      <%- index = 0
+      realties.each do |realty|
+        index += 1
+        if realty.is_exact -%>
+           addPlacemark(<%= realty.lng %>, <%= realty.lat %>, <%= index %>, '<%= realty_path realty%>');
+        <%- end -%>
+      <%- end -%>
 
       map.setBounds(new YMaps.GeoBounds(new YMaps.GeoPoint(<%=left_bottom_point[1]%>, <%=left_bottom_point[0]%>),
-                                     new YMaps.GeoPoint(<%=right_top_point[1]%>, <%=right_top_point[0]%>)));
+                                        new YMaps.GeoPoint(<%=right_top_point[1]%>, <%=right_top_point[0]%>)));
     });
+
+    function addPlacemark(lng, lat, title, url) {
+      placemark = new YMaps.Placemark(new YMaps.GeoPoint(lng, lat), {style: "default#greenPoint"});
+      if(title != null) {
+        placemark.setIconContent(title);
+        placemark.name = 'Объект ' + title;
+      }
+      if(url != null) {
+        placemark.description = "<a href='" + url + "'>Подробнее...</a>";
+      }
+      map.addOverlay(placemark);
+    }
   </script>
 <% end %>
 
-<div id="map_div" style="width:<%= width %>px;height:<%= height%>px" class="vr_line vl_line hb_line ht_line map">
-</div>
+<div id="map_div" style="width:<%= width %>px;height:<%= height%>px" class="vr_line vl_line hb_line ht_line map"></div>
 
 
