@@ -463,6 +463,8 @@ class IrrRealEstate
     text =~ /(ипоте.+кредит.+)\W/i if $1.nil?
     text =~ /(Ипотека)\W/i if $1.nil?
     text =~ /(риэлтор.+услуг.+)\W/i if $1.nil?
+    text =~ /(сниму)\W/i if $1.nil?
+    text =~ /(снимет)\W/i if $1.nil?
 
     raise "Continue" unless $1.nil?
   end

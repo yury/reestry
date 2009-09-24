@@ -152,9 +152,14 @@ class Realty < ActiveRecord::Base
   end
 
   def full_description
-    result = ""
+    result = []
     if realty_type == RealtyType.find_by_name("Квартира")
-      result += "#{field_value("Количество комнат")}-комн. "
+      area_unit_name = area_unit.blank? ? "м²" : area_unit.short_name
+      result << template("{0}-комн. квартира", f("Количество комнат"), "Квартира")
+      result << template("общая площадь: {0} #{area_unit_name}", ["#{total_area}"])
+      result << template("жилая: {0} #{area_unit_name}", f("Жилая площадь"))
+      result << template("кухня: {0} #{area_unit_name}", f("Площадь кухни"))
+                                              
     elsif realty_type == RealtyType.find_by_name("Комната")
     elsif realty_type == RealtyType.find_by_name("Дом")
     elsif realty_type == RealtyType.find_by_name("Участок")
@@ -162,13 +167,25 @@ class Realty < ActiveRecord::Base
       result += description
     end
 
-    result
+    result.compact.join(", ")
   end
   
   protected
-  def field_value name
-    value = realty_field_values.find_by_realty_field_id(RealtyField.find_by_name(name))
-    value.string_value unless value.blank?
+  def template template_string, values, default_result = nil
+    result = template_string.clone
+    template_used = false
+    values.each_with_index do |value, i|
+      result.gsub!(/\{#{i}\}/, "#{value}")
+      template_used = true unless value.blank?
+    end
+    template_used ? result : default_result
+  end
+
+  def f *names
+    names.map do |name|
+      value = realty_field_values.find_by_realty_field_id(RealtyField.find_by_name(name))
+      value.blank? ? value : value.string_value
+    end
   end
 
   def validate
