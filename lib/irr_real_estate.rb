@@ -50,7 +50,12 @@ class IrrRealEstate
     @exist_adverts = 0
     begin
       for page in 1..30 do
-        parse_page estate_type, page
+        begin
+          parse_page estate_type, page
+        rescue 
+          parse_page estate_type, page     
+        end
+
         if @exist_adverts >= 40
           puts "Breaking parsing due existing adverts"
           break
