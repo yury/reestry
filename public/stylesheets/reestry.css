@@ -28,6 +28,10 @@ input.error, select.error {
     margin:0;
 }
 
+a.raw, a.raw:hover {
+    background-color:transparent;
+}
+
 #airlock {
     margin: 0 auto 30px;
     width: 984px;

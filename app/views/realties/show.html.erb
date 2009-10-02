@@ -16,7 +16,7 @@
   <tr>
     <td>Цена:</td>
     <td class="bold right"><%=h number_to_currency(@realty.price_or_predict, :precision => 0) %>
-    <%= '*' if @realty.price_blank? %>
+      <%= '*' if @realty.price_blank? %>
     </td>
     <td></td>
     <td>Площадь:</td>
@@ -32,18 +32,18 @@
 <%= render :partial => "realty_photo_gallery", :locals => { :realty => @realty } %>
 
 <% if @realty.is_exact %>
-<div style="clear:both;">
-  Карта:
-  <%= map(@realty, :large_map => true, :small_zoom => false, :map_type => true, :width => 750, :height => 400) %>
-</div>
+  <div style="clear:both;">
+    Карта:
+    <%= map(@realty, :large_map => true, :small_zoom => false, :map_type => true, :width => 750, :height => 400) %>
+  </div>
 <% end %>
-
-
 
 <% tab "Описание", :image => "/images/comment.png", :style=>"margin-top:20px;width:100%" do %>
   <%=h @realty.description %>
-  <br/><br/>
-    Дата размещения: <%= Russian.strftime(@realty.created_at, "%d %b %Y") %> года
+  <div style="margin-top:5px;">
+    <div class="left" style="margin-top:15px;">Дата размещения: <%= Russian.strftime(@realty.created_at, "%d %b %Y") %> года</div>
+    <div class="right"><%= render :partial => "realty_source" %></div>
+  </div>
 <% end %>
 
 <% tab_style = "width:212px;margin-bottom:15px;" %>
