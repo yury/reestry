@@ -4,7 +4,7 @@ class IrrRealEstate
   require 'geokit'
   require 'vendor/plugins/geokit-rails/init.rb'
   require 'rubygems'
-  require 'nokogiri'
+  require 'hpricot'
   require 'open-uri'
   require 'json'
   require 'base64'
@@ -65,7 +65,7 @@ class IrrRealEstate
   def parse_page estate_type, page
     url = "http:\/\/vladimir.irr.ru\/real-estate\/#{estate_type}\/page#{page}"
     puts "Parsing page #{page}. Estate type:#{estate_type}. Url: #{url}"
-    doc = Nokogiri::HTML(open(url))
+    doc = Hpricot(open(url))
     (doc/"table#adListTable"/"*[@onclick*='document.location']").each do |ad|
       advert = ad["onclick"].scan(%r{document.location = '(.*)'})  
       begin
@@ -112,7 +112,7 @@ class IrrRealEstate
   def parse_advert advert_link
     puts advert_link
 
-    doc = Nokogiri::HTML(open("http:\/\/vladimir.irr.ru#{advert_link}"), "http:\/\/vladimir.irr.ru#{advert_link}", 'u')
+    doc = Hpricot(open("http:\/\/vladimir.irr.ru#{advert_link}"))
 
     irr_id = doc.at("input#ad_id")[:value]
     @realty = Realty.find_by_irr_id irr_id
