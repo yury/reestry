@@ -64,17 +64,20 @@
   <% index = 0 %>
   <% realties.each do |realty|%>
     <% index = index + 1 %>
-    <tr id="<%= realty.id %>" onclick2="document.location = '<%= realty_path realty%>'">
+    <tr id="<%= realty.id %>">
       <td class="center middle">
         <div class="realty_index bold"><br/><a name="r<%= index %>"><%= index %></a></div>
         <div class="small" style="margin-top:2px;<%= "color:#009245;" if realty.new? %>"><%= Russian.strftime(realty.created_at, "%d %b") %></div>
       </td>
       <td class="center" width="100px">
-        <%=h truncate(realty.district.location.name, :length => 30) %><br/>
-        <%=h truncate(realty.district.name, :length => 30) %><br/>
-        <%=h truncate(realty.district.location.is_place ? realty.street : realty.place, :length => 20) %>
+        <a href="<%= realty_path realty%>">
+          <%=h truncate(realty.district.location.name, :length => 30) %><br/>
+          <%=h truncate(realty.district.name, :length => 30) %><br/>
+          <%=h truncate(realty.district.location.is_place ? realty.street : realty.place, :length => 20) %>
+        </a>
       </td>
       <td>
+        <a href="<%= realty_path realty%>">
         <%= truncate(realty.full_description + get_description(realty), :length => 135) %><br/>
         <div>
           <div style="float:left">
@@ -88,6 +91,7 @@
           </div>
           <div class="small right"><%=h truncate(realty.description, :length => 55) %></div>
         </div>
+        </a>
       </td>
 
       <td class="price">

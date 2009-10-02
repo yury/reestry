@@ -358,6 +358,12 @@ table.grid .realty_index {
     color:black;
 }
 
+table.grid a, a:hover
+{
+    text-decoration:none;
+    background-color:transparent;
+}
+
 pre {
     background-color: #eee;
     padding: 10px;
