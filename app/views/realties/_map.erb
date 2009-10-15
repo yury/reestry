@@ -1,11 +1,13 @@
 <%
 points = (realties.map { |r| [r.lat, r.lng] if r.is_exact}).compact
 
-x_min_max = points.minmax { |a, b| a[0] <=> b[0] }
-y_min_max = points.minmax { |a, b| a[1] <=> b[1] }
+unless points.blank?
+   x_min_max = points.minmax { |a, b| a[0] <=> b[0] }
+   y_min_max = points.minmax { |a, b| a[1] <=> b[1] }
 
-left_bottom_point = [x_min_max[1][0], y_min_max[0][1]]
-right_top_point = [x_min_max[0][0], y_min_max[1][1]]
+   left_bottom_point = [x_min_max[1][0], y_min_max[0][1]]
+   right_top_point = [x_min_max[0][0], y_min_max[1][1]]
+end
 %>
 
 <% content_for :head do %>
@@ -26,8 +28,10 @@ right_top_point = [x_min_max[0][0], y_min_max[1][1]]
         <%- end -%>
       <%- end -%>
 
-      map.setBounds(new YMaps.GeoBounds(new YMaps.GeoPoint(<%=left_bottom_point[1]%>, <%=left_bottom_point[0]%>),
+      <%- unless points.blank? -%>
+         map.setBounds(new YMaps.GeoBounds(new YMaps.GeoPoint(<%=left_bottom_point[1]%>, <%=left_bottom_point[0]%>),
                                         new YMaps.GeoPoint(<%=right_top_point[1]%>, <%=right_top_point[0]%>)));
+      <%- end -%>   
     });
 
     function addPlacemark(lng, lat, title, url) {

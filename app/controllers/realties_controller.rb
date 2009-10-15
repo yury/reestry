@@ -127,7 +127,7 @@ class RealtiesController < ApplicationController
   # GET /realties/new
   # GET /realties/new.xml
   def new
-    @realty = Realty.new(:realty_type => RealtyType.first, :service_type => ServiceType.first)
+    @realty = Realty.new(:realty_type => RealtyType.first, :service_type => ServiceType.first, :is_exact => false)
     
     respond_to do |format|
       format.html # new.html.erb

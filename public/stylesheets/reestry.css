@@ -181,7 +181,8 @@ a.raw, a.raw:hover {
     background: #E0E9F2;
     font-weight: bold;
     text-align:center;
-    padding:5px 5px 12px 5px;
+    padding:5px 5px 0px 5px;
+    height:26px;
     float:left;
     white-space:nowrap;
     min-width:100px;
