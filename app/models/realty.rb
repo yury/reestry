@@ -192,7 +192,7 @@ class Realty < ActiveRecord::Base
       end
     end
 
-    result << template("Описание: {0}", [description])
+    #result << template("Описание: {0}", [description])
 
     result.compact.join(", ")
   end
