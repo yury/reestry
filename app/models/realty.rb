@@ -155,7 +155,7 @@ class Realty < ActiveRecord::Base
     @used_fields = []
     result = []
     if realty_type == RealtyType.find_by_name("Квартира")
-      result << template("{0}-комн. квартира", f("Количество комнат", "Комнат сдается"), "Квартира")
+      result << template("{0}-комн. квартира", f("Количество комнат", "Комнат сдается", "Комнат продается"), "Квартира")
       result << template("{0}#{template('/{0}', f('Этажность здания'))} этаж", f("Этаж объекта"))
       area_unit_name = area_unit.blank? ? "м²" : area_unit.short_name
       result << template("общая площадь: {0} #{area_unit_name}", ["#{total_area}"])
@@ -167,12 +167,22 @@ class Realty < ActiveRecord::Base
                                               
     elsif realty_type == RealtyType.find_by_name("Комната")
       result << "Комната"
+      result << template("{0}#{template('/{0}', f('Этажность здания'))} этаж", f("Этаж объекта"))
+      area_unit_name = area_unit.blank? ? "м²" : area_unit.short_name
+      result << template("общая площадь: {0} #{area_unit_name}", ["#{total_area}"])
+      result << template("жилая площадь: {0} #{area_unit_name}", f("Жилая площадь"))
+      result << template("кухня: {0} #{area_unit_name}", f("Площадь кухни"))
+      result << template("{0} аренда", f("Тип аренды")).to_lower
+      result << template("{0}", f("Балкон")).to_lower
+      result << template("{0} санузел", f("Санузел")).to_lower
+
     elsif realty_type == RealtyType.find_by_name("Дом")
       result << "Дом"
+
     elsif realty_type == RealtyType.find_by_name("Участок")
       result << "Участок"
+      
     elsif realty_type == RealtyType.find_by_name("Гараж")
-      result << "Гараж"
       result << description
     end
 
@@ -181,6 +191,8 @@ class Realty < ActiveRecord::Base
         result << value.string_value_with_name.to_lower unless @used_fields.include?(value)
       end
     end
+
+    result << template("Описание: {0}", [description])
 
     result.compact.join(", ")
   end
