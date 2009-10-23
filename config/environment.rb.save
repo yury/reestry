@@ -22,12 +22,10 @@ Rails::Initializer.run do |config|
 
   # Specify gems that this application depends on. 
   # They can then be installed with "rake gems:install" on new installations.
-   config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
    config.gem "hpricot"
    config.gem "mislav-will_paginate", :source => "http://gems.github.com", :lib => "will_paginate"
    config.gem "geokit"
-   config.gem "thoughtbot-paperclip", :lib => 'paperclip'
-
+   config.gem "thoughtbot-paperclip", :lib => 'paperclip'   config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
 
 
   # Only load the plugins named here, in the order given. By default, all plugins 
@@ -158,16 +156,5 @@ module OpenURI
     else
       raise OpenURI::HTTPError.new(io.status.join(' '), io)
     end
-  end
-end
-
-class String
-  def to_lower
-    mb_chars.downcase.to_s unless nil?
-  end
-end
-
-class NilClass
-  def to_lower
   end
 end

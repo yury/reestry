@@ -363,6 +363,10 @@ table.grid .realty_index {
     color:black;
 }
 
+table.grid .realty_desc {
+    height:42px;
+}
+
 table.grid a, a:hover
 {
     text-decoration:none;

@@ -152,19 +152,34 @@ class Realty < ActiveRecord::Base
   end
 
   def full_description
+    @used_fields = []
     result = []
     if realty_type == RealtyType.find_by_name("Квартира")
+      result << template("{0}-комн. квартира", f("Количество комнат", "Комнат сдается"), "Квартира")
+      result << template("{0}#{template('/{0}', f('Этажность здания'))} этаж", f("Этаж объекта"))
       area_unit_name = area_unit.blank? ? "м²" : area_unit.short_name
-      result << template("{0}-комн. квартира", f("Количество комнат"), "Квартира")
       result << template("общая площадь: {0} #{area_unit_name}", ["#{total_area}"])
-      result << template("жилая: {0} #{area_unit_name}", f("Жилая площадь"))
+      result << template("жилая площадь: {0} #{area_unit_name}", f("Жилая площадь"))
       result << template("кухня: {0} #{area_unit_name}", f("Площадь кухни"))
+      result << template("{0} аренда", f("Тип аренды")).to_lower
+      result << template("{0}", f("Балкон")).to_lower
+      result << template("{0} санузел", f("Санузел")).to_lower
                                               
     elsif realty_type == RealtyType.find_by_name("Комната")
+      result << "Комната"
     elsif realty_type == RealtyType.find_by_name("Дом")
+      result << "Дом"
     elsif realty_type == RealtyType.find_by_name("Участок")
+      result << "Участок"
     elsif realty_type == RealtyType.find_by_name("Гараж")
-      result += description
+      result << "Гараж"
+      result << description
+    end
+
+    realty_field_values.group_by(&:field_group).each do |group, values |
+      for value in values
+        result << value.string_value_with_name.to_lower unless @used_fields.include?(value)
+      end
     end
 
     result.compact.join(", ")
@@ -184,6 +199,7 @@ class Realty < ActiveRecord::Base
   def f *names
     names.map do |name|
       value = realty_field_values.find_by_realty_field_id(RealtyField.find_by_name(name))
+      @used_fields << value unless @used_fields.include?(value)
       value.blank? ? value : value.string_value
     end
   end

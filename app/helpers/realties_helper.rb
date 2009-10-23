@@ -12,20 +12,6 @@ module RealtiesHelper
     render :partial=>"realties/map", :locals => options
   end
 
-  def get_description realty
-    d = []
-    d << realty.realty_type.name
-    d << get_total_area(realty) unless realty.total_area.blank?
-
-    realty.realty_field_values.group_by(&:field_group).each do |group, values |
-      for value in values
-        d << value.string_value_with_name
-      end
-    end
-
-    d = d.join(", ")
-  end
-
   def get_address realty
     a = ""
     a << "#{realty.place}, " unless realty.place.blank? || realty.district.location.is_place
