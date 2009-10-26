@@ -28,6 +28,11 @@ input.error, select.error {
     margin:0;
 }
 
+input.progress {
+    background-color:#9F9;
+    border:2px solid #090;
+}
+
 a.raw, a.raw:hover {
     background-color:transparent;
 }
@@ -656,9 +661,11 @@ div.map {
 .btnC.green { background: #9d4; }
 .btnC.lime { background: #bbce00; }
 .btnC.pink { background: #e1a; }
+.btnC.yellow { background: #ff0; }
 .btnC:hover { background-color: #0a0; color: #fff; }
 .btnC:active { background-color: #444; color: #fff; }
 .btnC[class] {  background-image: url('/images/btn.png'); background-position: bottom; }
+.btnC.left { margin: 0; }
 
 * html .btnC { border: 3px double #aaa; }
 * html .btnC.blue { border-color: #2ae; }

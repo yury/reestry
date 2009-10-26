@@ -12,12 +12,14 @@
             data: "realty_type_id=" + $('#realty_realty_type_id').val() + '&service_type_id=' + $('#realty_service_type_id').val(),
             async: false,
             dataType: "html",
+            beforeSend: function(){
+              $('#realty_fields_div').hide();
+            },
             success: function(html) {
               $('#realty_fields_div').html(html);
+              $('#realty_fields_div').show();
             }
           });
-
-      $('#realty_fields_div').slideDown();
     });
 
     $('#location').change(function(){
@@ -56,6 +58,27 @@
 
     $('form').validate();
   });
+
+  function calculate_price(){
+    $.ajax({
+      type:'post',
+      url:"<%=calculate_price_realties_path%>",
+      data:$.param($('#calculate_button').parents('form').serializeArray()),
+      beforeSend:function(){
+        $('#realty_price').val('расчет...');
+        $('#realty_price').addClass("progress");
+        $('#realty_price').focus();
+      },
+      error:function(){
+        $('#realty_price').val(0);
+        $('#realty_price').removeClass("progress");
+      },
+      success:function(price){
+        $('#realty_price').val(price);
+        $('#realty_price').removeClass("progress");
+      }
+    });
+  }
 </script>
 <% end %>
 
@@ -121,8 +144,7 @@
     <td>Цена:</td>
     <td><%= text_field(:realty, :price, :class=>"fixed required number") %> <font class="mandatory">*</font></td>
     <td></td>
-    <td>Валюта:</td>
-    <td><%=  collection_select(:realty, :currency_id, Currency.find(:all), :id, :short_name)  %></td>
+    <td colspan="2">руб.</td>
   </tr>
   <tr>
     <td>Площадь:</td>
@@ -137,11 +159,17 @@
   </tr>
 </table>
 
-Карта:
+<span class="bold">Карта:</span>
 <%= map(@realty, :large_map => true, :small_zoom => false, :map_type => true, :width => 750, :height => 400) %>
 
 <div id="realty_fields_div" style="margin-top:15px">
   <%= render :partial => "realty_fields", :locals => {:realty => @realty} %>
 </div>
 
-
+<table class="ht_line" width="740px">
+  <tr>
+    <td class="bold">Вы можете рассчитать цену этого объекта автоматически на основе цен уже поданых объявлений</td>
+    <td><%= button "Рассчитать цену", "calculate_button", :klass => "left green", :js => "calculate_price();" %>
+    </td>
+  </tr>
+</table>

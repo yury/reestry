@@ -42,6 +42,16 @@ class RealtiesController < ApplicationController
     end
   end
 
+  def calculate_price
+    realty = Realty.new(params[:realty])
+    realty.district_id = params[:district]
+    realty.realty_field_values = get_realty_fields
+
+    respond_to do |format|
+      format.js { render :text => Pricer.predict_price(realty).to_i }
+    end
+  end
+
   def chart
     respond_to do |format|
       format.json {
@@ -146,7 +156,7 @@ class RealtiesController < ApplicationController
           }.to_json}
       elsif
         @realty = Realty.new(:realty_type_id => params[:realty_type_id], :service_type_id => params[:service_type_id]) 
-        format.js { render :partial => "realty_fields", :locals => {:realty => @realty} }
+        format.html { render :partial => "realty_fields", :locals => {:realty => @realty} }
       end  
     end
   end
