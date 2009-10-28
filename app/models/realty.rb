@@ -210,7 +210,8 @@ class Realty < ActiveRecord::Base
 
   def f *names
     names.map do |name|
-      value = realty_field_values.find_by_realty_field_id(RealtyField.find_by_name(name))
+      realty_field_id = RealtyField.find_by_name(name).id
+      value = realty_field_values.select {|v| v.realty_field_id == realty_field_id}.first
       @used_fields << value unless @used_fields.include?(value)
       value.blank? ? value : value.string_value
     end

@@ -47,77 +47,10 @@ class RealtiesController < ApplicationController
     realty.district_id = params[:district]
     realty.realty_field_values = get_realty_fields
 
+    puts realty.full_description
+
     respond_to do |format|
       format.js { render :text => Pricer.predict_price(realty).to_i }
-    end
-  end
-
-  def chart
-    respond_to do |format|
-      format.json {
-        title = Title.new("Количество комнат")
-        title.set_style('{font-size: 11px; color: #222222}')
-
-        data1 = []
-        data2 = []
-        data3 = []
-
-        50.times do |x|
-          data1 << rand(4000) + 1000
-          data2 << rand(4000) + 5000
-          data3 << rand(4000) + 10000
-        end
-
-        line1 = Line.new
-        line1.text = "1"
-        line1.width = 1.5
-        line1.colour = '#009245'
-        line1.dot_size = 3
-        line1.values = data1
-
-        line2 = Line.new
-        line2.text = "2"
-        line2.width = 1.5
-        line2.colour = '#920045'
-        line2.dot_size = 3
-        line2.values = data2
-
-        line3 = Line.new
-        line3.text = "3"
-        line3.width = 1.5
-        line3.colour = '#aaaaff'
-        line3.dot_size = 3
-        line3.values = data3
-
-        y = YAxis.new
-        y.set_range(1000,15000,1000)
-        y.set_colours('#818D9D','#BDC5D7')
-
-        x = XAxis.new
-        x.set_range(0,50,5)
-        x.set_colours('#818D9D','#BDC5D7')
-       
-        x_legend = XLegend.new("Дата")
-        x_legend.set_style('{font-size: 11px; color: #818D9D}')
-
-        y_legend = YLegend.new("Цена")
-        y_legend.set_style('{font-size: 11px; color: #818D9D}')
-
-        chart = OpenFlashChart.new
-        chart.set_title(title)
-        chart.set_x_legend(x_legend)
-        chart.set_y_legend(y_legend)
-        chart.y_axis = y
-        chart.x_axis = x
-        chart.set_bg_colour('#FFFFFF')
-
-        chart.add_element(line1)
-        chart.add_element(line2)
-        chart.add_element(line3)
-
-        render :text => chart.to_s
-
-      }
     end
   end
 
@@ -137,7 +70,10 @@ class RealtiesController < ApplicationController
   # GET /realties/new
   # GET /realties/new.xml
   def new
-    @realty = Realty.new(:realty_type => RealtyType.first, :service_type => ServiceType.first, :is_exact => false)
+    @realty = Realty.new(
+        :realty_type => RealtyType.first,
+        :service_type => ServiceType.first,
+        :is_exact => false)
     
     respond_to do |format|
       format.html # new.html.erb
@@ -253,6 +189,7 @@ class RealtiesController < ApplicationController
   def create
     @realty = Realty.new(params[:realty])
     @realty.district_id = params[:district]
+    @realty.currency = Currency.first
     @realty.user = current_user
     @realty.realty_field_values = get_realty_fields
     @realty.expire_at = Time.now.advance(:months => 1)

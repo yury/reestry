@@ -24,7 +24,7 @@ end
       realties.each do |realty|
         index += 1
         if realty.is_exact -%>
-           addPlacemark(<%= realty.lng %>, <%= realty.lat %>, <%= index %>, '<%= realty_path realty%>');
+           addPlacemark(<%= realty.lng %>, <%= realty.lat %>, <%= index %>, '<%= realty_path realty if realty.id %>');
         <%- end -%>
       <%- end -%>
 

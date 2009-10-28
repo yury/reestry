@@ -69,6 +69,8 @@ module Pricing
     # and is expected to return a weight. See the <tt>Weights</tt>
     # sub-module for available weighting functions.
     def weighted_knn_estimate(data, vector, k=5, &block)
+      start_time = Time.now
+
       distances = distances(data, vector)
       avg = 0.0
       total_weight = 0.0
@@ -79,6 +81,8 @@ module Pricing
         avg += weight * data[idx].result
         total_weight += weight
       end
+
+      #puts "Calculation time: #{Time.now - start_time}"
       avg / total_weight
     end
 
@@ -112,19 +116,29 @@ module Pricing
     # Tests the algorithm given in the block against the given
     # data with a number of trials. The result is the average error
     # of each trial.
-    def cross_validate(data, trials=100, test=0.05, &algo)
+    def cross_validate(data, trials=10, test=0.05, &algo)
       if data.length < 2
         return 0
       end
-      
+
       error = 0.0
       trials.times do
         training, testing = divide_data(data, test)
         testing << training.slice!(1) if testing.blank?
-        #puts "Training length:#{training.length}. Test length: #{testing.length}"
+        puts "Training length:#{training.length}. Test length: #{testing.length}"
         error += test_algorithm(training, testing, &algo)
       end
       error / trials
+    end
+
+    def rescale(data, scale)
+      scaled_data = []
+      data.each do |row|
+        input = []
+        scale.each_with_index { |s,i| input << row.input[i]*s }
+        scaled_data << make_data(row.result, input)
+      end
+      scaled_data
     end
 
   end

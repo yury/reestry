@@ -44,7 +44,7 @@ ActionController::Routing::Routes.draw do |map|
                                             :update_realty_geodata => :post,
                                             :note => :post,
                                             :chart => :get,
-                                            :calculate_price => :post
+                                            :calculate_price => :any
                                           },
                                :member => { :photos => :any, 
                                             :delete_photo => :any, 

@@ -27,6 +27,7 @@ Rails::Initializer.run do |config|
    config.gem "mislav-will_paginate", :source => "http://gems.github.com", :lib => "will_paginate"
    config.gem "geokit"
    config.gem "thoughtbot-paperclip", :lib => 'paperclip'
+   config.gem 'russian', :source => 'http://gemcutter.org'
 
 
 

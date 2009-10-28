@@ -113,6 +113,8 @@ module Optimization
       (rand(domain[i][1] - domain[i][0]) + domain[i][0]).to_f
     end
 
+    puts "Temperature: #{temp}"
+    
     while temp > 0.1 do
       i = rand(domain.size - 1)
       dir = rand(step * 2) - step
@@ -131,6 +133,8 @@ module Optimization
       vec = vecb if (eb < ea or rand < p)
 
       temp = temp * cool
+
+      puts "Ea: #{ea}, Eb: #{eb}, P:#{p}, temp: #{temp}"
     end
 
     vec
