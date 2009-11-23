@@ -121,7 +121,7 @@ class Pricer
     Realty.find(:all, :conditions => conditions).each do |r|
       data << Pricing.make_data(r.price, get_input_from_realty(r))
     end
-    puts "Generate #{data.length} rows for prediction. Realty: #{realty.inspect}"
+    puts "Generate #{data.length} rows for prediction."
 
     puts "Save data to cache (#{conditions.hash})"
     set_data_to_cache(realty, data)

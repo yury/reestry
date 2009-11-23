@@ -19,7 +19,7 @@ input {
 }
 
 input.fixed {
-    width:148px;
+    width:147px;
 }
 
 input.error, select.error {

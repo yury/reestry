@@ -45,7 +45,6 @@ doc\:plugins\:geokit-rails=Generate documentation for the geokit-rails plugin
 doc\:plugins\:jrails=Generate documentation for the jrails plugin
 doc\:plugins\:open_flash_chart=Generate documentation for the open_flash_chart plugin
 doc\:plugins\:restful_authentication=Generate documentation for the restful_authentication plugin
-doc\:plugins\:russian=Generate documentation for the russian plugin
 doc\:plugins\:will_paginate=Generate documentation for the will_paginate plugin
 doc\:plugins\:ym4r_gm=Generate documentation for the ym4r_gm plugin
 doc\:rails=Build the RDOC HTML Files

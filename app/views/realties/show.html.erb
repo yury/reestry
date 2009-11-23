@@ -41,7 +41,7 @@
 <% tab "Описание", :image => "/images/comment.png", :style=>"margin-top:20px;width:100%" do %>
   <%=h @realty.description %>
   <div style="margin-top:5px;">
-    <div class="left" style="margin-top:15px;">Дата размещения: <%= Russian.strftime(@realty.created_at, "%d %b %Y") %> года</div>
+    <div class="left" style="margin-top:15px;">Дата размещения: <%= Russian.strftime(@realty.created_at, "%d %B %Y") %> года</div>
     <div class="right"><%= render :partial => "realty_source" %></div>
   </div>
 <% end %>
