@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def rescue_action_locally(exception)
-    handle_exception exception, true
+    handle_exception exception, false
   end
 
   def run_rake task, options = {}
@@ -43,7 +43,8 @@ class ApplicationController < ActionController::Base
 
   private
     def handle_exception(exception, is_local)
-    locals = {:exception => exception} if is_local
+    locals = {}
+    locals[:exception] = is_local ? exception : ""
     if [ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid,
         ActionController::RoutingError,
         ActionController::UnknownController,
