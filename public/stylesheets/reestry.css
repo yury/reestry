@@ -334,6 +334,9 @@ table.grid .image {
     vertical-align:middle;
     text-align: center;
 }
+table.grid img {
+    border:0px;
+}
 
 table.grid .noted {
     background: transparent url(/images/nic.png) no-repeat;

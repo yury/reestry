@@ -83,12 +83,12 @@
           </div>
           <div>
             <div style="float:left">
-              <%= image_tag "p.png" unless realty.realty_photos.empty? %>
+              <%= image_tag "p.png", :title => "Наличие фото" unless realty.realty_photos.empty? %>
               <% if realty.user_can_edit?(current_user) %>
                 <% link_to edit_realty_path(realty) do %>
-                  <%= image_tag "layout_edit.png", :style => "border:0px", :title => "Редактировать" %>
+                  <%= image_tag "layout_edit.png", :title => "Редактировать" %>
                 <% end %>
-                <%= image_tag "delete.png", :style => "border:0px", :title => "Удалить", :class=>"delete_link"%>
+                <%= image_tag "delete.png", :title => "Удалить", :class=>"delete_link"%>
               <% end %>
             </div>
             <div class="small right"><%=h truncate(realty.description, :length => 55) %></div>

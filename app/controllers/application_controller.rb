@@ -15,6 +15,14 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
 
+  def rescue_action_in_public(exception)
+    handle_exception exception, false
+  end
+
+  def rescue_action_locally(exception)
+    handle_exception exception, true
+  end
+
   def run_rake task, options = {}
     options[:rails_env] = Rails.env
     args = options.map { |name, value| "#{name.to_s.upcase}='#{value}'" }
@@ -29,7 +37,23 @@ class ApplicationController < ActionController::Base
 
   def replace_html id, html
     render :update, :layout => false do |page|
-      page.replace_html  id, html
+      page.replace_html id, html
+    end
+  end
+
+  private
+    def handle_exception(exception, is_local)
+    locals = {:exception => exception} if is_local
+    if [ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid,
+        ActionController::RoutingError,
+        ActionController::UnknownController,
+        ActionController::UnknownAction,
+        ActionController::MethodNotAllowed].include? exception.class
+      locals[:message] = "Запрашиваемая Вами страница не найдена"
+      render :template => "all/error", :status => "404", :locals => locals
+    else
+      locals[:message] = "Ошибка на сервере. Мы делаем все возможное, чтобы её не было."
+      render :template => "all/error", :status => "500", :locals => locals
     end
   end
 end
