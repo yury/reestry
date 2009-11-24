@@ -94,7 +94,6 @@ class Realty < ActiveRecord::Base
     result = []
     result << query
     result.concat(pars)
-    puts result.inspect
     result
   end
   

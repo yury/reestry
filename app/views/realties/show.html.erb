@@ -1,54 +1,57 @@
-<table width="600px" cellpadding="1" style="margin-bottom:10px;">
-  <tr>
-    <td>Вид услуги:</td>
-    <td class="bold right"><%=h @realty.service_type.name%> </td>
-    <td width="10px"></td>
-    <td>Вид объекта:</td>
-    <td class="bold right"><%=h @realty.realty_type.name%> </td>
-  </tr>
-  <tr>
-    <td>Местоположение:</td>
-    <td class="bold right"><%=h @realty.district.location.name %></td>
-    <td></td>
-    <td>Адрес:</td>
-    <td class="bold right"><%=h get_address(@realty) %></td>
-  </tr>
-  <tr>
-    <td>Цена:</td>
-    <td class="bold right"><%=h number_to_currency(@realty.price_or_predict, :precision => 0) %>
-      <%= '*' if @realty.price_blank? %>
-    </td>
-    <td></td>
-    <td>Площадь:</td>
-    <td class="bold right"><%=h get_total_area(@realty) %></td>
-  </tr>
-  <% if @realty.price_blank? %>
+<% cache [@realty, 'main'] do %>
+  <table width="600px" cellpadding="1" style="margin-bottom:10px;">
     <tr>
-      <td colspan="5" align="left"><br/>* Цена рассчитана на основе близких предложений.</td>
+      <td>Вид услуги:</td>
+      <td class="bold right"><%=h @realty.service_type.name%> </td>
+      <td width="10px"></td>
+      <td>Вид объекта:</td>
+      <td class="bold right"><%=h @realty.realty_type.name%> </td>
     </tr>
+    <tr>
+      <td>Местоположение:</td>
+      <td class="bold right"><%=h @realty.district.location.name %></td>
+      <td></td>
+      <td>Адрес:</td>
+      <td class="bold right"><%=h get_address(@realty) %></td>
+    </tr>
+    <tr>
+      <td>Цена:</td>
+      <td class="bold right"><%=h number_to_currency(@realty.price_or_predict, :precision => 0) %>
+        <%= '*' if @realty.price_blank? %>
+      </td>
+      <td></td>
+      <td>Площадь:</td>
+      <td class="bold right"><%=h get_total_area(@realty) %></td>
+    </tr>
+    <% if @realty.price_blank? %>
+      <tr>
+        <td colspan="5" align="left"><br/>* Цена рассчитана на основе близких предложений.</td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= render :partial => "realty_photo_gallery", :locals => { :realty => @realty } %>
+
+  <% if @realty.is_exact %>
+    <div style="clear:both;">
+      Карта:
+      <%= map(@realty, :large_map => true, :small_zoom => false, :map_type => true, :width => 750, :height => 400) %>
+    </div>
   <% end %>
-</table>
 
-<%= render :partial => "realty_photo_gallery", :locals => { :realty => @realty } %>
-
-<% if @realty.is_exact %>
-  <div style="clear:both;">
-    Карта:
-    <%= map(@realty, :large_map => true, :small_zoom => false, :map_type => true, :width => 750, :height => 400) %>
-  </div>
-<% end %>
-
-<% tab "Описание", :image => "/images/comment.png", :style=>"margin-top:20px;width:100%" do %>
-  <%=h @realty.description %>
-  <div style="margin-top:5px;">
-    <div class="left" style="margin-top:15px;">Дата размещения: <%= Russian.strftime(@realty.created_at, "%d %B %Y") %> года</div>
-    <div class="right"><%= render :partial => "realty_source" %></div>
-  </div>
-<% end %>
+  <% tab "Описание", :image => "/images/comment.png", :style=>"margin-top:20px;width:100%" do %>
+    <%=h @realty.description %>
+    <div style="margin-top:5px;">
+      <div class="left" style="margin-top:15px;">Дата размещения: <%= Russian.strftime(@realty.created_at, "%d %B %Y") %> года</div>
+      <div class="right"><%= render :partial => "realty_source" %></div>
+    </div>
+  <% end %>
+<% end #end cache%>
 
 <% tab_style = "width:212px;margin-bottom:15px;" %>
 
 <% content_for :left do %>
+<% cache [@realty, 'tabs'] do %>
   <% tab "Контакты", :image => "/images/contact.png", :style=>tab_style do%>
     <% for contact in @realty.contacts %>
       <b><%=h contact.contact_type.name%>:</b> <%=h contact.value %><br/>
@@ -65,6 +68,7 @@
       <% end %>
     <% end %>
   <% end %>
+ <%  end %>
 <% end %>
 
 <% button_style = "float:right;margin-right:15px;" %>

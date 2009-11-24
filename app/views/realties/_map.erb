@@ -10,7 +10,6 @@ unless points.blank?
 end
 %>
 
-<% content_for :head do %>
   <script src="http://api-maps.yandex.ru/1.1/index.xml?key=<%= Geokit::Geocoders::yandex %>" type="text/javascript"></script>
   <script type="text/javascript">
     var map = null;
@@ -46,7 +45,6 @@ end
       map.addOverlay(placemark);
     }
   </script>
-<% end %>
 
 <div id="map_div" style="width:<%= width %>px;height:<%= height%>px" class="vr_line vl_line hb_line ht_line map"></div>
 

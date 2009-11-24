@@ -1,5 +1,7 @@
 class RealtiesController < ApplicationController
   include RealtiesHelper
+
+  #caches_action :show
   
   before_filter :login_required, :only => [ :new, 
     :create
@@ -33,8 +35,6 @@ class RealtiesController < ApplicationController
     @pars = params
     @realties = Realty.select params
     @price_limit = Realty.price_limits params[:service], params[:type]
-
-    @graph = open_flash_chart_object( 290, 300, url_for( :action => 'chart', :format => :json ))
 
     respond_to do |format|
       format.html # index.html.erb

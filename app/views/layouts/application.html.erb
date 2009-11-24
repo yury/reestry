@@ -87,8 +87,11 @@
     <div id="airlock">
       <div id="header">
         <div class="l_part">
-          <div class="bold underline" style="font-size:12px;margin-top:72px;margin-left:100px;">Владимир и Владимирская область</div>
+          <a href="/" title="Reestry.ru"></a>
+          <div class="bold underline">Владимир и Владимирская область</div>
         </div>
+        
+        <% cache(:key => "menu_#{params[:service]}_#{params[:type]}") do %>
         <div class="c_part" align="center">
           <div style="width:50%" class="checkbox_group">
             <%= checkbox 'rent', 'Аренда', params[:service] == '1', :style => 'float:left;margin-right:10px;font-size:12px;' %>
@@ -104,7 +107,9 @@
             <% end %>
           </div>
         </div>
+        <% end %>
 
+        <% cache current_user do%>
         <div class="r_part">
           <div class="menu">
             <% if logged_in? %>
@@ -123,6 +128,7 @@
           </div>
         </div>
       </div>
+      <% end %>
 
       <table cellpadding="0" cellspacing="0" border="0" style="clear:both;width:100%;margin-top:15px;">
         <tr>
@@ -135,23 +141,30 @@
           </td>
         </tr>
       </table>
-
-      <%= render :partial => "create_user_request", :locals => { :params => @pars, :created => false} if params[:unavailable] && @pars %>
-
     </div>
 
+    <% cache "modalDialogs" do %>
     <div class="modalContainer">
       <div id="login_dialog" class="modal" align="center">
         <div id="login_part"><%= render :partial => "sessions/login" %></div>
         <div id="register_part" style="display:none;"><%= render :partial => "users/new" %></div>
       </div>
     </div>
+    <% end %>
 
+    <%# cache "footer3" do %>
     <div id="footer">&nbsp;</div>
     <div id="footer_text">
-      AnjLab, 2009. Все права защищены. Powered with RMathModel v.<%= Pricer.version %>.
+      <span>Система поиска и публикации объявлений покупки и продажи недвижимости Reestry.ru.
+      Недвижимость Владимира и Владимирской области. Аренда и продажа квартир, комнат, домов, земельных участков и гаражей.
+      Все материалы принадлежат их правообладателям.
+
+      </span><br/><br/>
+      <span><a href="http://anjlab.com">AnjLab</a>, 2009. Все права защищены. Powered with RMathModel v.<%= Pricer.version %>.
       <%= "Всего #{Russian.p(Realty.count, "обработан", "обработано", "обработано")} #{Realty.count} #{Russian.p(Realty.count, "объект", "объекта", "объектов")}." %>
+      </span>
     </div>
+    <%# end %>
 
   </body>
 </html>

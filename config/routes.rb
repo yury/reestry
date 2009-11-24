@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :contact_types
 
-  map.root  :controller => 'realties', :action => 'home'
+  map.root  :controller => 'realties', :action => 'index'
   
   map.resources :users
 

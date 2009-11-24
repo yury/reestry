@@ -1,17 +1,77 @@
 <% content_for :left do%>
-  <div class=""></div>
+  <% cache do %>
+    <% tab "Профиль", :image => "/images/contact.png", :style => "width:300px;" do%>
+      Профиль пользователя включает в себя информацию, необходимую для входа в систему, а также контакты пользователя.
+    <% end %>
+  <% end %>
 <% end %>
 
-<h1>Добавление контактной информации</h1>
+<% content_for :head do%>
+      <script language="javascript" type="text/javascript">
+        $(document).ready(function() {
+          $('#profile_form').validate();
+          $('#contact_form').validate();
+        });
+      </script>
+<% end %>
+
+<% form_for(@user, :html => {:id => "profile_form"}) do |f| %>
+  <table width="90%">
+    <tr>
+      <td class="bold hb_line" colspan="2">Профиль пользователя</td>
+    </tr>
+    <tr>
+      <td><label for="login">Логин: </label></td>
+      <td class="bold"><%=h @user.login %></td>
+    </tr>
+    <tr>
+      <td><label for="email">Email: </label></td>
+      <td><%= f.text_field :email, :class => "required email" %></td>
+    </tr>
+    <tr>
+      <td><label for="password">Пароль: </label></td>
+      <td><%= f.password_field :password %></td>
+    </tr>
+    <tr>
+      <td><label for="password_confirmation">Еще раз пароль: </label></td>
+      <td><%= f.password_field :password_confirmation %></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        
+        <%= button "Сохранить", "submit_profile", :style => "float:right", :submit=>true %>
+      </td>
+    </tr>
+  </table>
+<% end %>
+
 <% remote_form_for Contact.new, 
-                   :update => :contacts_div,
-                   :success => "$('#contact_value').val('');",
-                   :url => { :action => :add_contact } do |f| %>
-    Тип: <%=  collection_select(:contact, :contact_type_id, ContactType.find(:all), :id, :name)  %>
-    Значение: <%= text_field :contact, :value %>
-    <%= hidden_field_tag :allow_deleting, true %>
-    <%= f.submit 'Добавить' %>
+  :update => :contacts_div,
+  :success => "$('#contact_value').val('');",
+  :url => { :action => :add_contact },
+  :html => {:id => "contact_form"} do |f| %>
+  <table width="90%" style="margin-top:20px;">
+    <tr>
+      <td class="bold hb_line" colspan="2">Контакты пользователя</td>
+    </tr>
+    <tr>
+      <td colspan="2"><%= user_contacts :allow_deleting => true %></td>
+    </tr>
+    <tr>
+      <td class="bold hb_line" colspan="2">Добавить контакт</td>
+    </tr>
+    <tr>
+      <td>
+        Тип: <%=  collection_select(:contact, :contact_type_id, ContactType.find(:all), :id, :name)  %>
+        Значение: <%= text_field :contact, :value, :size => 20, :class => "required" %>
+        <%= hidden_field_tag :allow_deleting, true %>
+      </td>
+      <td>
+        <%= button "Добавить", "add_contact", :style => "float:right", :js => "$(this).parents('form')[0].onsubmit();" %>
+      </td>
+    </tr>
+
+  </table>
 <% end %>
 
- <%= user_contacts :allow_deleting => true %>
-    
+

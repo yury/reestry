@@ -54,6 +54,21 @@ a.raw, a.raw:hover {
     float:left;
 }
 
+#header .l_part a {
+    display:block;
+    width:300px;
+    height:72px;
+}
+
+#header .l_part a:hover {
+    background-color:transparent;
+}
+
+#header .l_part div {
+    font-size:12px;
+    margin-left:100px;
+}
+
 #header .c_part {
     float: left;
     margin-top:7px;
@@ -106,7 +121,6 @@ a.raw, a.raw:hover {
     background-color: #CECECE;
     margin-top:-1px;
     padding-left:10px;
-    height:30px;
 }
 
 .tab {

@@ -17,5 +17,8 @@ namespace :parse do
     Pricer.warmup
     Pricer.recalculate_prices
     puts "End recalculating prices at #{Time.now}"
+
+    puts "Expire cache"
+    Rails.cache.delete("views/footer")
   end
 end

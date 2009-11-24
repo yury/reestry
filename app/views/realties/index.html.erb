@@ -1,7 +1,9 @@
 <% content_for :left do %>
+   <% cache(:key => "search_#{request.query_string}") do%>
   <% tab "Поиск", :image => "/images/find.png", :style => "width:315px" do%>
     <%= render :partial => "basic_search" %>
   <% end %>
+ <% end %>
 <% end %>
 
 <% content_for :left do %>

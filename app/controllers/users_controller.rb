@@ -2,13 +2,14 @@ class UsersController < ApplicationController
   include UsersHelper 
   
   before_filter :login_required, :only => [ :add_contact, :destroy_contact ]
-  before_filter :check_access, :only => [ :profile ]
+  before_filter :check_access, :only => [ :profile, :update ]
   
   # render new.rhtml
   def new
   end
 
   def profile
+    @user = current_user
   end
 
   def create
@@ -33,6 +34,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        flash[:notice] = 'Профиль успешно обновлен.'
+        format.html { redirect_to(:action => "profile") }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "profile" }
+        format.xml  { render :xml => @location.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
   
   def add_contact
     contact = Contact.new(params[:contact])

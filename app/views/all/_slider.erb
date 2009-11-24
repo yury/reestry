@@ -3,7 +3,6 @@
    to_name = "#{name}_to"
 %>
 
-<% content_for :head do%>
   <script type="text/javascript">
     $(document).ready(function() {
       $("#<%= slider_name %>").slider({
@@ -19,7 +18,6 @@
 		});
     });
   </script>
-<% end %>
 
 <div style="<%= style %>">
   <%= text_field_tag from_name, params[from_name], :size=>7 %>

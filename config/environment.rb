@@ -72,7 +72,7 @@ Rails::Initializer.run do |config|
 
 end
 
-WillPaginate::ViewHelpers.pagination_options[:prev_label] = '◄';
+WillPaginate::ViewHelpers.pagination_options[:previous_label] = '◄';
 WillPaginate::ViewHelpers.pagination_options[:next_label] = '►'
 
 Geokit::Geocoders::yandex = 'AEL-TUoBAAAAnzrvMwIAO2wx34Bqga5VkBuzh8WSPsSVFfQAAAAAAAAAAACdC9WVUGKzt1u6rY35drPrYXIHZQ=='
