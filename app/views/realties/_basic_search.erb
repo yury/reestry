@@ -1,4 +1,3 @@
-<% content_for :head do%>
   <script type="text/javascript">
     $(document).ready(function() {
       $('#basic_location').change(function(){
@@ -53,7 +52,6 @@
       $('#basic_search_form').validate();
     });
   </script>
-<% end %>
 
 <% form_tag realties_path, :method => "get", :id => "basic_search_form" do %>
   <table style="margin:auto;">

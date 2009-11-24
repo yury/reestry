@@ -63,13 +63,13 @@
 
   <% index = 0 %>
   <% realties.each do |realty|%>
-  <% cache [realty, realty.user_can_edit?(current_user), in_notepad?(realty.id)] do %>
     <% index = index + 1 %>
     <tr id="<%= realty.id %>">
       <td class="center middle">
         <div class="realty_index bold"><br/><a name="r<%= index %>"><%= index %></a></div>
         <div class="small" style="margin-top:2px;<%= "color:#009245;" if realty.new? %>"><%= Russian.strftime(realty.created_at, "%d %b") %></div>
       </td>
+      <% cache [realty, realty.user_can_edit?(current_user)] do %>
       <td class="center" width="100px">
         <a href="<%= realty_path realty%>">
           <%=h truncate(realty.district.location.name, :length => 30) %><br/>
@@ -104,13 +104,13 @@
         <%=h number_to_currency(realty.price_or_predict, :precision => 0) %>
       </td>
 
+      <% end %>
       <td class="image" style="padding-right:0px;">
         <div class="noted <%= 'true' if in_notepad?(realty.id)%>" title="В блокнот"></div>
       </td>
 
     </tr>
     <% end %>
-  <% end %>
 </table>
 
 <div style="float:right;margin-top:10px;">
