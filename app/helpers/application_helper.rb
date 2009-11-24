@@ -68,5 +68,9 @@ module ApplicationHelper
     
     link_to name + direction_sign, params.merge(:sort=>sort_field, :sdir=> direction)  
   end
+
+  def is_production?
+    ENV['RAILS_ENV'] == 'production'
+  end
   
 end
