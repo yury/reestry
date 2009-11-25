@@ -165,7 +165,7 @@
     </div>
     <% end %>
 
-    <%# cache "footer3" do %>
+    <% cache "footer" do %>
     <div id="footer">&nbsp;</div>
     <div id="footer_text">
       <span>Система поиска и публикации объявлений покупки и продажи недвижимости Reestry.ru.
@@ -173,11 +173,11 @@
       Все материалы принадлежат их правообладателям.
 
       </span><br/><br/>
-      <span><a href="http://anjlab.com">AnjLab</a>, 2009. Все права защищены. Powered with RMathModel v.<%= Pricer.version %>.
+      <span><a href="http://anjlab.com">AnjLab</a>, 2009. Все права защищены. Powered with AnjLab.RMathModel v.<%= Pricer.version %>.
       <%= "Всего #{Russian.p(Realty.count, "обработан", "обработано", "обработано")} #{Realty.count} #{Russian.p(Realty.count, "объект", "объекта", "объектов")}." %>
       </span>
     </div>
-    <%# end %>
+    <% end %>
 
   </body>
 </html>

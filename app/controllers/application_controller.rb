@@ -41,9 +41,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def fragment_for(buffer, name = {}, options = nil, &block)
+    if params['@@skip_cache']
+      return block.call()
+    end
+    super
+  end
+
   private
     def handle_exception(exception, is_local)
     locals = {}
+    params['@@skip_cache'] = true
     locals[:exception] = is_local ? exception : ""
     if [ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid,
         ActionController::RoutingError,
