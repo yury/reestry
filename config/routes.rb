@@ -58,6 +58,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resource  :session
 
   map.resource :parser, :collection => { :irr => :any, :start_irr => :post }
+
+  map.connect 'sitemap.xml', :controller => "sitemap", :action => "sitemap"
   
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.login  '/login', :controller => 'sessions', :action => 'new'
