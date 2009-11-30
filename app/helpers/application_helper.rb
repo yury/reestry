@@ -72,5 +72,9 @@ module ApplicationHelper
   def is_production?
     ENV['RAILS_ENV'] == 'production'
   end
+
+  def russify_realties count
+    Russian.p(count, "объявление", "объявления", "объявлений")
+  end
   
 end

@@ -177,7 +177,7 @@
 
       </span><br/><br/>
       <span><a href="http://anjlab.com">AnjLab</a>, 2009. Все права защищены. Powered with AnjLab.RMathModel v.<%= Pricer.version %>.
-      <%= "Всего #{Russian.p(Realty.count, "обработан", "обработано", "обработано")} #{Realty.count} #{Russian.p(Realty.count, "объект", "объекта", "объектов")}." %>
+      <%= "Всего #{Russian.p(Realty.count, "обработан", "обработано", "обработано")} #{Realty.count} #{russify_realties(Realty.count)}." %>
       </span>
     </div>
     <% end %>
