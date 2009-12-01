@@ -20,7 +20,7 @@ class DistrictsUpdater
                               [40.385742,56.128925],
                               [40.384712,56.123663],
                               [40.381966,56.121845],
-                              ]
+                              ], 1
 
     update_district District.find_by_id(2), 'р-н Буревестника',
                               [
@@ -29,7 +29,7 @@ class DistrictsUpdater
                               [40.349007,56.135067],
                               [40.34008,56.123548],
                               [40.373726,56.104828],
-                              ]
+                              ], 1
 
     update_district District.find_by_id(3), 'Октябрьский р-н',
                               [
@@ -46,7 +46,7 @@ class DistrictsUpdater
                               [40.362396,56.146800],
                               [40.375786,56.158935],
                               [40.392437,56.148705],
-                              ]
+                              ], 1
 
     update_district District.find_by_id(4), 'р-н улицы Мира',
                               [
@@ -66,7 +66,7 @@ class DistrictsUpdater
                               [40.44754,56.136846],
                               [40.44548,56.145645],
                               [40.444107,56.154346],
-                              ]
+                              ], 1
 
     update_district District.find_by_id(5), 'Доброе',
                               [
@@ -78,7 +78,7 @@ class DistrictsUpdater
                               [40.481186,56.142872],
                               [40.508308,56.173119],
                               [40.497322,56.179044],
-                              ]
+                              ], 1
 
     update_district District.find_by_id(6), 'Загородный',
                               [
@@ -93,7 +93,7 @@ class DistrictsUpdater
                               [40.46196,56.116314],
                               [40.45063,56.095445],
                               [40.374241,56.08583],
-                              ]
+                              ], 1
 
     update_district District.find_by_id(7), 'Дуброва',
                               [
@@ -102,7 +102,7 @@ class DistrictsUpdater
                               [40.373898,56.10546],
                               [40.370293,56.086635],
                               [40.319138,56.090657],
-                              ]
+                              ], 1
 
     update_district District.find_by_id(8), 'Юрьевец',
                               [
@@ -117,28 +117,9 @@ class DistrictsUpdater
                               [40.216141,56.076673],
                               [40.283775,56.092381],
                               [40.320511,56.114936],
-                              ]
+                              ], 1
 
-    update_district District.find_by_id(8), 'Юрьевец',
-                              [
-                              [40.311928,56.115319],
-                              [40.294075,56.115701],
-                              [40.278969,56.116276],
-                              [40.275536,56.126036],
-                              [40.272446,56.131011],
-                              [40.262146,56.128524],
-                              [40.204124,56.116888],
-                              [40.181465,56.095254],
-                              [40.216141,56.076673],
-                              [40.283775,56.092381],
-                              [40.320511,56.114936],
-                              ]
-
-    update_district District.find_by_id(9), 'Не определен',
-                              [
-                              ]
-
-    update_district District.find_by_id(17), 'Промзона',
+    update_district District.find_by_id(9), 'Промзона',
                               [
                               [40.365314,56.182349],
                               [40.376129,56.156832],
@@ -151,7 +132,7 @@ class DistrictsUpdater
                               [40.364799,56.184356],
                               ], 1
 
-    update_district District.find_by_id(18), 'Содышка/Сельцо',
+    update_district District.find_by_id(17), 'Содышка/Сельцо',
                               [
                               [40.321198,56.113826],
                               [40.341797,56.124505],
@@ -165,6 +146,10 @@ class DistrictsUpdater
                               [40.268669,56.134684],
                               [40.274849,56.123204],
                               [40.278969,56.113443],
+                              ], 1
+
+    update_district District.find_by_id(18), 'Не определен',
+                              [
                               ], 1
 
     update_district District.find_by_id(10), 'Суздальский р-н',
@@ -201,7 +186,7 @@ class DistrictsUpdater
                               [40.637054,56.593674],
                               [40.792236,56.587624],
                               [40.836182,56.557363],
-                              ]
+                              ], 2
 
      update_district District.find_by_id(11), 'Камешковский р-н',
                               [
@@ -218,7 +203,7 @@ class DistrictsUpdater
                               [40.704346,56.159471],
                               [41.028442,56.17094],
                               [41.191864,56.170176],
-                              ]
+                              ], 2
 
     update_district District.find_by_id(12), 'Судогодский р-н',
                               [
@@ -248,7 +233,7 @@ class DistrictsUpdater
                               [40.584869,56.099773],
                               [40.670013,56.115854],
                               [40.686493,56.167118],
-                              ]
+                              ], 2
 
     update_district District.find_by_id(13), 'Собинский р-н',
                               [
@@ -303,7 +288,7 @@ class DistrictsUpdater
                               [39.719696,56.381373],
                               [39.863892,56.337248],
                               [40.0383,56.318212],
-                              ]
+                              ], 2
 
     update_district District.find_by_id(14), 'Юрьев-Польский р-н',
                               [
@@ -323,7 +308,7 @@ class DistrictsUpdater
                               [39.946289,56.489188],
                               [40.041046,56.485397],
                               [40.185242,56.461884],
-                              ]
+                              ], 2
 
     update_district District.find_by_id(15), 'Гусь-Хрустальный р-н',
                               [
@@ -352,7 +337,7 @@ class DistrictsUpdater
                               [40.075378,55.722779],
                               [40.223694,55.750613],
                               [40.286865,55.817024],
-                              ]
+                              ], 2
 
     update_district District.find_by_id(16), 'Вязниковский р-н',
                               [
@@ -384,7 +369,7 @@ class DistrictsUpdater
                               [42.114716,56.373769],
                               [41.987,56.400376],
                               [41.951294,56.455054],
-                              ]
+                              ], 2
 
     update_district District.find_by_id(19), 'Александровский р-н',
                               [
@@ -606,11 +591,12 @@ class DistrictsUpdater
   end
 
   private
-  def self.update_district district, name, polygon, location_id = 1
+  def self.update_district district, name, polygon, location_id
     district = District.find_by_name(name) if district.blank?
-    district = District.new :name => name, :location_id => location_id if district.blank?
+    district = District.new :name => name if district.blank?
 
     district.name = name
+    district.location_id = location_id
     district.border_polygon = polygon
     district.save!
   end
