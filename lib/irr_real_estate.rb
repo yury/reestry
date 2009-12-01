@@ -120,7 +120,11 @@ class IrrRealEstate
     doc = Hpricot(open("http:\/\/vladimir.irr.ru#{advert_link}"))
 
     irr_id = doc.at("input#ad_id")[:value]
+    description = doc.at("div.additional-text p")
+
     @realty = Realty.find_by_irr_id irr_id
+    @realty = Realty.find_by_description description.inner_text if @realty.blank? && !description.blank?
+    
     if @realty.blank?
       @realty = Realty.new :irr_id => irr_id
     else
@@ -139,7 +143,7 @@ class IrrRealEstate
     end
 
     puts "Parse description"
-    description = doc.at("div.additional-text p")
+    
     parse_field "Description", description.inner_text unless description.blank?
 
     puts "Parse realty type"
