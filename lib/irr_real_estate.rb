@@ -379,10 +379,7 @@ class IrrRealEstate
       use_default_street if geodata.nil?
     end
 
-    puts @realty.inspect
-    district = District.find_by_realty @realty
-    puts district.inspect
-    @realty.district = district
+    @realty.district = District.find_by_realty @realty
   end
 
   def retrieve_geodata location_name

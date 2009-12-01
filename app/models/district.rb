@@ -11,7 +11,6 @@ class District < ActiveRecord::Base
   def self.find_by_realty realty
     if realty.is_exact
       District.all.each do |d|
-        puts d.name
         return d if d.contains? realty
       end
     end
