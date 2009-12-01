@@ -1,5 +1,7 @@
 $KCODE='u'
 
+#Realty.find_by_sql("select * from realties group by description having description is not null and description <> '' and count(*) > 1").each {|r| r.destroy }.length
+
 class IrrRealEstate
   require 'geokit'
   require 'vendor/plugins/geokit-rails/init.rb'
@@ -207,7 +209,7 @@ class IrrRealEstate
       @new_realties += 1
     end
 
-    parse_place_and_district #if @realty.district_id.blank?
+    parse_place_and_district
 
     if @realty.id.blank? && @realty.service_type_id.blank?
       puts 'Use default service type'
@@ -369,35 +371,18 @@ class IrrRealEstate
     location = Location.find_by_name(location_name)
     raise "Can't find location #{location_name}." if location.blank?
 
-    @realty.district = District.find_by_name district.gsub("?", "").strip unless district.blank?
-
     if @realty.street.blank?
-      #if street is blank use default street
       use_default_street
-
-      if @realty.district.blank?
-        puts "Use first district because district '#{district} not found."
-        @realty.district = District.first
-      end
     else
-      #if district blank try to find district from street
-      if @realty.district.blank?
-        district_street = DistrictStreet.find(:first, :conditions => ["street like ?", "%#{@realty.street}%"])
-
-        unless district_street.blank?
-          #@realty.street = parse_street_from_text(district_street.street)
-          @realty.district_id = district_street.district_id
-        else
-          puts "Can't find district by street #{@realty.street}"
-          @realty.district = District.first
-        end
-      end
-
-      #now we should have district and street
       geodata = retrieve_geodata location.name
       @realty.is_exact = !geodata.nil?
       use_default_street if geodata.nil?
     end
+
+    puts @realty.inspect
+    district = District.find_by_realty @realty
+    puts district.inspect
+    @realty.district = district
   end
 
   def retrieve_geodata location_name
