@@ -75,6 +75,7 @@
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta name="description" content="Жилая недвижимость во Владимире и области - Reestry - Ваш инструмент в мире недвижимости"/>
     <meta name="keywords" content="жилая недвижимость во владимире, недвижимость во владимире, недвижимость г владимир, город владимир недвижимость"/>
+    <link type="image/x-icon" rel="shortcut icon" href="/favicon.png"/>
     <title>Жилая недвижимость во Владимире и области - Reestry - Ваш инструмент в мире недвижимости</title>
     <%= stylesheet_link_tag 'reestry'  %>
     <%= stylesheet_link_tag 'galleriffic' %>
@@ -167,18 +168,28 @@
     </div>
     <% end %>
 
-    <% cache "footer" do %>
+    <% cache "footer_new" do %>
     <div id="footer">&nbsp;</div>
-    <div id="footer_text">
-      <span>Система поиска и публикации объявлений покупки и продажи недвижимости Reestry.ru.
-      Недвижимость Владимира и Владимирской области. Аренда и продажа квартир, комнат, домов, земельных участков и гаражей.
-      На сайте вы можете без посредников найти квартиру, дом, гараж, земельный участок во Владимире и Владимирской области. Хотите снять или сдать квартиру во Владимире - Reestry поможет Вам.
-      Все материалы принадлежат их правообладателям.
+    <div id="footer_body">
+      <div id="footer_text">
+        <span>Система поиска и публикации объявлений покупки и продажи недвижимости Reestry.ru.
+        Недвижимость Владимира и Владимирской области. Аренда и продажа квартир, комнат, домов, земельных участков и гаражей.
+        На сайте вы можете без посредников найти квартиру, дом, гараж, земельный участок во Владимире и Владимирской области. Хотите снять или сдать квартиру во Владимире - Reestry поможет Вам.
+        Все материалы принадлежат их правообладателям.
+        </span><br/><br/>
 
-      </span><br/><br/>
-      <span><a href="http://anjlab.com">AnjLab</a>, 2009. Все права защищены. Powered with AnjLab.RMathModel v.<%= Pricer.version %>.
-      <%= "Всего #{Russian.p(Realty.count, "обработан", "обработано", "обработано")} #{Realty.count} #{russify_realties(Realty.count)}." %>
-      </span>
+        <span><a href="http://anjlab.com">AnjLab</a>, 2009. Все права защищены. Powered with AnjLab.RMathModel v.<%= Pricer.version %>.
+        <%= "Всего #{Russian.p(Realty.count, "обработан", "обработано", "обработано")} #{Realty.count} #{russify_realties(Realty.count)}." %>
+        </span>
+      </div>
+      <div id="footer_links" align="center">
+        <div>Что ещё важно:</div>
+        <div>
+          <a target="_blank" title="Получить самый лучший браузер в мире" href="http://getfirefox.com"><img alt="Получить браузер Firefox" src="/images/firefox.gif"/></a>
+          <a target="_blank" title="Посетить PLANET33.RU" href="http://planet33.ru"><img alt="Кафе и рестораны, бары и клубы, магазины и фитнес клубы Владимира - развлечения города Владимира на сайте - PLANET33.RU" src="/images/planet33.gif"/></a>
+        </div>
+      </div>
+      <div style="clear:both"></div>
     </div>
     <% end %>
 

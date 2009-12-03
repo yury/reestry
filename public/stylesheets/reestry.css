@@ -37,6 +37,10 @@ a.raw, a.raw:hover {
     background-color:transparent;
 }
 
+img {
+    border:0px;
+}
+
 #airlock {
     margin: 0 auto 30px;
     width: 984px;
@@ -113,14 +117,23 @@ a.raw, a.raw:hover {
 
 #footer {
     clear:both;
-    background: transparent url(/images/f_l.gif) repeat-x;
-    margin-top:150px;
+    background: transparent url(/images/f_l.gif) repeat-x;    
 }
 
-#footer_text {
+#footer_body {
     background-color: #CECECE;
     margin-top:-1px;
     padding-left:10px;
+}
+
+#footer_text {
+    float:left;
+    width:80%;
+}
+
+#footer_links {
+    float:right;
+    width:20%;
 }
 
 .tab {
