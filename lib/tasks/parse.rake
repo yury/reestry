@@ -13,10 +13,15 @@ namespace :parse do
 
     puts "End parsing at #{Time.now}"
 
-    puts "Start recalculating prices at #{Time.now}"
-    Pricer.warmup
-    Pricer.recalculate_prices
-    puts "End recalculating prices at #{Time.now}"
+    begin
+      puts "Start recalculating prices at #{Time.now}"
+      Pricer.warmup
+      Pricer.recalculate_prices
+      puts "End recalculating prices at #{Time.now}"
+    rescue Exception => exc
+      AdminMailer.deliver_error_notification "Recalculating prices", exc.inspect
+      Pricer.recalculate_prices
+    end
 
     puts "Expire cache"
     Rails.cache.delete("views/footer")
