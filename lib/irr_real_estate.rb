@@ -1,4 +1,4 @@
-$KCODE='u'
+#$KCODE='u'
 
 #Realty.find_by_sql("select * from realties group by description having description is not null and description <> '' and count(*) > 1").each {|r| r.destroy }.length
 
@@ -10,6 +10,7 @@ class IrrRealEstate
   require 'open-uri'
   require 'json'
   require 'base64'
+  require 'mechanize'
   include Geokit::Geocoders
 
   def self.parse wait = true, pause = true, estate_type = ''
@@ -27,6 +28,11 @@ class IrrRealEstate
     @new_realties = 0
 
     beginning = Time.now
+
+    @agent = WWW::Mechanize.new
+    @agent.user_agent = 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.1.5) Gecko/20091102 Firefox/3.5.5'
+    @agent.html_parser = Hpricot
+    @agent.get('http://irr.ru')
     
     unless estate_type.blank?
       parse_estate_type estate_type
@@ -72,7 +78,8 @@ class IrrRealEstate
   def parse_page estate_type, page
     url = "http:\/\/vladimir.irr.ru\/real-estate\/#{estate_type}\/page#{page}"
     puts "Parsing page #{page}. Estate type:#{estate_type}. Url: #{url}"
-    doc = Hpricot(open(url))
+    #doc = Hpricot(open(url))
+    doc = @agent.get(url)
     (doc/"table#adListTable"/"*[@onclick*='document.location']").each do |ad|
       advert = ad["onclick"].scan(%r{document.location = '(.*)'})  
       begin
@@ -119,7 +126,8 @@ class IrrRealEstate
   def parse_advert advert_link
     puts advert_link
 
-    doc = Hpricot(open("http:\/\/vladimir.irr.ru#{advert_link}"))
+    #doc = Hpricot(open("http:\/\/vladimir.irr.ru#{advert_link}"))
+    doc = @agent.get("http:\/\/vladimir.irr.ru#{advert_link}")
 
     irr_id = doc.at("input#ad_id")[:value]
     description = doc.at("div.additional-text p")
