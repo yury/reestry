@@ -39,6 +39,7 @@ module Pricing
     # every other vector in the dataset
     def distances(data, vector)
       distances = []
+      
       data.each_with_index do |d, i|
         v2 = d.input
         dist = [euclidean(vector, v2), i]

@@ -9,6 +9,7 @@ class Pricer
 
     data = get_data_for_pricing realty
     vector = get_input_from_realty realty
+    
     price = Pricing.weighted_knn_estimate(data,vector) {|dist| Pricing::Weights.gaussian(dist)}
 
     puts "Execution time: #{Time.now - start_time}"
@@ -125,6 +126,7 @@ class Pricer
 
     puts "Save data to cache (#{conditions.hash})"
     set_data_to_cache(realty, data)
+    data
   end
 
   def self.get_input_from_realty realty

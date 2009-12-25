@@ -19,7 +19,8 @@ namespace :parse do
       Pricer.recalculate_prices
       puts "End recalculating prices at #{Time.now}"
     rescue Exception => exc
-      AdminMailer.deliver_error_notification "Recalculating prices", exc.inspect
+      body = "#{exc.inspect}#{exc.backtrace.join('\n')}"
+      AdminMailer.deliver_error_notification "Recalculating prices", body
       Pricer.recalculate_prices
     end
 
