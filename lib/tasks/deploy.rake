@@ -68,8 +68,8 @@ task :deploy => :environment do
     puts rbox.env_execute("whenever --update-crontab reestry")
   end
 
-  puts "restart delayed_job ..."
-  rbox.execute("monit restart reestry_delayed_job")
+  # puts "restart delayed_job ..."
+  # rbox.execute("monit restart reestry_delayed_job")
 
   puts "upgrading unicorns..."
   rbox.execute("bin/server upgrade")
