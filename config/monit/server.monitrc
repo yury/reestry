@@ -1,0 +1,5 @@
+check process reestry_unicorn
+  with pidfile /mnt/reestry/tmp/pids/unicorn.pid
+  start program = "/mnt/reestry/bin/run bin/unicorn start"
+  stop program = "/mnt/reestry/bin/run bin/unicorn stop"
+  group reestry

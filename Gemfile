@@ -13,4 +13,4 @@ gem "rack"
 gem "jberkel-mysql-ruby"
 gem "jrails"
 gem 'mechanize'
-#gem "why-hpricot"
+gem "rye"
