@@ -61,6 +61,7 @@ before_fork do |server, worker|
 end
 
 after_fork do |server, worker|
+  Kernel.rand
   # per-process listener ports for debugging/admin/migrations
   # addr = "127.0.0.1:#{9293 + worker.nr}"
   # server.listen(addr, :tries => -1, :delay => 5, :tcp_nopush => true)
