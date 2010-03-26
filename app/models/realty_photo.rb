@@ -1,3 +1,4 @@
+#encoding: utf-8
 class RealtyPhoto < ActiveRecord::Base
   belongs_to :realty
   

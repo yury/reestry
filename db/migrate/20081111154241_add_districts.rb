@@ -1,3 +1,4 @@
+#encoding: utf-8
 class AddDistricts < ActiveRecord::Migration
   def self.up
     l = Location.find_by_name("Владимир")

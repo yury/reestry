@@ -1,3 +1,4 @@
+#encoding: utf-8
 class AddAreaUnits < ActiveRecord::Migration
   def self.up
     area_unit = AreaUnit.create :name => "Квадратный метр", :short_name => "м²"

@@ -1,3 +1,4 @@
+#encoding: utf-8
 class RealtiesController < ApplicationController
   include RealtiesHelper
 

@@ -5,7 +5,7 @@ class StreetsUpdater
     DistrictStreet.destroy_all
 
     district = ""
-    CSV.open(Dir.getwd + "/doc/streets.txt", "r", "\t") do |row|
+    CSV.foreach(Dir.getwd + "/doc/streets.txt", :col_sep => "\t") do |row|
       street = row[0].to_utf8.gsub(/\(.*\)/, '').trim
       district = District.find_by_name row[1].to_utf8.trim unless row[1].nil?
 

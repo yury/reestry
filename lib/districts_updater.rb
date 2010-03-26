@@ -1,3 +1,4 @@
+#encoding: utf-8
 class DistrictsUpdater
   def self.update_realties
     Realty.all.each do |r|

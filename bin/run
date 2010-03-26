@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+if [ -z $rvm_version ]; then
+  . /etc/profile
+fi
+
+FILE_NAME=`basename $0`
+if [ "`echo $0 | cut -c1`" = "/" ]; then
+  RAILS_BIN=`dirname $0`
+else
+  RAILS_BIN=`pwd`/`echo $0 | sed -e s/$FILE_NAME//`
+fi
+
+export APP_ROOT=`dirname $RAILS_BIN`
+export LANG=en_US.UTF-8
+export TZ=Europe/Moscow
+
+cd $APP_ROOT && $1 $2 $3 $4 $5 $6 $7 $8
+
+exit 0

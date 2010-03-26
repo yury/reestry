@@ -1,3 +1,4 @@
+#encoding: utf-8
 class AddDisabledToRealtyType < ActiveRecord::Migration
   def self.up
     add_column :realty_purposes, :disabled, :boolean, :null => false, :default => false

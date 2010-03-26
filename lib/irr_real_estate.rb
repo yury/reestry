@@ -1,4 +1,4 @@
-#$KCODE='u'
+#encoding: utf-8
 
 #Realty.find_by_sql("select * from realties group by description having description is not null and description <> '' and count(*) > 1").each {|r| r.destroy }.length
 
@@ -33,6 +33,8 @@ class IrrRealEstate
     @agent.user_agent = 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.1.5) Gecko/20091102 Firefox/3.5.5'
     @agent.html_parser = Hpricot
     @agent.get('http://irr.ru')
+
+    puts @agent.html_parser.inspect
     
     unless estate_type.blank?
       parse_estate_type estate_type
@@ -76,18 +78,19 @@ class IrrRealEstate
   end
   
   def parse_page estate_type, page
-    url = "http:\/\/vladimir.irr.ru\/real-estate\/#{estate_type}\/page#{page}"
+    url = "http://vladimir.irr.ru/real-estate/#{estate_type}/page#{page}"
     puts "Parsing page #{page}. Estate type:#{estate_type}. Url: #{url}"
     #doc = Hpricot(open(url))
     doc = @agent.get(url)
     (doc/"table#adListTable"/"*[@onclick*='document.location']").each do |ad|
-      advert = ad["onclick"].scan(%r{document.location = '(.*)'})  
+      advert = ad["onclick"].scan(%r{document.location = '(.*)'}).flatten.first
       begin
         @total_count = @total_count + 1
         parse_advert(advert)
         wait_for_user if @pause
       rescue Exception => exc
         puts exc
+        puts exc.backtrace
         if exc.message == "User break"
           raise "User break"
         elsif exc.message == "Continue"
@@ -120,14 +123,13 @@ class IrrRealEstate
       parse_advert "/advert/#{irr_id}"
     rescue Exception => exc
       puts exc
+      puts exc.backtrace
     end
   end
 
   def parse_advert advert_link
-    puts advert_link
-
-    #doc = Hpricot(open("http:\/\/vladimir.irr.ru#{advert_link}"))
-    doc = @agent.get("http:\/\/vladimir.irr.ru#{advert_link}")
+    puts "http://vladimir.irr.ru#{advert_link}"
+    doc = @agent.get("http://vladimir.irr.ru#{advert_link}")
 
     irr_id = doc.at("input#ad_id")[:value]
     description = doc.at("div.additional-text p")
@@ -144,11 +146,13 @@ class IrrRealEstate
     @realty.street = nil
 
     puts "Parse price"
-    price = doc.at("input#ar_price")
-    parse_field "Price", price.nil? ? "0.2" : price[:value]
+    price = doc.at("div.w-title span.or-d").inner_text.gsub(/\D/, "") #doc.at("input#ar_price")
+    puts price
+    parse_field "Price", price.blank? ? "0.2" : price
 
     puts "Parse custom fields"
     (doc/"table.customfields"/"tr").each do |field|
+      puts field.at("td").inner_text
       parse_field field.at("th").inner_text, field.at("td").inner_text, doc
     end
 
@@ -232,6 +236,9 @@ class IrrRealEstate
   end
 
   def parse_field field_name, field_value, doc = ""
+    puts field_name
+    puts field_value
+    
     field_name = field_name.strip.gsub(":","").gsub("?","")
     field_value = field_value.strip
 
@@ -371,7 +378,7 @@ class IrrRealEstate
   def parse_place_and_district
     s = @realty.irr_region.scan(/([^»]+)»?(.*)/).first
     puts s.second
-    space = "" << 194 << 160
+    space = "/x194/x160"# << 194 << 160
     location_name = s.first.gsub(space, "").gsub("область", "обл.")
     district = s.second.gsub(space, "") unless s.second.blank?
     puts "Irr_Region:#{@realty.irr_region}. Location:#{location_name}. District:#{district}"
@@ -443,10 +450,10 @@ class IrrRealEstate
 
   def continue_if_agency
     text = @realty.description
-    text =~ /(АН)\W/i
+    text =~ /(АН)\W/
     text =~ /\W(недвижимости)\W/i if $1.nil?
     text =~ /(ООО)\W/i if $1.nil?
-    text =~ /(Аренда)\W/i if $1.nil?
+    text =~ /(Аренда)\W/ if $1.nil?
     text =~ /(Сдача квартир)\W/i if $1.nil?
     text =~ /(сдать или снять)\W/i if $1.nil?
     text =~ /\W(в любом районе)\W/i if $1.nil?
@@ -457,8 +464,10 @@ class IrrRealEstate
     text =~ /(ипоте.+кредит.+)\W/i if $1.nil?
     text =~ /(Ипотека)\W/i if $1.nil?
     text =~ /(риэлтор.+услуг.+)\W/i if $1.nil?
-    text =~ /([С|с]ниму)\W/i if $1.nil?
-    text =~ /([С|с]нимет)\W/i if $1.nil?
+    text =~ /(сниму)\W/i if $1.nil?
+    text =~ /(снимет)\W/i if $1.nil?
+
+    puts $1.inspect
 
     raise "Continue" unless $1.nil?
   end
@@ -475,8 +484,8 @@ class IrrRealEstate
     text =~ /[^\w]г\.\W*(#{r_name})/i if $1.nil?
     text =~ /в селе\W+(#{r_name})/i if $1.nil?
     text =~ /в деревне\W+(#{r_name})/i if $1.nil?
-    text =~ /[П|п]оселок\W+(#{r_name})/i if $1.nil?
-    text =~ /[Г|г]ород\W+(#{r_name})/i if $1.nil?
+    text =~ /поселок\W+(#{r_name})/i if $1.nil?
+    text =~ /город\W+(#{r_name})/i if $1.nil?
     text =~ /на\W+(#{r_name})\W+пр/i if $1.nil?
     text =~ /пр-кт\W+(#{r_name})/i if $1.nil?
     text =~ /просп\W+(#{r_name})/i if $1.nil?

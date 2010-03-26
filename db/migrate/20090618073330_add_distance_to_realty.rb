@@ -1,3 +1,4 @@
+#encoding: utf-8
 class AddDistanceToRealty < ActiveRecord::Migration
   include Geokit::Geocoders
 

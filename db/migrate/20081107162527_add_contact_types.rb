@@ -1,3 +1,4 @@
+#encoding: utf-8
 class AddContactTypes < ActiveRecord::Migration
   def self.up
     contact_type = ContactType.create :name => "Контактное лицо", 

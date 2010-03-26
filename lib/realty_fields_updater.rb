@@ -1,3 +1,4 @@
+#encoding: utf-8
 class RealtyFieldsUpdater
   require 'csv'
 
@@ -5,7 +6,7 @@ class RealtyFieldsUpdater
     realty_types_cell = 8
     is_first_row = true
     realty_types = []
-    CSV.open(Dir.getwd + "/doc/realty_fields.csv", "r", "\t") do |row|
+    CSV.foreach(Dir.getwd + "/doc/realty_fields.csv", :col_sep => "\t") do |row|
       if is_first_row
         for i in realty_types_cell...row.length
           purpose_name = row[i].split(',')[0].trim

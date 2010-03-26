@@ -1,3 +1,4 @@
+#encoding: utf-8
 class AddLocations < ActiveRecord::Migration
   def self.up
     l = Location.new :name => "Владимир", :is_place => true

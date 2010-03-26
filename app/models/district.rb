@@ -1,3 +1,4 @@
+#encoding: utf-8
 class District < ActiveRecord::Base
   include Fx::Math
 

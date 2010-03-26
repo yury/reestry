@@ -1,0 +1,1 @@
+bin/run bin/unicorn $1
