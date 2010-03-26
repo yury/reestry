@@ -14,3 +14,4 @@ gem "jberkel-mysql-ruby"
 gem "jrails"
 gem 'mechanize'
 gem "rye"
+gem "memcached"

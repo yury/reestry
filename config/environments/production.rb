@@ -1,9 +1,11 @@
+require 'fx/memcached_store'
 # Settings specified here will take precedence over those in config/environment.rb
 
 # The production environment is meant for finished, "live" apps.
 # Code is not reloaded between requests
 config.cache_classes = true
-config.cache_store = :mem_cache_store, { :namespace => 'reestry3' }
+#config.cache_store = :mem_cache_store, { :namespace => 'reestry3' }
+config.cache_store = :libmemcached_store, {:prefix_key => "reestry"}
 
 # Use a different logger for distributed setups
 # config.logger = SyslogLogger.new

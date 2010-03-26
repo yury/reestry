@@ -1,5 +1,5 @@
 --- 
-hash: 7cdaec4572a49f24cb565ba6157e70140dcffa4d
+hash: 1f2f1a01950a8f7a694c8ff9b5a5110a692afbcd
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org
@@ -48,6 +48,8 @@ specs:
     version: 1.4.1
 - mechanize: 
     version: 1.0.0
+- memcached: 
+    version: 0.19.2
 - net-ssh: 
     version: 2.0.21
 - net-scp: 
@@ -124,6 +126,10 @@ dependencies:
     group: 
     - :default
   rye: 
+    version: ">= 0"
+    group: 
+    - :default
+  memcached: 
     version: ">= 0"
     group: 
     - :default
