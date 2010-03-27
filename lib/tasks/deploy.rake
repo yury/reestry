@@ -9,23 +9,23 @@ task :deploy => :environment do
   rails_root = '/mnt/reestry'
 
   def gems_changed? pull_result
-    pull_result.grep(/\/Gemfile/m).present?
+    pull_result.grep(/Gemfile/m).present?
   end
 
   def js_changed? pull_result
-    pull_result.grep(/\/public\/javascripts\//m).present?
+    pull_result.grep(/public\/javascripts\//m).present?
   end
 
   def css_changed? pull_result
-    pull_result.grep(/\/public\/stylesheets\//m).present?
+    pull_result.grep(/public\/stylesheets\//m).present?
   end
 
   def db_changed? pull_result
-    pull_result.grep(/\/db\/migrate\//m).present?
+    pull_result.grep(/db\/migrate\//m).present?
   end
 
   def schedule_changed? pull_result
-    pull_result.grep(/\/config\/schedule\.rb/).present?
+    pull_result.grep(/config\/schedule\.rb/).present?
   end
 
   Rye::Box.class_eval do
