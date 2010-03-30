@@ -229,6 +229,8 @@ class IrrRealEstate
       @realty.service_type = ServiceType.find_by_name("Продажа")
     end
 
+    @realty.predict_price = Pricer.predict_price @realty if @realty.price_blank?
+
     puts @realty.inspect
     puts @realty.user.inspect
     @realty.save!
@@ -379,7 +381,7 @@ class IrrRealEstate
     s = @realty.irr_region.scan(/([^»]+)»?(.*)/).first
     puts s.second
     space = "/x194/x160"# << 194 << 160
-    location_name = s.first.gsub(space, "").gsub("область", "обл.")
+    location_name = s.first.gsub(space, "").gsub("область", "обл.").strip
     district = s.second.gsub(space, "") unless s.second.blank?
     puts "Irr_Region:#{@realty.irr_region}. Location:#{location_name}. District:#{district}"
 

@@ -159,7 +159,7 @@ class Pricer
   private
 
   def self.get_data_id realty
-    "service_type_id = #{realty.service_type.name} and realty_type_id = #{realty.realty_type.name}".hash
+    "service_type_id = #{realty.service_type.name} and realty_type_id = #{realty.realty_type.name}".hash.to_s
   end
 
   def self.clear_cache realty
