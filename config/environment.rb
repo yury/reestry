@@ -3,7 +3,7 @@
 
 # Uncomment below to force Rails into production mode when
 # you don't control web/app server and can't set it the proper way
- ENV['RAILS_ENV'] ||= 'production'
+ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
 #RAILS_GEM_VERSION = '2.3.3' unless defined? RAILS_GEM_VERSION
@@ -54,7 +54,7 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_reestry_session'
+    :session_key => '_reestry_session',
     :secret      => '12657f21d0b8be229bc0a14d6582614f8dd6d6cba2662df900e5689a6bb07e024bbb6da91b560c5ed2d4901b46bc533ef0563ad13ff4edf64a950f54aa75d00c'
   }
 
@@ -72,6 +72,9 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :cacher, :garbage_collector
 
 end
+
+Encoding.default_internal = "utf-8"
+Encoding.default_external = "utf-8"
 
 WillPaginate::ViewHelpers.pagination_options[:previous_label] = '◄';
 WillPaginate::ViewHelpers.pagination_options[:next_label] = '►'
