@@ -2,90 +2,7 @@
 <project version="4">
   <component name="ChangeListManager" verified="true">
     <list default="true" readonly="true" id="e0faae17-019f-4b22-8964-86e82f089ef5" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/lib/view_test_process.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/realty_fields_updater.rb" afterPath="$PROJECT_DIR$/lib/realty_fields_updater.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20081111154241_add_districts.rb" afterPath="$PROJECT_DIR$/db/migrate/20081111154241_add_districts.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/user.rb" afterPath="$PROJECT_DIR$/app/models/user.rb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/Rakefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20081111153333_add_locations.rb" afterPath="$PROJECT_DIR$/db/migrate/20081111153333_add_locations.rb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/examples/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/tasks.rake" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/lib/load_fixtures.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/will_paginate.gemspec" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/database.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/lib/activerecord_test_case.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/fixtures/projects.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/jrails/javascripts/jquery-ui.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/jrails/lib/jrails.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/fixtures/topics.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/README.rdoc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/lib/will_paginate/named_scope_patch.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/fixtures/user.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/irr_real_estate.rb" afterPath="$PROJECT_DIR$/lib/irr_real_estate.rb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/collection_test.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20081028215759_add_area_units.rb" afterPath="$PROJECT_DIR$/db/migrate/20081028215759_add_area_units.rb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/jrails/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/examples/pagination.css" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/streets_updater.rb" afterPath="$PROJECT_DIR$/lib/streets_updater.rb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/jrails/javascripts/jquery.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/jrails/tasks/jrails.rake" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/examples/index.haml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/jrails/install.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/lib/will_paginate/collection.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/examples/pagination.sass" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/application_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/application_helper.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/schema.rb" afterPath="$PROJECT_DIR$/db/schema.rb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/jrails/javascripts/jrails.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/fixtures/admin.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20081028215349_add_currencies.rb" afterPath="$PROJECT_DIR$/db/migrate/20081028215349_add_currencies.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/application_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/application_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/realty.rb" afterPath="$PROJECT_DIR$/app/models/realty.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/geokit_config.rb" afterPath="$PROJECT_DIR$/config/initializers/geokit_config.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20090707154057_add_disabled_to_realty_type.rb" afterPath="$PROJECT_DIR$/db/migrate/20090707154057_add_disabled_to_realty_type.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/realty_photo.rb" afterPath="$PROJECT_DIR$/app/models/realty_photo.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/boot.rb" afterPath="$PROJECT_DIR$/config/boot.rb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/init.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/district.rb" afterPath="$PROJECT_DIR$/app/models/district.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20091201120416_add_border_polygon_to_district.rb" afterPath="$PROJECT_DIR$/db/migrate/20091201120416_add_border_polygon_to_district.rb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/lib/will_paginate.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/fixtures/reply.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/jrails/init.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/fixtures/schema.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/realties_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/realties_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20081107162527_add_contact_types.rb" afterPath="$PROJECT_DIR$/db/migrate/20081107162527_add_contact_types.rb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/.manifest" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/.gitignore" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/sessions_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/sessions_controller.rb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/CHANGELOG.rdoc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/fixtures/developers_projects.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/fixtures/users.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/fixtures/replies.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/lib/will_paginate/array.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/districts_updater.rb" afterPath="$PROJECT_DIR$/lib/districts_updater.rb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/examples/apple-circle.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/fixtures/project.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/lib/will_paginate/named_scope.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/realties_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/realties_helper.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/environment.rb" afterPath="$PROJECT_DIR$/config/environment.rb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/jrails/CHANGELOG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/jrails/javascripts/sources/jrails.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/lib/activerecord_test_connector.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/finder_test.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/fixtures/topic.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/lib/will_paginate/view_helpers.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/helper.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/console" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/fixtures/developer.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/lib/will_paginate/finder.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/lib/will_paginate/version.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/view_test.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/lib/will_paginate/core_ext.rb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/users_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/users_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20090618073330_add_distance_to_realty.rb" afterPath="$PROJECT_DIR$/db/migrate/20090618073330_add_distance_to_realty.rb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/plugins/will_paginate/test/boot.rb" afterPath="" />
     </list>
     <ignored path="doma33.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -109,10 +26,64 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="irr_real_estate.rb" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/irr_real_estate.rb">
+      <file leaf-file-name="application_controller.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/controllers/application_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="148" column="4" selection-start="4039" selection-end="4199" vertical-scroll-proportion="0.24229075">
+            <state line="22" column="36" selection-start="851" selection-end="851" vertical-scroll-proportion="0.47413793">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="realties_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/realties_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="127" selection-start="383" selection-end="383" vertical-scroll-proportion="-10.4">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="http_path.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/initializers/http_path.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="0" selection-start="302" selection-end="302" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="environment.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/environment.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="161" column="121" selection-start="6199" selection-end="6199" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="unicorn.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/unicorn.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="61" column="33" selection-start="2384" selection-end="2384" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="inflections.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/initializers/inflections.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="string.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/initializers/string.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -128,10 +99,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/lib/districts_updater.rb" />
-        <option value="$PROJECT_DIR$/db/migrate/20091201120426_update_districts.rb" />
-        <option value="$PROJECT_DIR$/db/migrate/20091201120416_add_border_polygon_to_district.rb" />
-        <option value="$PROJECT_DIR$/app/models/user.rb" />
         <option value="$PROJECT_DIR$/app/models/realty_photo.rb" />
         <option value="$PROJECT_DIR$/app/helpers/realties_helper.rb" />
         <option value="$PROJECT_DIR$/app/controllers/realties_controller.rb" />
@@ -144,6 +111,10 @@
         <option value="$PROJECT_DIR$/../../.rvm/gems/ruby-1.9.1-p378/gems/hpricot-0.8.2/lib/hpricot/builder.rb" />
         <option value="$PROJECT_DIR$/config/initializers/hpricot_patch.rb" />
         <option value="$PROJECT_DIR$/lib/irr_real_estate.rb" />
+        <option value="$PROJECT_DIR$/config/initializers/http_path.rb" />
+        <option value="$PROJECT_DIR$/lib/pricer.rb" />
+        <option value="$PROJECT_DIR$/config/unicorn.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/application_controller.rb" />
       </list>
     </option>
   </component>
@@ -271,6 +242,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reestry" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reestry" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tasks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reestry" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reestry" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -290,6 +293,52 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="initializers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reestry" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reestry" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reestry" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reestry" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reestry" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reestry" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -591,9 +640,10 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32965517" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.669863" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25470334" sideWeight="0.6703448" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25470334" sideWeight="0.66068965" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2496382" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.32847682" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="1436" y="25" width="1448" height="878" />
@@ -601,7 +651,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32965517" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0" sideWeight="0.0" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -637,102 +686,114 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/controllers/realty_purposes_controller.rb">
+    <entry file="file://$PROJECT_DIR$/lib/irr_real_estate.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/realty_types_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/sessions_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="16" selection-start="16" selection-end="16" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/sitemap_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Gemfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="1" selection-start="229" selection-end="229" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/rubystubs19/string.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1340" column="31" selection-start="48696" selection-end="48696" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/rubystubs19/kernel.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="8" selection-start="3786" selection-end="3790" vertical-scroll-proportion="0.33333334">
+        <state line="107" column="6" selection-start="3069" selection-end="3069" vertical-scroll-proportion="-8.72">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../.rvm/gems/ruby-1.9.1-p378/gems/mechanize-1.0.0/lib/mechanize/chain/body_decoding_handler.rb">
+    <entry file="file://$PROJECT_DIR$/../../.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/net/http.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="56" selection-start="1248" selection-end="1248" vertical-scroll-proportion="0.75431037">
+        <state line="2122" column="5" selection-start="62849" selection-end="62849" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/initializers/string.rb">
+    <entry file="file://$PROJECT_DIR$/vendor/plugins/geokit-rails/lib/geokit-rails/acts_as_mappable.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="41" selection-start="291" selection-end="291" vertical-scroll-proportion="0.0">
+        <state line="153" column="59" selection-start="7147" selection-end="7147" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/initializers/encode_params.rb">
+    <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="27" selection-start="821" selection-end="821" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/environments/development.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../.rvm/gems/ruby-1.9.1-p378/gems/mechanize-1.0.0/lib/mechanize.rb">
+    <entry file="file://$PROJECT_DIR$/../../.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/buffered_logger.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="505" column="92" selection-start="16032" selection-end="16032" vertical-scroll-proportion="0.06901615">
+        <state line="79" column="127" selection-start="2515" selection-end="2515" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../.rvm/gems/ruby-1.9.1-p378/gems/unichars-0.5/lib/unichars.rb">
+    <entry file="file://$PROJECT_DIR$/lib/tasks/parse.rake">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="60" selection-start="1058" selection-end="1058" vertical-scroll-proportion="0.28879312">
+        <state line="18" column="128" selection-start="460" selection-end="460" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../.rvm/gems/ruby-1.9.1-p378/gems/hpricot-0.8.2/lib/hpricot/builder.rb">
+    <entry file="file://$PROJECT_DIR$/app/models/realty.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="26" selection-start="96" selection-end="96" vertical-scroll-proportion="0.06465517">
+        <state line="115" column="130" selection-start="4005" selection-end="4005" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/users_controller.rb">
+    <entry file="file://$PROJECT_DIR$/lib/pricer.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="19" selection-start="606" selection-end="606" vertical-scroll-proportion="0.021551725">
+        <state line="149" column="130" selection-start="5350" selection-end="5350" vertical-scroll-proportion="2.737069">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/initializers/hpricot_patch.rb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/realties_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="18" selection-start="61" selection-end="61" vertical-scroll-proportion="0.0862069">
+        <state line="19" column="127" selection-start="383" selection-end="383" vertical-scroll-proportion="-10.4">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/irr_real_estate.rb">
+    <entry file="file://$PROJECT_DIR$/config/initializers/inflections.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="148" column="4" selection-start="4039" selection-end="4199" vertical-scroll-proportion="0.24229075">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/initializers/string.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/initializers/http_path.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="302" selection-end="302" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/environment.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="161" column="121" selection-start="6199" selection-end="6199" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/unicorn.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="33" selection-start="2384" selection-end="2384" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/application_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="36" selection-start="851" selection-end="851" vertical-scroll-proportion="0.47413793">
           <folding />
         </state>
       </provider>

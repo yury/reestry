@@ -17,13 +17,13 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
 
-#  def rescue_action_in_public(exception)
-#    handle_exception exception, false
-#  end
-#
-#  def rescue_action_locally(exception)
-#    handle_exception exception, false
-#  end
+  def rescue_action_in_public(exception)
+    handle_exception exception, false
+  end
+
+  def rescue_action_locally(exception)
+    handle_exception exception, false
+  end
 
   def run_rake task, options = {}
     options[:rails_env] = Rails.env
