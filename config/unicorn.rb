@@ -28,7 +28,7 @@ stdout_path "#{RAILS_ROOT}/log/unicorn.stdout.log"
 
 # combine REE with "preload_app true" for memory savings
 # http://rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
-preload_app true
+preload_app false
 GC.respond_to?(:copy_on_write_friendly=) and
   GC.copy_on_write_friendly = true
 
@@ -61,27 +61,27 @@ before_fork do |server, worker|
 end
 
 after_fork do |server, worker|
-  Kernel.rand
+#  Kernel.rand
   # per-process listener ports for debugging/admin/migrations
   # addr = "127.0.0.1:#{9293 + worker.nr}"
   # server.listen(addr, :tries => -1, :delay => 5, :tcp_nopush => true)
 
   # the following is *required* for Rails + "preload_app true",
-  defined?(ActiveRecord::Base) and
-    ActiveRecord::Base.establish_connection
+#  defined?(ActiveRecord::Base) and
+#    ActiveRecord::Base.establish_connection
 
-  caches = []
-  caches << ActiveSupport::Cache::MemCacheStore if defined?(ActiveSupport::Cache::MemCacheStore)
-  caches << ActiveSupport::Cache::LibmemcachedStore if defined?(ActiveSupport::Cache::LibmemcachedStore)
-  if caches.include? Rails.cache.class
-    Rails.cache.instance_variable_get(:@data).reset
-  end
+#  caches = []
+#  caches << ActiveSupport::Cache::MemCacheStore if defined?(ActiveSupport::Cache::MemCacheStore)
+#  caches << ActiveSupport::Cache::LibmemcachedStore if defined?(ActiveSupport::Cache::LibmemcachedStore)
+#  if caches.include? Rails.cache.class
+#    Rails.cache.instance_variable_get(:@data).reset
+#  end
   # if preload_app is true, then you may also want to check and
   # restart any other shared sockets/descriptors such as Memcached,
   # and Redis.  TokyoCabinet file handles are safe to reuse
   # between any number of forked children (assuming your kernel
   # correctly implements pread()/pwrite() system calls)
-  if RAILS_ENV == "production"
+#  if RAILS_ENV == "production"
     worker.user('www-data', 'www-data')
-  end
+#  end
 end
