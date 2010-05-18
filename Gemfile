@@ -10,7 +10,8 @@ gem "geokit"
 gem "paperclip"
 gem 'russian'
 gem "rack"
-gem "jberkel-mysql-ruby"
+#gem "jberkel-mysql-ruby"
+gem "mysql2"
 gem "jrails"
 gem 'mechanize'
 gem "rye"

@@ -1,4 +1,7 @@
 #encoding: utf-8
+
+Encoding.default_internal = 'utf-8'
+Encoding.default_external = 'utf-8'
 # Be sure to restart your server when you modify this file
 
 # Uncomment below to force Rails into production mode when
@@ -159,7 +162,7 @@ module OpenURI
     when Net::HTTPMovedPermanently, # 301
          Net::HTTPFound, # 302
          Net::HTTPSeeOther, # 303
-         Net::HTTPTemporaryRedirect # 307
+         Net::HTTPTemporaryRedirect # 307                                                                                \
       throw :open_uri_redirect, URI.parse(resp['location'])
     else
       raise OpenURI::HTTPError.new(io.status.join(' '), io)

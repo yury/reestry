@@ -189,7 +189,7 @@ class IrrRealEstate
         raise "Can't create contact because phones are empty"
       end
     else
-      contact = contact_p.inner_text
+      contact = (contact_p.inner_text || "").strip
     end
 
     email_script = doc.at("ul.cont-ico script")

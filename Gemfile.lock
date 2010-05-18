@@ -1,5 +1,5 @@
 --- 
-hash: 1f2f1a01950a8f7a694c8ff9b5a5110a692afbcd
+hash: 5a65720897ad4380af85be61dcf884e93622ae8e
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org
@@ -21,13 +21,11 @@ specs:
 - activeresource: 
     version: 2.3.5
 - json_pure: 
-    version: 1.2.3
-- gemcutter: 
-    version: 0.5.0
+    version: 1.4.3
 - rubyforge: 
     version: 2.0.4
 - hoe: 
-    version: 2.5.0
+    version: 2.6.0
 - chronic: 
     version: 0.2.3
 - drydock: 
@@ -40,8 +38,6 @@ specs:
     version: 1.5.2
 - hpricot: 
     version: 0.8.2
-- jberkel-mysql-ruby: 
-    version: 2.8.1
 - jrails: 
     version: 0.6.0
 - nokogiri: 
@@ -49,9 +45,11 @@ specs:
 - mechanize: 
     version: 1.0.0
 - memcached: 
-    version: 0.19.2
+    version: 0.19.3
+- mysql2: 
+    version: 0.1.6
 - net-ssh: 
-    version: 2.0.21
+    version: 2.0.22
 - net-scp: 
     version: 1.0.2
 - paperclip: 
@@ -59,17 +57,17 @@ specs:
 - rails: 
     version: 2.3.5
 - russian: 
-    version: 0.2.6
+    version: 0.2.7
 - storable: 
-    version: 0.6.5
+    version: 0.7.4
 - sysinfo: 
     version: 0.7.3
 - rye: 
-    version: 0.8.14
+    version: 0.8.15
 - unichars: 
     version: "0.5"
 - whenever: 
-    version: 0.4.1
+    version: 0.4.2
 - will_paginate: 
     version: 2.3.12
 dependencies: 
@@ -113,7 +111,7 @@ dependencies:
     version: ">= 0"
     group: 
     - :default
-  jberkel-mysql-ruby: 
+  mysql2: 
     version: ">= 0"
     group: 
     - :default
