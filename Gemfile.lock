@@ -1,5 +1,5 @@
 --- 
-hash: a79ba55db582fb68d96843d62eaecadf0b341882
+hash: 2153c3f9108a37ba40a018296df0a2dfeae8a984
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org
@@ -9,17 +9,17 @@ specs:
 - abstract: 
     version: 1.0.0
 - activesupport: 
-    version: 2.3.6
+    version: 2.3.7
 - rack: 
     version: 1.1.0
 - actionpack: 
-    version: 2.3.6
+    version: 2.3.7
 - actionmailer: 
-    version: 2.3.6
+    version: 2.3.7
 - activerecord: 
-    version: 2.3.6
+    version: 2.3.7
 - activeresource: 
-    version: 2.3.6
+    version: 2.3.7
 - json_pure: 
     version: 1.4.3
 - rubyforge: 
@@ -55,7 +55,7 @@ specs:
 - paperclip: 
     version: 2.3.1.1
 - rails: 
-    version: 2.3.6
+    version: 2.3.7
 - russian: 
     version: 0.2.7
 - storable: 
@@ -72,7 +72,7 @@ specs:
     version: 2.3.12
 dependencies: 
   rails: 
-    version: ~> 2.3.6
+    version: ~> 2.3.7
     group: 
     - :default
   unichars: 

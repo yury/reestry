@@ -1,6 +1,6 @@
 source :gemcutter
 
-gem "rails", "~> 2.3.6"
+gem "rails", "~> 2.3.7"
 gem "unichars"
 gem "erubis"
 gem 'whenever'
