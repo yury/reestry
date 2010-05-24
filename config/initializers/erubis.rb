@@ -22,6 +22,42 @@ class FixedErubis < ::Erubis::Eruby
   end
 end
 
+class String
+  def safe_concat(string)
+    concat string
+  end
+end
+
+module AvPatch
+  # Rails version of with_output_buffer uses '' as the default buf
+  def with_output_buffer(buf = '') #:nodoc:
+    super(buf)
+  end
+end
+
+ActionView::Base.send :include, AvPatch
+
+module ActionView
+  class Base
+    def self.xss_safe?
+      true
+    end
+  end
+end
+
+# fix translation helpers (bug in 2.3.6 will be fixed in 2.3.7)
+ActionView::Helpers::TranslationHelper.module_eval do
+  def translate(key, options = {})
+    options[:raise] = true
+    translation = I18n.translate(scope_key_by_partial(key), options)
+    translation
+  rescue I18n::MissingTranslationData => e
+    keys = I18n.send(:normalize_translation_keys, e.locale, e.key, e.options[:scope])
+    content_tag('span', keys.join(', '), :class => 'translation_missing')
+  end
+end
+
+
 
 Erubis::Helpers::RailsHelper.engine_class = FixedErubis
 #Erubis::Helpers::RailsHelper.init_properties = {}

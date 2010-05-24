@@ -76,9 +76,6 @@ Rails::Initializer.run do |config|
 
 end
 
-Encoding.default_internal = "utf-8"
-Encoding.default_external = "utf-8"
-
 WillPaginate::ViewHelpers.pagination_options[:previous_label] = '◄';
 WillPaginate::ViewHelpers.pagination_options[:next_label] = '►'
 

@@ -82,8 +82,8 @@ module Rails
       end
 
       def load_rubygems
+        min_version = '1.3.2'
         require 'rubygems'
-        min_version = '1.3.1'
         unless rubygems_version >= min_version
           $stderr.puts %Q(Rails requires RubyGems >= #{min_version} (you have #{rubygems_version}). Please `gem update --system` and try again.)
           exit 1
@@ -106,21 +106,18 @@ module Rails
   end
 end
 
+
 class Rails::Boot
   def run
     load_initializer
-    extend_environment
-    Rails::Initializer.run(:set_load_path)
-  end
 
-  def extend_environment
     Rails::Initializer.class_eval do
-      old_load = instance_method(:load_environment)
-      define_method(:load_environment) do
-        Bundler.require :default, Rails.env
-        old_load.bind(self).call
+      def load_gems
+        @bundler_loaded ||= Bundler.require :default, Rails.env
       end
     end
+
+    Rails::Initializer.run(:set_load_path)
   end
 end
 

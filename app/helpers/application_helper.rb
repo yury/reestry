@@ -1,8 +1,6 @@
 #encoding: utf-8
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-
-  include ActionView::Helpers
   
   def block_to_partial(partial_name, options = {}, &block)
     options.reverse_merge!(:style => "")
