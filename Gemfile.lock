@@ -25,7 +25,7 @@ specs:
 - rubyforge: 
     version: 2.0.4
 - hoe: 
-    version: 2.6.0
+    version: 2.6.1
 - chronic: 
     version: 0.2.3
 - drydock: 
@@ -47,9 +47,9 @@ specs:
 - memcached: 
     version: 0.19.5
 - mysql2: 
-    version: 0.1.7
+    version: 0.1.8
 - net-ssh: 
-    version: 2.0.22
+    version: 2.0.23
 - net-scp: 
     version: 1.0.2
 - paperclip: 
@@ -69,7 +69,7 @@ specs:
 - whenever: 
     version: 0.4.2
 - will_paginate: 
-    version: 2.3.12
+    version: 2.3.14
 dependencies: 
   rails: 
     version: ~> 2.3.8
