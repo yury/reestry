@@ -1,6 +1,10 @@
 --- 
-hash: df902fbfcb89d7947276ed8117b26dbf3707cfc4
+hash: 19b51388f50735cbe6a1c5afb2f3b50641ea5adc
 sources: 
+- Git: 
+    git: git://github.com/yury/memcached.git
+    uri: git://github.com/yury/memcached.git
+    ref: a71166a43481c88e227a3ba5f85a6a77c1e00a52
 - Rubygems: 
     uri: http://gemcutter.org
 specs: 
@@ -31,7 +35,7 @@ specs:
 - drydock: 
     version: 0.6.9
 - erubis: 
-    version: 2.6.5
+    version: 2.6.6
 - geokit: 
     version: 1.5.0
 - highline: 
@@ -45,7 +49,8 @@ specs:
 - mechanize: 
     version: 1.0.0
 - memcached: 
-    version: 0.19.5
+    version: 0.19.8
+    source: 0
 - mysql2: 
     version: 0.1.8
 - net-ssh: 
@@ -53,7 +58,7 @@ specs:
 - net-scp: 
     version: 1.0.2
 - paperclip: 
-    version: 2.3.1.1
+    version: 2.3.3
 - rails: 
     version: 2.3.8
 - russian: 
@@ -63,11 +68,11 @@ specs:
 - sysinfo: 
     version: 0.7.3
 - rye: 
-    version: 0.8.17
+    version: 0.8.19
 - unichars: 
     version: "0.5"
 - whenever: 
-    version: 0.4.2
+    version: 0.5.0
 - will_paginate: 
     version: 2.3.14
 dependencies: 
