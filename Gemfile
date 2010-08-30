@@ -15,4 +15,5 @@ gem "mysql2"
 gem "jrails"
 gem 'mechanize'
 gem "rye"
-gem "memcached", :git => "git://github.com/yury/memcached.git"
+gem "memcached"
+gem "unicorn"

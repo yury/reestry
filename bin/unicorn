@@ -6,7 +6,7 @@
 # APP_ROOT comes from run script
 
 PID=$APP_ROOT/tmp/pids/unicorn.pid
-CMD="unicorn_rails -D -c $APP_ROOT/config/unicorn.rb"
+CMD="bundle exec unicorn_rails -D -c $APP_ROOT/config/unicorn.rb"
 INIT_CONF=$APP_ROOT/config/init.conf
 action="$1"
 
